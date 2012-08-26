@@ -44,8 +44,8 @@ public class DeckManager {
 
 	}
 
-	public void removeTopCard() {
-		this.deck.remove(0);
+	public Card removeTopCard() {
+		return this.deck.remove(0);
 	}
 
 	public Card getTopCard() {
