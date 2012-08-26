@@ -4,7 +4,9 @@ public class Player {
 
 	private int number;
 	private int money;
-
+	
+	private PlayerHand currentHand;
+	
 	public int getNumber() {
 		return number;
 	}
