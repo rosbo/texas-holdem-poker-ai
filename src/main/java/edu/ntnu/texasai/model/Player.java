@@ -1,10 +1,12 @@
 package edu.ntnu.texasai.model;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Player {
     private final Integer number;
     private Integer money;
-    private Card hole1;
-    private Card hole2;
+    private List<Card> holeCards;
 
     public Player(Integer number, Integer money) {
         this.number = number;
@@ -40,7 +42,10 @@ public class Player {
     }
 
     public void setHoleCards(Card hole1, Card hole2) {
-        this.hole1 = hole1;
-        this.hole2 = hole2;
+        holeCards = Arrays.asList(hole1, hole2);
+    }
+
+    public List<Card> getHoleCards() {
+        return holeCards;
     }
 }

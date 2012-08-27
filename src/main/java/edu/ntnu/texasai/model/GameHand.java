@@ -1,38 +1,21 @@
 package edu.ntnu.texasai.model;
 
-import edu.ntnu.texasai.utils.GameProperties;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameHand {
     private final List<Player> players;
-    private final GameProperties gameProperties;
     private final Deck deck;
     private Integer currentPlayer = 0;
+    private List<Card> sharedCards = new ArrayList<Card>();
 
-    public GameHand(List<Player> players, GameProperties gameProperties) {
-        this.players = players;
-        this.gameProperties = gameProperties;
+    public GameHand(List<Player> players) {
+        this.players = new ArrayList<Player>(players);
 
         deck = new Deck();
     }
 
-    public void play() {
-        dealHoleCards();
-
-        BettingRound preFlopBettingRound = new BettingRound();
-        takeBlinds(preFlopBettingRound);
-
-        // Pre-flop
-
-        // Pre-turn
-
-        // Pre-river
-
-        // Post-river
-    }
-
-    private void dealHoleCards() {
+    public void dealHoleCards() {
         for (Player player : players) {
             Card hole1 = deck.removeTopCard();
             Card hole2 = deck.removeTopCard();
@@ -41,15 +24,30 @@ public class GameHand {
         }
     }
 
-    private void takeBlinds(BettingRound preFlopBettingRound) {
-        preFlopBettingRound.placeBet(nextPlayer(), gameProperties.getSmallBlind());
-        preFlopBettingRound.placeBet(nextPlayer(), gameProperties.getBigBlind());
+    public void dealFlop(){
+        // TODO:
     }
 
-    private Player nextPlayer(){
+    public void dealTurn(){
+        // TODO:
+    }
+
+    public void dealRiver(){
+        // TODO:
+    }
+
+    public Player getNextPlayer(){
         Player nextPlayer = players.get(currentPlayer % players.size());
         currentPlayer++;
 
         return nextPlayer;
+    }
+
+    public List<Card> getSharedCards() {
+        return sharedCards;
+    }
+
+    public void removePlayer(Player player) {
+        players.remove(player);
     }
 }
