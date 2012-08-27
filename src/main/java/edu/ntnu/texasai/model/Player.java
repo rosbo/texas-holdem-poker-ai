@@ -1,28 +1,46 @@
 package edu.ntnu.texasai.model;
 
 public class Player {
-    private Integer number;
+    private final Integer number;
     private Integer money;
-    private PlayerHand currentHand;
+    private Card hole1;
+    private Card hole2;
 
     public Player(Integer number, Integer money) {
         this.number = number;
         this.money = money;
     }
 
-    public Integer getNumber() {
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof Player)){
+            return false;
+        }
+
+        Player otherPlayer = (Player) o;
+
+        return number.equals(otherPlayer.number);
+    }
+
+    @Override
+    public int hashCode() {
         return number;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public Integer getNumber() {
+        return number;
     }
 
     public Integer getMoney() {
         return money;
     }
 
-    public void setMoney(Integer money) {
-        this.money = money;
+    public void removeMoney(Integer amount) {
+        money -= amount;
+    }
+
+    public void setHoleCards(Card hole1, Card hole2) {
+        this.hole1 = hole1;
+        this.hole2 = hole2;
     }
 }

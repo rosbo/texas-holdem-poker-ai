@@ -1,37 +1,28 @@
 package edu.ntnu.texasai.model;
 
-import java.util.Iterator;
+import edu.ntnu.texasai.utils.GameProperties;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
+    private final GameProperties gameProperties;
     private final List<Player> players;
-    private Deck deck;
-    private Iterator<Player> dealer;
-    private List<Player> orders;
+    private final List<GameHand> gameHands = new ArrayList<GameHand>();
 
-    public Game(List<Player> players) {
+    public Game(List<Player> players, GameProperties gameProperties) {
         this.players = players;
+        this.gameProperties = gameProperties;
     }
 
-    public void playNewHand() {
-        deck = new Deck();
-
-        takeBlinds();
-
-        // You take blind
-
-        // Distribute hole card
-
-        // Pre-flop
+    public void play() {
+        for (int i = 0; i <= gameProperties.getNumberOfHands(); i++) {
+            GameHand gameHand = new GameHand(players, gameProperties);
+            gameHand.play();
+            gameHands.add(gameHand);
+        }
 
         setNextDealer();
-    }
-
-    private void takeBlinds() {
-        Player smallBlindPlayer = players.get(0);
-        Player bigBlindPlayer = players.get(1);
-
-        //smallBlindPlayer.removeMoney();
     }
 
     private void setNextDealer() {

@@ -16,10 +16,6 @@ public class Deck {
         return cards.remove(0);
     }
 
-    public Card getTopCard() {
-        return cards.get(0);
-    }
-
     private List<Card> initCards() {
         List<Card> deck = new ArrayList<Card>();
 
