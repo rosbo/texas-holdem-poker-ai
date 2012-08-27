@@ -1,4 +1,4 @@
-package main.java.model;
+package edu.ntnu.texasai.model;
 
 import java.util.Iterator;
 import java.util.List;
@@ -13,7 +13,7 @@ public class Game {
         this.players = players;
     }
 
-    public void playNewHand(){
+    public void playNewHand() {
         deck = new Deck();
 
         takeBlinds();
@@ -31,7 +31,7 @@ public class Game {
         Player smallBlindPlayer = players.get(0);
         Player bigBlindPlayer = players.get(1);
 
-        smallBlindPlayer.removeMoney()
+        //smallBlindPlayer.removeMoney();
     }
 
     private void setNextDealer() {

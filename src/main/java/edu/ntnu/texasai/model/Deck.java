@@ -1,4 +1,4 @@
-package main.java.model;
+package edu.ntnu.texasai.model;
 
 import java.util.ArrayList;
 import java.util.Collections;

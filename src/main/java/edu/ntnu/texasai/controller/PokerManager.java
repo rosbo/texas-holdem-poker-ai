@@ -1,7 +1,7 @@
-package main.java.controller;
+package edu.ntnu.texasai.controller;
 
-import main.java.model.Game;
-import main.java.model.Player;
+import edu.ntnu.texasai.model.Game;
+import edu.ntnu.texasai.model.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class PokerManager {
 
     public PokerManager(final Integer numberOfPlayers) {
         List<Player> players = new ArrayList<Player>();
-        for(int i = 0; i <= numberOfPlayers; i++){
+        for (int i = 0; i <= numberOfPlayers; i++) {
             players.add(new Player(i, INITIAL_AMOUNT_OF_MONEY));
         }
 

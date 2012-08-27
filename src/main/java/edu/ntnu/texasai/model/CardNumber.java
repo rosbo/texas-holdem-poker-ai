@@ -1,4 +1,4 @@
-package main.java.model;
+package edu.ntnu.texasai.model;
 
 public enum CardNumber {
     ACE("A"),
