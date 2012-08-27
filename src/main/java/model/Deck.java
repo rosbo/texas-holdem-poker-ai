@@ -1,4 +1,4 @@
-package model;
+package main.java.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +9,15 @@ public class Deck {
 
     public Deck() {
         initCards();
+        shuffle();
+    }
+
+    public Card removeTopCard() {
+        return cards.remove(0);
+    }
+
+    public Card getTopCard() {
+        return cards.get(0);
     }
 
     private List<Card> initCards() {
@@ -24,15 +33,7 @@ public class Deck {
         return deck;
     }
 
-    public Card removeTopCard() {
-        return cards.remove(0);
-    }
-
-    public Card getTopCard() {
-        return cards.get(0);
-    }
-
-    public void shuffle() {
+    private void shuffle() {
         Collections.shuffle(cards);
     }
 }

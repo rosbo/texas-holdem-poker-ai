@@ -1,4 +1,4 @@
-package model;
+package main.java.model;
 
 public class Card {
     private final CardSuit suit;
