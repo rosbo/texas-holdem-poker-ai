@@ -3,14 +3,16 @@ package edu.ntnu.texasai.controller;
 import edu.ntnu.texasai.model.*;
 import edu.ntnu.texasai.utils.GameProperties;
 
-public class GameHandController {
-    private final GameProperties gameProperties;
-    private final PlayerController playerController;
+import javax.inject.Inject;
 
-    public GameHandController() {
-        // TODO: Add DI
-        gameProperties = new GameProperties();
-        playerController = new PlayerControllerPhaseI();
+public class GameHandController {
+    private final PlayerController playerController;
+    private final GameProperties gameProperties;
+
+    @Inject
+    public GameHandController(final PlayerController playerController, final GameProperties gameProperties) {
+        this.playerController = playerController;
+        this.gameProperties = gameProperties;
     }
 
     public void play(Game game) {
