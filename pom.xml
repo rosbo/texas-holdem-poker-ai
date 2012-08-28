@@ -31,10 +31,6 @@
             <name>Apache snapshots</name>
             <url>http://repository.apache.org/snapshots</url>
         </repository>
-        <repository>
-            <id>objectify-appengine</id>
-            <url>http://objectify-appengine.googlecode.com/svn/maven</url>
-        </repository>
     </repositories>
 
     <dependencies>
