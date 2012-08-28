@@ -5,6 +5,7 @@ public class GameProperties {
     private final Integer bigBlind;
     private final Integer initialMoney;
     private final Integer numberOfHands;
+    private final Integer numberOfPlayers;
 
     public GameProperties() {
         // TODO: Property load
@@ -12,6 +13,7 @@ public class GameProperties {
         bigBlind = 20;
         initialMoney = 10000;
         numberOfHands = 1000;
+        numberOfPlayers = 2;
     }
 
     public Integer getSmallBlind() {
@@ -28,5 +30,9 @@ public class GameProperties {
 
     public Integer getNumberOfHands() {
         return numberOfHands;
+    }
+
+    public Integer getNumberOfPlayers() {
+        return numberOfPlayers;
     }
 }

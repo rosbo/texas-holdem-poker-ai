@@ -2,14 +2,15 @@ package edu.ntnu.texasai.controller;
 
 import edu.ntnu.texasai.model.*;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class PlayerControllerPhaseI extends PlayerController {
     private final HandPowerRanker handPowerRanker;
 
-    public PlayerControllerPhaseI() {
-        // TODO: Add Di
-        handPowerRanker = new HandPowerRanker();
+    @Inject
+    public PlayerControllerPhaseI(final HandPowerRanker handPowerRanker) {
+        this.handPowerRanker = handPowerRanker;
     }
 
     @Override
