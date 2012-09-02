@@ -13,7 +13,8 @@ public class HandPower implements Comparable<HandPower> {
 
     @Override
     public int compareTo(HandPower handPower) {
-        return 0;
+        // TODO: Implement with tie breaking information
+        return handPowerType.getPower() - handPower.handPowerType.getPower();
     }
 
     public HandPowerType getHandPowerType() {

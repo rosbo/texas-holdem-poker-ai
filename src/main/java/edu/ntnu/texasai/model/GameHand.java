@@ -1,9 +1,6 @@
 package edu.ntnu.texasai.model;
 
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class GameHand {
     private final Deque<Player> players;
@@ -18,14 +15,13 @@ public class GameHand {
         deck = new Deck();
     }
 
-    public void dealHoleCards() {
+    public void nextRound() {
         bettingRounds.add(new BettingRound());
 
-        for (Player player : players) {
-            Card hole1 = deck.removeTopCard();
-            Card hole2 = deck.removeTopCard();
-
-            player.setHoleCards(hole1, hole2);
+        if(getBettingRoundCount().equals(1)){
+            dealHoleCards();
+        }else{
+            dealSharedCard();
         }
     }
 
@@ -35,6 +31,10 @@ public class GameHand {
             players.addLast(player);
         }
         hasRemoved = false;
+        return getCurrentPlayer();
+    }
+
+    public Player getCurrentPlayer(){
         return players.getFirst();
     }
 
@@ -50,8 +50,37 @@ public class GameHand {
         return bettingRounds.get(bettingRounds.size() - 1);
     }
 
+    public Integer getBettingRoundCount(){
+        return bettingRounds.size();
+    }
+
     public void removeCurrentPlayer() {
         players.removeFirst();
         hasRemoved = true;
+    }
+
+    public Integer getTotalBets() {
+        Integer totalBets = 0;
+        for (BettingRound bettingRound : bettingRounds) {
+            totalBets += bettingRound.getTotalBets();
+        }
+        return totalBets;
+    }
+
+    private void dealHoleCards() {
+        for (Player player : players) {
+            Card hole1 = deck.removeTopCard();
+            Card hole2 = deck.removeTopCard();
+
+            player.setHoleCards(hole1, hole2);
+        }
+    }
+
+    private void dealSharedCard() {
+        sharedCards.add(deck.removeTopCard());
+    }
+
+    public Collection<Player> getPlayers() {
+        return players;
     }
 }

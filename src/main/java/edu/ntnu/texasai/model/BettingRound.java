@@ -32,4 +32,12 @@ public class BettingRound {
     public Integer getBetForPlayer(Player player) {
         return playerBets.get(player);
     }
+
+    public Integer getTotalBets() {
+        Integer totalBets = 0;
+        for (Integer bet : playerBets.values()) {
+            totalBets += bet;
+        }
+        return totalBets;
+    }
 }

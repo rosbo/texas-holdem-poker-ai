@@ -31,7 +31,19 @@ public class Player {
 
     @Override
     public String toString() {
-        return "Player #" + getNumber();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Player #");
+        stringBuilder.append(getNumber());
+
+        if (holeCards != null) {
+            stringBuilder.append(" (");
+            stringBuilder.append(holeCards.get(0).toString());
+            stringBuilder.append(", ");
+            stringBuilder.append(holeCards.get(1).toString());
+            stringBuilder.append(")");
+        }
+
+        return stringBuilder.toString();
     }
 
     public Integer getNumber() {
@@ -44,6 +56,10 @@ public class Player {
 
     public void removeMoney(Integer amount) {
         money -= amount;
+    }
+
+    public void addMoney(Integer amount) {
+        money += amount;
     }
 
     public void setHoleCards(Card hole1, Card hole2) {

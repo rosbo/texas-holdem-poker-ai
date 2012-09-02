@@ -20,32 +20,37 @@ public class GameHandController {
     }
 
     public void play(Game game) {
+        logger.log("-----------------------------------------");
         logger.log("Game Hand #" + (game.gameHandsCount() + 1));
+        logger.log("-----------------------------------------");
         GameHand gameHand = createGameHand(game);
 
-        playPreFlop(gameHand);
+        Boolean hadWinner = false;
+        int i = 0;
+        while (i < 4 && !hadWinner) {
+            hadWinner = playRound(gameHand);
+            i++;
+        }
 
-        // TODO: Pre-turn
-
-        // TODO: Pre-river
-
-        // TODO: Post-river
+        // TODO: Check the stronger
     }
 
-    private void playPreFlop(GameHand gameHand) {
-        logger.log("Pre Flop");
-        gameHand.dealHoleCards();
-        takeBlinds(gameHand);
+    private Boolean playRound(GameHand gameHand) {
+        gameHand.nextRound();
+        logBettingRound(gameHand);
+        if (gameHand.getBettingRoundCount().equals(1)) {
+            takeBlinds(gameHand);
+        }
 
         Integer turn = 1;
-        Integer numberOfPlayersAtBeginning = gameHand.getPlayersCount();
+        Integer numberOfPlayersAtBeginningOfRound = gameHand.getPlayersCount();
         Integer toPlay = gameHand.getPlayersCount() - 1;
         while (toPlay > 0) {
             Player player = gameHand.getNextPlayer();
             BettingDecision bettingDecision = playerController.decide(player, gameHand);
 
             // We can't raise at second turn
-            if (turn > numberOfPlayersAtBeginning && bettingDecision.equals(BettingDecision.RAISE)) {
+            if (turn > numberOfPlayersAtBeginningOfRound && bettingDecision.equals(BettingDecision.RAISE)) {
                 bettingDecision = BettingDecision.CALL;
             }
 
@@ -58,6 +63,48 @@ public class GameHandController {
             turn++;
             toPlay--;
         }
+
+        // Check if we have a winner
+        if (gameHand.getPlayersCount() == 1) {
+            Player winner = gameHand.getCurrentPlayer();
+            winner.addMoney(gameHand.getTotalBets());
+            return true;
+        }
+        return false;
+    }
+
+    private void logBettingRound(GameHand gameHand) {
+        String bettingRoundName = getBettingRoundName(gameHand);
+        logger.log(bettingRoundName + " (" + gameHand.getPlayersCount() + " players, " +
+                "" + gameHand.getTotalBets() + "$)");
+
+        if (!gameHand.getSharedCards().isEmpty()) {
+            StringBuilder sharedCardSB = new StringBuilder();
+            sharedCardSB.append("Shared cards: ");
+            int i = 0;
+            for (Card card : gameHand.getSharedCards()) {
+                if (i > 0) {
+                    sharedCardSB.append(", ");
+                }
+                sharedCardSB.append(card.toString());
+                i++;
+            }
+            logger.log(sharedCardSB.toString());
+        }
+    }
+
+    private String getBettingRoundName(GameHand gameHand) {
+        switch (gameHand.getBettingRoundCount()) {
+            case 1:
+                return "Pre-flop";
+            case 2:
+                return "Post-flop";
+            case 3:
+                return "Post-turn";
+            case 4:
+                return "Post-river";
+        }
+        throw new IllegalArgumentException("Too many betting rounds");
     }
 
     private void takeBlinds(GameHand gameHand) {
