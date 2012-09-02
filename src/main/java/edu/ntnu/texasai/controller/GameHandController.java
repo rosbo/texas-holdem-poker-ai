@@ -2,22 +2,25 @@ package edu.ntnu.texasai.controller;
 
 import edu.ntnu.texasai.model.*;
 import edu.ntnu.texasai.utils.GameProperties;
+import edu.ntnu.texasai.utils.Logger;
 
 import javax.inject.Inject;
 
 public class GameHandController {
+    private final Logger logger;
     private final PlayerController playerController;
     private final GameProperties gameProperties;
 
     @Inject
-    public GameHandController(final PlayerController playerController, final GameProperties gameProperties) {
+    public GameHandController(final Logger logger, final PlayerController playerController,
+                              final GameProperties gameProperties) {
+        this.logger = logger;
         this.playerController = playerController;
         this.gameProperties = gameProperties;
     }
 
     public void play(Game game) {
-        // TODO: Extract using a injected logger so we will be able to swap between log type (file or console)
-        System.out.println("Game Hand #" + (game.gameHandsCount() + 1));
+        logger.log("Game Hand #" + (game.gameHandsCount() + 1));
         GameHand gameHand = createGameHand(game);
 
         playPreFlop(gameHand);
@@ -30,7 +33,7 @@ public class GameHandController {
     }
 
     private void playPreFlop(GameHand gameHand) {
-        System.out.println("Pre Flop");
+        logger.log("Pre Flop");
         gameHand.dealHoleCards();
         takeBlinds(gameHand);
 
@@ -61,8 +64,8 @@ public class GameHandController {
         Player smallBlindPlayer = gameHand.getNextPlayer();
         Player bigBlindPlayer = gameHand.getNextPlayer();
 
-        System.out.println(smallBlindPlayer.toString() + ": Small blind");
-        System.out.println(bigBlindPlayer.toString() + ": Big blind");
+        logger.log(smallBlindPlayer.toString() + ": Small blind");
+        logger.log(bigBlindPlayer.toString() + ": Big blind");
 
         gameHand.getCurrentBettingRound().placeBet(smallBlindPlayer, gameProperties.getSmallBlind());
         gameHand.getCurrentBettingRound().placeBet(bigBlindPlayer, gameProperties.getBigBlind());
@@ -84,7 +87,7 @@ public class GameHandController {
                 break;
         }
 
-        System.out.println(player.toString() + ": " + bettingDecision.toString());
+        logger.log(player.toString() + ": " + bettingDecision.toString());
     }
 
     private GameHand createGameHand(Game game) {
