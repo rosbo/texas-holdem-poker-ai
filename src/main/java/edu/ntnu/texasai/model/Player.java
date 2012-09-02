@@ -15,7 +15,7 @@ public class Player {
 
     @Override
     public boolean equals(Object o) {
-        if(!(o instanceof Player)){
+        if (!(o instanceof Player)) {
             return false;
         }
 
@@ -27,6 +27,11 @@ public class Player {
     @Override
     public int hashCode() {
         return number;
+    }
+
+    @Override
+    public String toString() {
+        return "Player #" + getNumber();
     }
 
     public Integer getNumber() {

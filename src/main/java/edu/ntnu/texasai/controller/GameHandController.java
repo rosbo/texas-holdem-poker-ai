@@ -16,9 +16,10 @@ public class GameHandController {
     }
 
     public void play(Game game) {
+        // TODO: Extract using a injected logger so we will be able to swap between log type (file or console)
+        System.out.println("Game Hand #" + (game.gameHandsCount() + 1));
         GameHand gameHand = createGameHand(game);
 
-        gameHand.dealHoleCards();
         playPreFlop(gameHand);
 
         // TODO: Pre-turn
@@ -29,32 +30,61 @@ public class GameHandController {
     }
 
     private void playPreFlop(GameHand gameHand) {
-        BettingRound preFlopBettingRound = new BettingRound();
-        preFlopBettingRound.placeBet(gameHand.getNextPlayer(), gameProperties.getSmallBlind());
-        preFlopBettingRound.placeBet(gameHand.getNextPlayer(), gameProperties.getBigBlind());
+        System.out.println("Pre Flop");
+        gameHand.dealHoleCards();
+        takeBlinds(gameHand);
 
-        // TODO: Play more turns
+        Integer turn = 1;
+        Integer numberOfPlayersAtBeginning = gameHand.getPlayersCount();
+        Integer toPlay = gameHand.getPlayersCount() - 1;
+        while (toPlay > 0) {
+            Player player = gameHand.getNextPlayer();
+            BettingDecision bettingDecision = playerController.decide(player, gameHand);
 
-        Player player = gameHand.getNextPlayer();
-        BettingDecision bettingDecision = playerController.decide(player, gameHand);
+            // We can't raise at second turn
+            if (turn > numberOfPlayersAtBeginning && bettingDecision.equals(BettingDecision.RAISE)) {
+                bettingDecision = BettingDecision.CALL;
+            }
 
-        applyDecision(gameHand, preFlopBettingRound, player, bettingDecision);
+            // After a raise, every active players after the raiser must play
+            if (bettingDecision.equals(BettingDecision.RAISE)) {
+                toPlay = gameHand.getPlayersCount() - 1;
+            }
+
+            applyDecision(gameHand, player, bettingDecision);
+            turn++;
+            toPlay--;
+        }
     }
 
-    private void applyDecision(GameHand gameHand, BettingRound preFlopBettingRound, Player player, BettingDecision
+    private void takeBlinds(GameHand gameHand) {
+        Player smallBlindPlayer = gameHand.getNextPlayer();
+        Player bigBlindPlayer = gameHand.getNextPlayer();
+
+        System.out.println(smallBlindPlayer.toString() + ": Small blind");
+        System.out.println(bigBlindPlayer.toString() + ": Big blind");
+
+        gameHand.getCurrentBettingRound().placeBet(smallBlindPlayer, gameProperties.getSmallBlind());
+        gameHand.getCurrentBettingRound().placeBet(bigBlindPlayer, gameProperties.getBigBlind());
+    }
+
+    private void applyDecision(GameHand gameHand, Player player, BettingDecision
             bettingDecision) {
-        Integer highestBet = preFlopBettingRound.getHighestBet();
-        switch (bettingDecision){
+        BettingRound bettingRound = gameHand.getCurrentBettingRound();
+        Integer highestBet = bettingRound.getHighestBet();
+        switch (bettingDecision) {
             case FOLD:
-                gameHand.removePlayer(player);
+                gameHand.removeCurrentPlayer();
                 break;
             case CALL:
-                preFlopBettingRound.placeBet(player, highestBet);
+                bettingRound.placeBet(player, highestBet);
                 break;
             case RAISE:
-                preFlopBettingRound.placeBet(player, highestBet + gameProperties.getBigBlind());
+                bettingRound.placeBet(player, highestBet + gameProperties.getBigBlind());
                 break;
         }
+
+        System.out.println(player.toString() + ": " + bettingDecision.toString());
     }
 
     private GameHand createGameHand(Game game) {

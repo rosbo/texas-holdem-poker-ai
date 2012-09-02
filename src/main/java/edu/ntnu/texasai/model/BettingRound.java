@@ -28,4 +28,8 @@ public class BettingRound {
     public Integer getHighestBet() {
         return highestBet;
     }
+
+    public Integer getBetForPlayer(Player player) {
+        return playerBets.get(player);
+    }
 }

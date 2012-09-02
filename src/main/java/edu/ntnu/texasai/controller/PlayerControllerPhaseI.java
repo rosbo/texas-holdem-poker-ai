@@ -20,11 +20,16 @@ public class PlayerControllerPhaseI extends PlayerController {
 
         if (card1.getNumber().equals(card2.getNumber())) {
             return BettingDecision.RAISE;
-        } else if (card1.getNumber().getPower() + card2.getNumber().getPower() > 16) {
+        } else if (card1.getNumber().getPower() + card2.getNumber().getPower() > 16 || canCheck(gameHand, player)) {
             return BettingDecision.CALL;
         } else {
             return BettingDecision.FOLD;
         }
+    }
+
+    private boolean canCheck(GameHand gameHand, Player player) {
+        BettingRound bettingRound = gameHand.getCurrentBettingRound();
+        return bettingRound.getHighestBet().equals(bettingRound.getBetForPlayer(player));
     }
 
     @Override
