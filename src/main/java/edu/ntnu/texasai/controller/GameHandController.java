@@ -29,17 +29,19 @@ public class GameHandController {
         logger.log("-----------------------------------------");
         GameHand gameHand = createGameHand(game);
 
-        Boolean hadWinner = false;
-        while (gameHand.getBettingRoundCount() < 4 && !hadWinner) {
-            hadWinner = playRound(gameHand);
+        Boolean haveWinner = false;
+        while (gameHand.getBettingRoundCount() < 4 && !haveWinner) {
+            haveWinner = playRound(gameHand);
         }
 
-        if (!hadWinner) {
+        if (!haveWinner) {
             showDown(gameHand);
         }
     }
 
     private void showDown(GameHand gameHand) {
+        logger.log("--- Showdown");
+
         // Showdown
         List<Player> winners = getWinners(gameHand);
 
@@ -59,7 +61,6 @@ public class GameHandController {
     }
 
     private List<Player> getWinners(GameHand gameHand) {
-        logger.log("--- Showdown");
         Iterable<Player> activePlayers = gameHand.getActivePlayers();
         List<Card> sharedCards = gameHand.getSharedCards();
 
