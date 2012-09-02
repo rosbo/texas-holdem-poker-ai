@@ -30,10 +30,8 @@ public class GameHandController {
         GameHand gameHand = createGameHand(game);
 
         Boolean hadWinner = false;
-        int i = 0;
-        while (i < 4 && !hadWinner) {
+        while (gameHand.getBettingRoundCount() < 4 && !hadWinner) {
             hadWinner = playRound(gameHand);
-            i++;
         }
 
         if (!hadWinner) {
@@ -88,13 +86,14 @@ public class GameHandController {
     private Boolean playRound(GameHand gameHand) {
         gameHand.nextRound();
         logBettingRound(gameHand);
+        Integer toPlay = gameHand.getPlayersCount();
         if (gameHand.getBettingRoundCount().equals(1)) {
             takeBlinds(gameHand);
+            toPlay--; // Big blinds don't have to call on himself if no raise :)
         }
 
         Integer turn = 1;
         Integer numberOfPlayersAtBeginningOfRound = gameHand.getPlayersCount();
-        Integer toPlay = gameHand.getPlayersCount() - 1;
         while (toPlay > 0) {
             Player player = gameHand.getNextPlayer();
             BettingDecision bettingDecision = playerController.decide(player, gameHand);
@@ -181,7 +180,7 @@ public class GameHandController {
     }
 
     private GameHand createGameHand(Game game) {
-        GameHand gameHand = new GameHand(game.getPlayersFromTheLeftOfTheDealer());
+        GameHand gameHand = new GameHand(game.getPlayers());
         game.addGameHand(gameHand);
         return gameHand;
     }

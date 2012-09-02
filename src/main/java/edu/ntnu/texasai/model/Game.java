@@ -16,7 +16,7 @@ public class Game {
         players.add(formerDealer);
     }
 
-    public List<Player> getPlayersFromTheLeftOfTheDealer(){
+    public List<Player> getPlayers(){
         return players;
     }
 
