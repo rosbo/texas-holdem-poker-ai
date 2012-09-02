@@ -36,4 +36,8 @@ public class HandPower implements Comparable<HandPower> {
     public HandPowerType getHandPowerType() {
         return handPowerType;
     }
+
+    public List<CardNumber> getTieBreakingInformation() {
+        return tieBreakingInformation;
+    }
 }
