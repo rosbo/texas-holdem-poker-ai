@@ -30,7 +30,11 @@ public class BettingRound {
     }
 
     public Integer getBetForPlayer(Player player) {
-        return playerBets.get(player);
+        Integer bet = playerBets.get(player);
+        if (bet == null) {
+            return 0;
+        }
+        return bet;
     }
 
     public Integer getTotalBets() {

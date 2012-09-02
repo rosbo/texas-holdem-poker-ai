@@ -1,10 +1,10 @@
 package edu.ntnu.texasai.model;
 
 public enum CardSuit {
-    SPADE("S"),
-    HEART("H"),
-    CLUB("C"),
-    DIAMOND("D");
+    SPADE("\u2660"),
+    HEART("\u2665"),
+    CLUB("\u2663"),
+    DIAMOND("\u2666");
 
     private final String symbol;
 

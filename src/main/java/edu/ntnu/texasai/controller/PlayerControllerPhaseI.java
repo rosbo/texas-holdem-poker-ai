@@ -37,7 +37,10 @@ public class PlayerControllerPhaseI extends PlayerController {
         HandPower handPower = handPowerRanker.rank(cards);
 
         HandPowerType handPowerType = handPower.getHandPowerType();
-        if (handPowerType.equals(HandPowerType.NOTHING)) {
+        if (handPowerType.equals(HandPowerType.HIGH_CARD)) {
+            if(canCheck(gameHand, player)){
+                return BettingDecision.CALL;
+            }
             return BettingDecision.FOLD;
         } else if (handPowerType.getPower() >= HandPowerType.THREE_OF_A_KIND.getPower()) {
             return BettingDecision.RAISE;

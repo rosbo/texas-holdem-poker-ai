@@ -36,11 +36,7 @@ public class Player {
         stringBuilder.append(getNumber());
 
         if (holeCards != null) {
-            stringBuilder.append(" (");
-            stringBuilder.append(holeCards.get(0).toString());
-            stringBuilder.append(", ");
-            stringBuilder.append(holeCards.get(1).toString());
-            stringBuilder.append(")");
+            stringBuilder.append(holeCards.toString());
         }
 
         return stringBuilder.toString();
