@@ -23,4 +23,8 @@ public class Game {
     public void addGameHand(GameHand gameHand) {
         gameHands.add(gameHand);
     }
+
+    public Integer gameHandsCount(){
+        return gameHands.size();
+    }
 }

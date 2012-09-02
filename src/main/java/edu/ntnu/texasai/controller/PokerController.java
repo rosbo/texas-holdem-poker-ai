@@ -18,22 +18,27 @@ public class PokerController {
         this.gameHandController = gameHandController;
         this.gameProperties = gameProperties;
 
-        game = createGame(gameProperties);
+        game = createGame();
     }
 
-    private Game createGame(GameProperties gameProperties) {
-        List<Player> players = new ArrayList<Player>();
-        for (int i = 0; i <= gameProperties.getNumberOfPlayers(); i++) {
-            players.add(new Player(i, gameProperties.getInitialMoney()));
+    public void play() {
+        for (int i = 0; i < gameProperties.getNumberOfHands(); i++) {
+            gameHandController.play(game);
+            game.setNextDealer();
         }
+    }
+
+    private Game createGame() {
+        List<Player> players = createPlayers();
 
         return new Game(players);
     }
 
-    public void play() {
-        for (int i = 0; i <= gameProperties.getNumberOfHands(); i++) {
-            gameHandController.play(game);
-            game.setNextDealer();
+    private List<Player> createPlayers() {
+        List<Player> players = new ArrayList<Player>();
+        for (int i = 1; i <= gameProperties.getNumberOfPlayers(); i++) {
+            players.add(new Player(i, gameProperties.getInitialMoney()));
         }
+        return players;
     }
 }
