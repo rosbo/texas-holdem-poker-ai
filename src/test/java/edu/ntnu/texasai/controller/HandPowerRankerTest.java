@@ -71,17 +71,17 @@ public class HandPowerRankerTest {
         List<Card> cards = new ArrayList<Card>();
         cards.add(new Card(CardSuit.HEART, CardNumber.KING));
         cards.add(new Card(CardSuit.CLUB, CardNumber.KING));
+        cards.add(new Card(CardSuit.DIAMOND, CardNumber.KING));
         cards.add(new Card(CardSuit.HEART, CardNumber.QUEEN));
         cards.add(new Card(CardSuit.CLUB, CardNumber.QUEEN));
-        cards.add(new Card(CardSuit.DIAMOND, CardNumber.QUEEN));
 
-        cards.add(new Card(CardSuit.HEART, CardNumber.TWO));
+        cards.add(new Card(CardSuit.DIAMOND, CardNumber.QUEEN));
         cards.add(new Card(CardSuit.CLUB, CardNumber.ACE));
 
         HandPower handPower = handPowerRanker.rank(cards);
 
         assertEquals(HandPowerType.FULL_HOUSE, handPower.getHandPowerType());
-        assertEquals(Arrays.asList(CardNumber.QUEEN, CardNumber.KING), handPower.getTieBreakingInformation());
+        assertEquals(Arrays.asList(CardNumber.KING, CardNumber.QUEEN), handPower.getTieBreakingInformation());
     }
 
     @Test
@@ -113,7 +113,7 @@ public class HandPowerRankerTest {
         cards.add(new Card(CardSuit.HEART, CardNumber.SEVEN));
 
         cards.add(new Card(CardSuit.HEART, CardNumber.TWO));
-        cards.add(new Card(CardSuit.CLUB, CardNumber.ACE));
+        cards.add(new Card(CardSuit.CLUB, CardNumber.NINE));
 
         HandPower handPower = handPowerRanker.rank(cards);
 
@@ -143,15 +143,15 @@ public class HandPowerRankerTest {
         List<Card> cards = new ArrayList<Card>();
         cards.add(new Card(CardSuit.HEART, CardNumber.ACE));
         cards.add(new Card(CardSuit.SPADE, CardNumber.ACE));
+        cards.add(new Card(CardSuit.HEART, CardNumber.TWO));
+        cards.add(new Card(CardSuit.SPADE, CardNumber.TWO));
         cards.add(new Card(CardSuit.CLUB, CardNumber.SIX));
         cards.add(new Card(CardSuit.HEART, CardNumber.SIX));
-
-        cards.add(new Card(CardSuit.HEART, CardNumber.SEVEN));
 
         HandPower handPower = handPowerRanker.rank(cards);
 
         assertEquals(HandPowerType.TWO_PAIR, handPower.getHandPowerType());
-        assertEquals(Arrays.asList(CardNumber.ACE, CardNumber.SIX, CardNumber.SEVEN),
+        assertEquals(Arrays.asList(CardNumber.ACE, CardNumber.SIX, CardNumber.TWO),
                 handPower.getTieBreakingInformation());
     }
 

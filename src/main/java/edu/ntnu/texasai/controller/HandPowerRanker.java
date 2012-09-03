@@ -32,11 +32,10 @@ public class HandPowerRanker {
                     cardsSortedByNumber));
         }
 
-        CardNumber cardNumberForThree = getCardNumberForCount(3, numberGroup);
-        CardNumber cardNumberForTwo = getCardNumberForCount(2, numberGroup);
+        List<CardNumber> fullHouseCardNumbers = getFullHouse(numberGroup);
         // Full house
-        if (cardNumberForThree != null && cardNumberForTwo != null) {
-            return new HandPower(HandPowerType.FULL_HOUSE, Arrays.asList(cardNumberForThree, cardNumberForTwo));
+        if (fullHouseCardNumbers.size() == 2) {
+            return new HandPower(HandPowerType.FULL_HOUSE, fullHouseCardNumbers);
         }
 
         // Flush
@@ -52,16 +51,20 @@ public class HandPowerRanker {
         }
 
         // Three of a kind
+        CardNumber cardNumberForThree = getCardNumberForCount(3, numberGroup);
         if (cardNumberForThree != null) {
             return new HandPower(HandPowerType.THREE_OF_A_KIND, calculateSameKindTie(3, cardNumberForThree,
                     cardsSortedByNumber));
         }
 
         // Pair(s)
+        CardNumber cardNumberForTwo = getCardNumberForCount(2, numberGroup);
         if (cardNumberForTwo != null) {
             List<CardNumber> pairsCardNumber = getPairs(numberGroup);
             // Two pair
-            if (pairsCardNumber.size() == 2) {
+            if (pairsCardNumber.size() >= 2) {
+
+
                 return new HandPower(HandPowerType.TWO_PAIR, calculateTwoPairsTie(pairsCardNumber,
                         cardsSortedByNumber));
             }
@@ -74,6 +77,34 @@ public class HandPowerRanker {
 
         // High Card
         return new HandPower(HandPowerType.HIGH_CARD, bestCardsNumberInList(cardsSortedByNumber));
+    }
+
+    private List<CardNumber> getFullHouse(MapList<CardNumber, Card> numberGroup) {
+        List<CardNumber> fullHouseCardNumbers = new ArrayList<CardNumber>();
+
+        List<CardNumber> cardNumbers = new ArrayList<CardNumber>(numberGroup.keySet());
+        Collections.sort(cardNumbers, cardNumberComparator);
+        Collections.reverse(cardNumbers);
+
+        // Find the best cards for the triple
+        for (CardNumber cardNumber : cardNumbers) {
+            if (numberGroup.get(cardNumber).size() >= 3) {
+                fullHouseCardNumbers.add(cardNumber);
+                break;
+            }
+        }
+
+        // Find the best card for the pair
+        if (fullHouseCardNumbers.size() > 0) {
+            for (CardNumber cardNumber : cardNumbers) {
+                if (numberGroup.get(cardNumber).size() >= 2 && !cardNumber.equals(fullHouseCardNumbers.get(0))) {
+                    fullHouseCardNumbers.add(cardNumber);
+                    break;
+                }
+            }
+        }
+
+        return fullHouseCardNumbers;
     }
 
     private List<CardNumber> calculateTwoPairsTie(List<CardNumber> pairsCardNumber, List<Card> cardsSortedByNumber) {
@@ -98,6 +129,13 @@ public class HandPowerRanker {
                 pairsCardNumber.add(cards.get(0).getNumber());
             }
         }
+        Collections.sort(pairsCardNumber, cardNumberComparator);
+        Collections.reverse(pairsCardNumber);
+
+        if(pairsCardNumber.size() > 2){
+            pairsCardNumber.remove(pairsCardNumber.size()-1);
+        }
+
         return pairsCardNumber;
     }
 
@@ -107,7 +145,7 @@ public class HandPowerRanker {
     }
 
     private List<CardNumber> bestCardsNumberInList(List<Card> cards) {
-        List<CardNumber> cardNumbers = getCardNumbersFromCards(cards);
+        List<CardNumber> cardNumbers = cardsToCardNumber(cards);
         Collections.sort(cardNumbers, cardNumberComparator);
         Collections.reverse(cardNumbers);
         return cardNumbers.subList(0, 5);
@@ -159,12 +197,12 @@ public class HandPowerRanker {
         }
 
         List<Card> cards = suitGroup.get(flushSuit);
-        List<CardNumber> cardNumbers = getCardNumbersFromCards(cards);
+        List<CardNumber> cardNumbers = cardsToCardNumber(cards);
 
         return getStraightNumber(cardNumbers);
     }
 
-    private List<CardNumber> getCardNumbersFromCards(List<Card> cards) {
+    private List<CardNumber> cardsToCardNumber(List<Card> cards) {
         List<CardNumber> cardNumbers = new ArrayList<CardNumber>();
 
         for (Card card : cards) {
