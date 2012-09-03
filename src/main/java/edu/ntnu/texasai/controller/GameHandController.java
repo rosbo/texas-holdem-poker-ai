@@ -28,7 +28,7 @@ public class GameHandController {
         GameHand gameHand = createGameHand(game);
 
         Boolean haveWinner = false;
-        while (gameHand.getBettingRoundCount() < 4 && !haveWinner) {
+        while (!gameHand.getBettingRoundName().equals(BettingRoundName.POST_RIVER) && !haveWinner) {
             haveWinner = playRound(gameHand);
         }
 
@@ -37,56 +37,17 @@ public class GameHandController {
         }
     }
 
-    private void showDown(GameHand gameHand) {
-        logger.log("--- Showdown");
-
-        // Showdown
-        List<Player> winners = getWinners(gameHand);
-
-        // Gains
-        int gain = gameHand.getTotalBets() / winners.size();
-        int modulo = gameHand.getTotalBets() % winners.size();
-        for (Player winner : winners) {
-            int gainAndModulo = gain;
-            if (modulo > 0) {
-                gainAndModulo += modulo;
-            }
-            winner.addMoney(gainAndModulo);
-            logger.log(winner.toString() + ": WIN! +" + gainAndModulo + "$");
-
-            modulo--;
-        }
-    }
-
-    private List<Player> getWinners(GameHand gameHand) {
-        Iterable<Player> activePlayers = gameHand.getActivePlayers();
-        List<Card> sharedCards = gameHand.getSharedCards();
-
-        HandPower bestHandPower = null;
-        List<Player> winners = new ArrayList<Player>();
-        for (Player player : activePlayers) {
-            List<Card> mergeCards = new ArrayList<Card>(player.getHoleCards());
-            mergeCards.addAll(sharedCards);
-            HandPower handPower = handPowerRanker.rank(mergeCards);
-
-            logger.log(player.toString() + ": " + handPower.toString());
-
-            if (bestHandPower == null || handPower.compareTo(bestHandPower) > 0) {
-                winners.clear();
-                winners.add(player);
-                bestHandPower = handPower;
-            } else if (handPower.equals(bestHandPower)) {
-                winners.add(player);
-            }
-        }
-        return winners;
+    private GameHand createGameHand(Game game) {
+        GameHand gameHand = new GameHand(game.getPlayers());
+        game.addGameHand(gameHand);
+        return gameHand;
     }
 
     private Boolean playRound(GameHand gameHand) {
         gameHand.nextRound();
         logBettingRound(gameHand);
         Integer toPlay = gameHand.getPlayersCount();
-        if (gameHand.getBettingRoundCount().equals(1)) {
+        if (gameHand.getBettingRoundName().equals(BettingRoundName.PRE_FLOP)) {
             takeBlinds(gameHand);
             toPlay--; // Big blinds don't have to call on himself if no raise :)
         }
@@ -116,43 +77,28 @@ public class GameHandController {
         if (gameHand.getPlayersCount() == 1) {
             Player winner = gameHand.getCurrentPlayer();
             winner.addMoney(gameHand.getTotalBets());
-            logger.log(winner.toString() + ": WIN! +" + gameHand.getTotalBets() + "$");
+            logger.log(winner + ": WIN! +" + gameHand.getTotalBets() + "$");
             return true;
         }
         return false;
     }
 
     private void logBettingRound(GameHand gameHand) {
-        String bettingRoundName = getBettingRoundName(gameHand);
-        String logMsg = "---" + bettingRoundName;
+        String logMsg = "---" + gameHand.getBettingRoundName();
         logMsg += " (" + gameHand.getPlayersCount() + " players, ";
         logMsg += gameHand.getTotalBets() + "$)";
         if (!gameHand.getSharedCards().isEmpty()) {
-            logMsg += " " + gameHand.getSharedCards().toString();
+            logMsg += " " + gameHand.getSharedCards();
         }
         logger.log(logMsg);
-    }
-
-    private String getBettingRoundName(GameHand gameHand) {
-        switch (gameHand.getBettingRoundCount()) {
-            case 1:
-                return "Pre-flop";
-            case 2:
-                return "Post-flop";
-            case 3:
-                return "Post-turn";
-            case 4:
-                return "Post-river";
-        }
-        throw new IllegalArgumentException("Too many betting rounds");
     }
 
     private void takeBlinds(GameHand gameHand) {
         Player smallBlindPlayer = gameHand.getNextPlayer();
         Player bigBlindPlayer = gameHand.getNextPlayer();
 
-        logger.log(smallBlindPlayer.toString() + ": Small blind " + gameProperties.getSmallBlind() + "$");
-        logger.log(bigBlindPlayer.toString() + ": Big blind " + gameProperties.getBigBlind() + "$");
+        logger.log(smallBlindPlayer + ": Small blind " + gameProperties.getSmallBlind() + "$");
+        logger.log(bigBlindPlayer + ": Big blind " + gameProperties.getBigBlind() + "$");
 
         gameHand.getCurrentBettingRound().placeBet(smallBlindPlayer, gameProperties.getSmallBlind());
         gameHand.getCurrentBettingRound().placeBet(bigBlindPlayer, gameProperties.getBigBlind());
@@ -174,13 +120,52 @@ public class GameHandController {
                 break;
         }
 
-        logger.log(player.toString() + ": " + bettingDecision.toString() + " " + bettingRound.getBetForPlayer(player)
+        logger.log(player + ": " + bettingDecision + " " + bettingRound.getBetForPlayer(player)
                 + "$");
     }
 
-    private GameHand createGameHand(Game game) {
-        GameHand gameHand = new GameHand(game.getPlayers());
-        game.addGameHand(gameHand);
-        return gameHand;
+    private List<Player> getWinners(GameHand gameHand) {
+        Iterable<Player> activePlayers = gameHand.getActivePlayers();
+        List<Card> sharedCards = gameHand.getSharedCards();
+
+        HandPower bestHandPower = null;
+        List<Player> winners = new ArrayList<Player>();
+        for (Player player : activePlayers) {
+            List<Card> mergeCards = new ArrayList<Card>(player.getHoleCards());
+            mergeCards.addAll(sharedCards);
+            HandPower handPower = handPowerRanker.rank(mergeCards);
+
+            logger.log(player + ": " + handPower);
+
+            if (bestHandPower == null || handPower.compareTo(bestHandPower) > 0) {
+                winners.clear();
+                winners.add(player);
+                bestHandPower = handPower;
+            } else if (handPower.equals(bestHandPower)) {
+                winners.add(player);
+            }
+        }
+        return winners;
+    }
+
+    private void showDown(GameHand gameHand) {
+        logger.log("--- Showdown");
+
+        // Showdown
+        List<Player> winners = getWinners(gameHand);
+
+        // Gains
+        int gain = gameHand.getTotalBets() / winners.size();
+        int modulo = gameHand.getTotalBets() % winners.size();
+        for (Player winner : winners) {
+            int gainAndModulo = gain;
+            if (modulo > 0) {
+                gainAndModulo += modulo;
+            }
+            winner.addMoney(gainAndModulo);
+            logger.log(winner + ": WIN! +" + gainAndModulo + "$");
+
+            modulo--;
+        }
     }
 }
