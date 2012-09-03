@@ -10,15 +10,13 @@ import java.util.List;
 
 public class GameHandController {
     private final Logger logger;
-    private final PlayerController playerController;
     private final HandPowerRanker handPowerRanker;
     private final GameProperties gameProperties;
 
     @Inject
-    public GameHandController(final Logger logger, final PlayerController playerController,
-                              final HandPowerRanker handPowerRanker, final GameProperties gameProperties) {
+    public GameHandController(final Logger logger, final HandPowerRanker handPowerRanker,
+                              final GameProperties gameProperties) {
         this.logger = logger;
-        this.playerController = playerController;
         this.handPowerRanker = handPowerRanker;
         this.gameProperties = gameProperties;
     }
@@ -97,7 +95,7 @@ public class GameHandController {
         Integer numberOfPlayersAtBeginningOfRound = gameHand.getPlayersCount();
         while (toPlay > 0) {
             Player player = gameHand.getNextPlayer();
-            BettingDecision bettingDecision = playerController.decide(player, gameHand);
+            BettingDecision bettingDecision = player.decide(gameHand);
 
             // We can't raise at second turn
             if (turn > numberOfPlayersAtBeginningOfRound && bettingDecision.equals(BettingDecision.RAISE)) {

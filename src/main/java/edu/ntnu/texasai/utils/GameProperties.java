@@ -1,19 +1,32 @@
 package edu.ntnu.texasai.utils;
 
+import edu.ntnu.texasai.controller.PlayerControllerPhaseI;
+import edu.ntnu.texasai.controller.PlayerControllerPhaseII;
+import edu.ntnu.texasai.model.Player;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameProperties {
     private final Integer smallBlind;
     private final Integer bigBlind;
     private final Integer initialMoney;
     private final Integer numberOfHands;
-    private final Integer numberOfPlayers;
+    private final List<Player> players = new ArrayList<Player>();
 
-    public GameProperties() {
+    @Inject
+    public GameProperties(final PlayerControllerPhaseI playerControllerPhaseI, final PlayerControllerPhaseII playerControllerPhaseII) {
         // TODO: Property load
         smallBlind = 10;
         bigBlind = 20;
         initialMoney = 1000;
         numberOfHands = 5;
-        numberOfPlayers = 4;
+
+        players.add(new Player(1, initialMoney, playerControllerPhaseI));
+        players.add(new Player(2, initialMoney, playerControllerPhaseI));
+        players.add(new Player(3, initialMoney, playerControllerPhaseII));
+        players.add(new Player(4, initialMoney, playerControllerPhaseII));
     }
 
     public Integer getSmallBlind() {
@@ -24,15 +37,11 @@ public class GameProperties {
         return bigBlind;
     }
 
-    public Integer getInitialMoney() {
-        return initialMoney;
-    }
-
     public Integer getNumberOfHands() {
         return numberOfHands;
     }
 
-    public Integer getNumberOfPlayers() {
-        return numberOfPlayers;
+    public List<Player> getPlayers() {
+        return players;
     }
 }
