@@ -16,11 +16,15 @@ public class Game {
         players.add(formerDealer);
     }
 
-    public List<Player> getPlayersFromTheLeftOfTheDealer(){
+    public List<Player> getPlayers(){
         return players;
     }
 
     public void addGameHand(GameHand gameHand) {
         gameHands.add(gameHand);
+    }
+
+    public Integer gameHandsCount(){
+        return gameHands.size();
     }
 }

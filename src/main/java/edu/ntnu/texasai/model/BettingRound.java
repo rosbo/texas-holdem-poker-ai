@@ -28,4 +28,20 @@ public class BettingRound {
     public Integer getHighestBet() {
         return highestBet;
     }
+
+    public Integer getBetForPlayer(Player player) {
+        Integer bet = playerBets.get(player);
+        if (bet == null) {
+            return 0;
+        }
+        return bet;
+    }
+
+    public Integer getTotalBets() {
+        Integer totalBets = 0;
+        for (Integer bet : playerBets.values()) {
+            totalBets += bet;
+        }
+        return totalBets;
+    }
 }
