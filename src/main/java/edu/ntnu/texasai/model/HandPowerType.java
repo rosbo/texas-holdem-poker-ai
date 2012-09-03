@@ -1,7 +1,7 @@
 package edu.ntnu.texasai.model;
 
 public enum HandPowerType {
-    NOTHING(1),
+    HIGH_CARD(1),
     ONE_PAIR(2),
     TWO_PAIR(3),
     THREE_OF_A_KIND(4),

@@ -11,9 +11,9 @@ public class GameProperties {
         // TODO: Property load
         smallBlind = 10;
         bigBlind = 20;
-        initialMoney = 10000;
-        numberOfHands = 1000;
-        numberOfPlayers = 2;
+        initialMoney = 1000;
+        numberOfHands = 5;
+        numberOfPlayers = 4;
     }
 
     public Integer getSmallBlind() {

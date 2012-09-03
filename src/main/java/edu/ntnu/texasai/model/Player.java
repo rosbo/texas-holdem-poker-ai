@@ -15,7 +15,7 @@ public class Player {
 
     @Override
     public boolean equals(Object o) {
-        if(!(o instanceof Player)){
+        if (!(o instanceof Player)) {
             return false;
         }
 
@@ -29,6 +29,19 @@ public class Player {
         return number;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Player #");
+        stringBuilder.append(getNumber());
+
+        if (holeCards != null) {
+            stringBuilder.append(holeCards.toString());
+        }
+
+        return stringBuilder.toString();
+    }
+
     public Integer getNumber() {
         return number;
     }
@@ -39,6 +52,10 @@ public class Player {
 
     public void removeMoney(Integer amount) {
         money -= amount;
+    }
+
+    public void addMoney(Integer amount) {
+        money += amount;
     }
 
     public void setHoleCards(Card hole1, Card hole2) {
