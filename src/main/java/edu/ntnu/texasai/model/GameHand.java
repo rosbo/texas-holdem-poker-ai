@@ -21,9 +21,9 @@ public class GameHand {
     public void nextRound() {
         bettingRounds.add(new BettingRound());
 
-        if (getBettingRoundCount().equals(1)) {
+        if (getBettingRoundName().equals(BettingRoundName.PRE_FLOP)) {
             dealHoleCards();
-        } else if (getBettingRoundCount().equals(2)) {
+        } else if (getBettingRoundName().equals(BettingRoundName.POST_FLOP)) {
             dealFlopCards();
         } else {
             dealSharedCard();
@@ -37,6 +37,18 @@ public class GameHand {
         }
         hasRemoved = false;
         return getCurrentPlayer();
+    }
+
+    public Integer getTotalBets() {
+        Integer totalBets = 0;
+        for (BettingRound bettingRound : bettingRounds) {
+            totalBets += bettingRound.getTotalBets();
+        }
+        return totalBets;
+    }
+
+    public BettingRoundName getBettingRoundName(){
+        return BettingRoundName.fromRoundNumber(bettingRounds.size());
     }
 
     public Player getCurrentPlayer() {
@@ -55,10 +67,6 @@ public class GameHand {
         return bettingRounds.get(bettingRounds.size() - 1);
     }
 
-    public Integer getBettingRoundCount() {
-        return bettingRounds.size();
-    }
-
     public void removeCurrentPlayer() {
         players.removeFirst();
         hasRemoved = true;
@@ -66,14 +74,6 @@ public class GameHand {
 
     public Iterable<Player> getActivePlayers() {
         return players;
-    }
-
-    public Integer getTotalBets() {
-        Integer totalBets = 0;
-        for (BettingRound bettingRound : bettingRounds) {
-            totalBets += bettingRound.getTotalBets();
-        }
-        return totalBets;
     }
 
     private void dealHoleCards() {

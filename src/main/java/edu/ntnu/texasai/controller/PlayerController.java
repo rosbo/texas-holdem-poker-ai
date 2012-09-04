@@ -1,9 +1,6 @@
 package edu.ntnu.texasai.controller;
 
-import edu.ntnu.texasai.model.BettingDecision;
-import edu.ntnu.texasai.model.Card;
-import edu.ntnu.texasai.model.GameHand;
-import edu.ntnu.texasai.model.Player;
+import edu.ntnu.texasai.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +18,12 @@ public abstract class PlayerController {
         }
     }
 
-    public abstract BettingDecision decidePreFlop(Player player, GameHand gameHand, List<Card> cards);
+    protected boolean canCheck(GameHand gameHand, Player player) {
+        BettingRound bettingRound = gameHand.getCurrentBettingRound();
+        return bettingRound.getHighestBet().equals(bettingRound.getBetForPlayer(player));
+    }
 
-    public abstract BettingDecision decideAfterFlop(Player player, GameHand gameHand, List<Card> cards);
+    protected abstract BettingDecision decidePreFlop(Player player, GameHand gameHand, List<Card> cards);
+
+    protected abstract BettingDecision decideAfterFlop(Player player, GameHand gameHand, List<Card> cards);
 }

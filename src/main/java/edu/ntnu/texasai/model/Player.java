@@ -1,16 +1,20 @@
 package edu.ntnu.texasai.model;
 
+import edu.ntnu.texasai.controller.PlayerController;
+
 import java.util.Arrays;
 import java.util.List;
 
 public class Player {
     private final Integer number;
+    private final PlayerController playerController;
     private Integer money;
     private List<Card> holeCards;
 
-    public Player(Integer number, Integer money) {
+    public Player(Integer number, Integer initialMoney, PlayerController playerController) {
         this.number = number;
-        this.money = money;
+        this.money = initialMoney;
+        this.playerController = playerController;
     }
 
     @Override
@@ -40,6 +44,10 @@ public class Player {
         }
 
         return stringBuilder.toString();
+    }
+
+    public BettingDecision decide(GameHand gameHand){
+        return playerController.decide(this, gameHand);
     }
 
     public Integer getNumber() {

@@ -8,7 +8,10 @@ public class ControllerModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(PokerController.class).in(Singleton.class);
-        bind(PlayerController.class).to(PlayerControllerPhaseI.class).in(Singleton.class);
+        bind(GameHandController.class).in(Singleton.class);
+
+        bind(PlayerControllerPhaseI.class).in(Singleton.class);
+        bind(PlayerControllerPhaseII.class).in(Singleton.class);
 
         bind(HandPowerRanker.class).in(Singleton.class);
     }

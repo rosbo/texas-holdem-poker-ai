@@ -27,11 +27,6 @@ public class PlayerControllerPhaseI extends PlayerController {
         }
     }
 
-    private boolean canCheck(GameHand gameHand, Player player) {
-        BettingRound bettingRound = gameHand.getCurrentBettingRound();
-        return bettingRound.getHighestBet().equals(bettingRound.getBetForPlayer(player));
-    }
-
     @Override
     public BettingDecision decideAfterFlop(Player player, GameHand gameHand, List<Card> cards) {
         HandPower handPower = handPowerRanker.rank(cards);
