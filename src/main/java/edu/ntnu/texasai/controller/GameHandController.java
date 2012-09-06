@@ -1,6 +1,7 @@
 package edu.ntnu.texasai.controller;
 
 import edu.ntnu.texasai.model.*;
+import edu.ntnu.texasai.model.cards.Card;
 import edu.ntnu.texasai.utils.GameProperties;
 import edu.ntnu.texasai.utils.Logger;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameHandController {
-    private final Logger logger;
+    protected final Logger logger;
     private final HandPowerRanker handPowerRanker;
     private final GameProperties gameProperties;
 
@@ -43,7 +44,7 @@ public class GameHandController {
         return gameHand;
     }
 
-    private Boolean playRound(GameHand gameHand) {
+    protected Boolean playRound(GameHand gameHand) {
         gameHand.nextRound();
         logBettingRound(gameHand);
         Integer toPlay = gameHand.getPlayersCount();
@@ -148,7 +149,7 @@ public class GameHandController {
         return winners;
     }
 
-    private void showDown(GameHand gameHand) {
+    protected void showDown(GameHand gameHand) {
         logger.log("--- Showdown");
 
         // Showdown

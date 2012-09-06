@@ -2,6 +2,8 @@ package edu.ntnu.texasai.model;
 
 import java.util.List;
 
+import edu.ntnu.texasai.model.cards.CardNumber;
+
 public class HandPower implements Comparable<HandPower> {
     private final HandPowerType handPowerType;
     private final List<CardNumber> tieBreakingInformation;
@@ -11,7 +13,6 @@ public class HandPower implements Comparable<HandPower> {
         this.tieBreakingInformation = tieBreakingInformation;
     }
 
-    @Override
     public int compareTo(HandPower other) {
         int typeDifference = handPowerType.getPower() - other.handPowerType.getPower();
         if (typeDifference == 0) {

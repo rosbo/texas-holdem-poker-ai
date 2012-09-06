@@ -5,6 +5,9 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.ntnu.texasai.model.cards.Card;
+import edu.ntnu.texasai.model.cards.Deck;
+
 public class GameHand {
     private final Deque<Player> players;
     private final Deck deck;
@@ -93,5 +96,13 @@ public class GameHand {
 
     private void dealSharedCard() {
         sharedCards.add(deck.removeTopCard());
+    }
+    
+    public Deque<Player> getPlayers(){
+    	return this.players;
+    }
+    
+    public Deck getDeck(){
+    	return this.deck;
     }
 }

@@ -19,6 +19,10 @@ public class Game {
     public List<Player> getPlayers(){
         return players;
     }
+    
+    public void addPlayer(Player player){
+    	this.players.add(player);
+    }
 
     public void addGameHand(GameHand gameHand) {
         gameHands.add(gameHand);

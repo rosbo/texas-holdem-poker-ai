@@ -1,6 +1,7 @@
 package edu.ntnu.texasai.controller;
 
 import edu.ntnu.texasai.model.*;
+import edu.ntnu.texasai.model.cards.Card;
 
 import javax.inject.Inject;
 import java.util.List;

@@ -2,6 +2,8 @@ package edu.ntnu.texasai.controller;
 
 import com.google.inject.AbstractModule;
 
+import edu.ntnu.texasai.model.cards.EquivalenceClass;
+
 import javax.inject.Singleton;
 
 public class ControllerModule extends AbstractModule {
@@ -12,7 +14,7 @@ public class ControllerModule extends AbstractModule {
 
         bind(PlayerControllerPhaseI.class).in(Singleton.class);
         bind(PlayerControllerPhaseII.class).in(Singleton.class);
-
+        bind(EquivalenceClassController.class).in(Singleton.class);
         bind(HandPowerRanker.class).in(Singleton.class);
     }
 }

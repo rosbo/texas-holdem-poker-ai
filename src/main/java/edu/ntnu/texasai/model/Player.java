@@ -1,6 +1,7 @@
 package edu.ntnu.texasai.model;
 
 import edu.ntnu.texasai.controller.PlayerController;
+import edu.ntnu.texasai.model.cards.Card;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +17,8 @@ public class Player {
         this.money = initialMoney;
         this.playerController = playerController;
     }
+    
+
 
     @Override
     public boolean equals(Object o) {

@@ -1,13 +1,16 @@
 package edu.ntnu.texasai.controller;
 
 import edu.ntnu.texasai.model.*;
+import edu.ntnu.texasai.model.cards.Card;
+import edu.ntnu.texasai.model.cards.CardNumber;
+import edu.ntnu.texasai.model.cards.CardSuit;
 import edu.ntnu.texasai.utils.MapList;
 
 import java.util.*;
 
 public class HandPowerRanker {
     private final Comparator<CardNumber> cardNumberComparator = new Comparator<CardNumber>() {
-        @Override
+        
         public int compare(CardNumber cardNumber1, CardNumber cardNumber2) {
             return cardNumber1.getPower() - cardNumber2.getPower();
         }

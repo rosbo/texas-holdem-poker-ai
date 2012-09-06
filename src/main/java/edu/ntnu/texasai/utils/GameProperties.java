@@ -21,7 +21,7 @@ public class GameProperties {
         smallBlind = 10;
         bigBlind = 20;
         initialMoney = 1000;
-        numberOfHands = 5;
+        numberOfHands = 2;
 
         players.add(new Player(1, initialMoney, playerControllerPhaseI));
         players.add(new Player(2, initialMoney, playerControllerPhaseI));
@@ -43,5 +43,9 @@ public class GameProperties {
 
     public List<Player> getPlayers() {
         return players;
+    }
+    
+    public Integer getInitialMoney(){
+    	return this.initialMoney;
     }
 }

@@ -1,12 +1,14 @@
 package edu.ntnu.texasai.dependencyinjection;
 
+import javax.inject.Singleton;
+
 import com.google.inject.AbstractModule;
+
 import edu.ntnu.texasai.controller.ControllerModule;
+import edu.ntnu.texasai.controller.GameHandController;
 import edu.ntnu.texasai.utils.ConsoleLogger;
 import edu.ntnu.texasai.utils.GameProperties;
 import edu.ntnu.texasai.utils.Logger;
-
-import javax.inject.Singleton;
 
 public class TexasModule extends AbstractModule {
     @Override
@@ -16,5 +18,6 @@ public class TexasModule extends AbstractModule {
         bind(GameProperties.class).in(Singleton.class);
 
         bind(Logger.class).to(ConsoleLogger.class);
+     
     }
 }
