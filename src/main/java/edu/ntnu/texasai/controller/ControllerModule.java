@@ -16,5 +16,6 @@ public class ControllerModule extends AbstractModule {
         bind(PlayerControllerPhaseII.class).in(Singleton.class);
         bind(EquivalenceClassController.class).in(Singleton.class);
         bind(HandPowerRanker.class).in(Singleton.class);
+        bind(StatisticsController.class).in(Singleton.class);
     }
 }

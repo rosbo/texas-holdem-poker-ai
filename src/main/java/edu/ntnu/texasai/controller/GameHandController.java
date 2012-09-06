@@ -13,13 +13,15 @@ public class GameHandController {
     protected final Logger logger;
     private final HandPowerRanker handPowerRanker;
     private final GameProperties gameProperties;
+    private final StatisticsController statisticsController;
 
     @Inject
     public GameHandController(final Logger logger, final HandPowerRanker handPowerRanker,
-                              final GameProperties gameProperties) {
+                              final GameProperties gameProperties, final StatisticsController statisticsController) {
         this.logger = logger;
         this.handPowerRanker = handPowerRanker;
         this.gameProperties = gameProperties;
+        this.statisticsController = statisticsController;
     }
 
     public void play(Game game) {
@@ -146,6 +148,7 @@ public class GameHandController {
                 winners.add(player);
             }
         }
+        statisticsController.storeWinners(winners);
         return winners;
     }
 
@@ -169,4 +172,5 @@ public class GameHandController {
             modulo--;
         }
     }
+
 }

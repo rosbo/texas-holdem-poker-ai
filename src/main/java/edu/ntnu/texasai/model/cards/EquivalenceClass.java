@@ -2,17 +2,13 @@ package edu.ntnu.texasai.model.cards;
 
 import java.util.List;
 
-
 public abstract class EquivalenceClass {
 	private CardNumber number1, number2;
 
 	public EquivalenceClass(CardNumber number1, CardNumber number2) {
 		this.number1 = number1;
 		this.number2 = number2;
-		
 	}
-
-
 
 	public CardNumber getNumber1() {
 		return number1;
@@ -31,8 +27,6 @@ public abstract class EquivalenceClass {
 		return result;
 	}
 
-
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -46,10 +40,9 @@ public abstract class EquivalenceClass {
 			return false;
 		if (number2 != other.number2)
 			return false;
-		return (number1 == other.number1 && number2 == other.number2)||(number1 == other.number2 && number2 == other.number1);
+		return (number1 == other.number1 && number2 == other.number2)
+				|| (number1 == other.number2 && number2 == other.number1);
 	}
-
-
 
 	public abstract List<Card> equivalence2cards();
 

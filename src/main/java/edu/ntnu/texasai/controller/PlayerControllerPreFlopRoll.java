@@ -13,7 +13,7 @@ import edu.ntnu.texasai.model.cards.Card;
 
 
 /**
- * A naive player that cannot fold. Used during pre flop rollout simulations
+ * A naive player that cannot fold but only bet. Used during pre flop rollout simulations
  * */
 public class PlayerControllerPreFlopRoll extends PlayerController{
 	 private final HandPowerRanker handPowerRanker;

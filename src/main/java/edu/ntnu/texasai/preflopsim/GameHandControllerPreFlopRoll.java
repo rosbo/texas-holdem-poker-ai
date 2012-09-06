@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 
 import edu.ntnu.texasai.controller.GameHandController;
 import edu.ntnu.texasai.controller.HandPowerRanker;
+import edu.ntnu.texasai.controller.StatisticsController;
 import edu.ntnu.texasai.model.BettingRoundName;
 import edu.ntnu.texasai.model.Game;
 import edu.ntnu.texasai.model.GameHand;
@@ -15,8 +16,8 @@ public class GameHandControllerPreFlopRoll extends GameHandController{
 
 	@Inject
 	public GameHandControllerPreFlopRoll(Logger logger,
-			HandPowerRanker handPowerRanker, GameProperties gameProperties) {
-		super(logger, handPowerRanker, gameProperties);
+			HandPowerRanker handPowerRanker, GameProperties gameProperties,StatisticsController statisticsController) {
+		super(logger, handPowerRanker, gameProperties, statisticsController);
 		
 	}
 	
