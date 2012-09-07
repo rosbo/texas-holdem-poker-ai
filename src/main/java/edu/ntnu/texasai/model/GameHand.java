@@ -79,7 +79,7 @@ public class GameHand {
         return players;
     }
 
-    private void dealHoleCards() {
+    protected void dealHoleCards() {
         for (Player player : players) {
             Card hole1 = deck.removeTopCard();
             Card hole2 = deck.removeTopCard();

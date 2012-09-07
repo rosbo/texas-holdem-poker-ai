@@ -46,11 +46,11 @@ public class PreFlopSimController {
 
 		this.equivalenceClassController.generateAllEquivalenceClass();
 
-		game.addPlayer(new Player(1, gameProperties.getInitialMoney(),
+		game.addPlayer(new Player(0, gameProperties.getInitialMoney(),
 				playerControllerPreFlopRoll));
 		Collection<EquivalenceClass> equivalenceClasses = equivalenceClassController
 				.getEquivalenceClasses();
-		for (int numberOfPlayers = 1; numberOfPlayers <= 10; numberOfPlayers++) { 
+		for (int numberOfPlayers = 1; numberOfPlayers < 2; numberOfPlayers++) { 
 
 			game.addPlayer(new Player(numberOfPlayers, gameProperties
 					.getInitialMoney(), playerControllerPreFlopRoll));
@@ -58,17 +58,17 @@ public class PreFlopSimController {
 				this.statisticsController.initializeStatistics();
 				for (int i = 0; i < gameProperties.getNumberOfHands(); i++) {
 					gameHandControllerPreFlopRoll.play(game, eqCl);
-					game.setNextDealer();
+					game.setNextDealer();					
 				}
 
-				Integer percentageOfWinsPlayer0 = this.statisticsController
-						.getPercentageOfWins(new Integer(0),
+				Double percentageOfWinsPlayer0 = this.statisticsController
+						.getPercentageOfWinsPlayer0(
 								gameProperties.getNumberOfHands());
 				logger.log("=================");
 				logger.log("STATISTICS FOR EQUIVALENCE CLASS " + eqCl.toString());
 				logger.log("Number of hands played: " + gameProperties.getNumberOfHands());
-				logger.log("Percentage of wins is " + percentageOfWinsPlayer0.toString());
-				this.statisticsController.clearStatistics();
+				logger.log("Percentage of wins is " + percentageOfWinsPlayer0);
+//				this.statisticsController.clearStatistics();
 			}
 
 		}

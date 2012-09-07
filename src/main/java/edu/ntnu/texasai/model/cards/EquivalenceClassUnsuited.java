@@ -23,5 +23,11 @@ public class EquivalenceClassUnsuited extends EquivalenceClass{
 		cards.add(card2);
 		return cards;
 	}
+	
+	@Override
+	public String toString() {
+		return "EquivalenceClassUnsuited [number1=" + getNumber1() + ", number2="
+				+ getNumber2() + "]";
+	}
 
 }

@@ -1,5 +1,6 @@
 package edu.ntnu.texasai.preflopsim;
 
+import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
@@ -23,28 +24,34 @@ public class GameHandPreFlopRoll extends GameHand{
 	 * players0's hole cards are the same of equivalence cards, while the other players
 	 * receive random cards form the top of the deck.
 	 * */
-	private void dealHoleCards() {
+	@Override
+	protected void dealHoleCards() {
+		
 		Deck deck = this.getDeck();
 		Player player0 = null;
 		Deque<Player> players = this.getPlayers();				
 		for (Player p : players){//the players are not sorted, the first one is the dealer
 			if(p.getNumber().equals(new Integer(0))){
 				player0 = p;
-				players.remove(player0);
 			}
 		}		
-		List<Card> holeCards = equivalenceClass.equivalence2cards();
+		players.remove(player0);
+		
+		List<Card> holeCards = this.equivalenceClass.equivalence2cards();
 		Card hole1 = holeCards.get(0);
-		Card hole2 = holeCards.get(1);
-		deck.removeCard(hole1);
-		deck.removeCard(hole2);			
+		Card hole2 = holeCards.get(1);	
 		player0.setHoleCards(hole1, hole2);		
+		deck.removeCard(hole1);
+		deck.removeCard(hole2);		
+		
 		//other players card are random
         for (Player player : this.getPlayers()) {
             hole1 = deck.removeTopCard();
             hole2 = deck.removeTopCard();
             player.setHoleCards(hole1, hole2);
         }
+        
+        players.add(player0);
     }
 	
 	

@@ -35,11 +35,10 @@ public class EquivalenceClassControllerTest {
 	public void testGenerateAllEquivalenceClass() {
 		this.equivalenceClassController.generateAllEquivalenceClass();
 
-		for (EquivalenceClass eq : this.equivalenceClassController.getCard2())
+		for (EquivalenceClass eq : this.equivalenceClassController.getEquivalenceClasses())
 			System.out.println(eq.toString());
 		//
-		assertEquals(169, this.equivalenceClassController
-				.getEquivalenceClasses().size());
+	assertEquals(169, this.equivalenceClassController.getEquivalenceClasses().size());
 		// assertEquals(169,this.equivalenceClassController.getCard2().size());
 	}
 
