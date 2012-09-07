@@ -21,7 +21,7 @@ public class GameProperties {
         smallBlind = 10;
         bigBlind = 20;
         initialMoney = 1000;
-        numberOfHands = 10;
+        numberOfHands = 3;
 
         players.add(new Player(1, initialMoney, playerControllerPhaseI));
         players.add(new Player(2, initialMoney, playerControllerPhaseI));

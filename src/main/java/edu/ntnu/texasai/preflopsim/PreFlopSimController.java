@@ -55,8 +55,8 @@ public class PreFlopSimController {
 				playerControllerPreFlopRoll));
 		Collection<EquivalenceClass> equivalenceClasses = equivalenceClassController
 				.getEquivalenceClasses();
-		for (int numberOfPlayers = 2; numberOfPlayers <= 10; numberOfPlayers++) { 
-
+		for (int numberOfPlayers = 2; numberOfPlayers <= 4; numberOfPlayers++) { 
+//			gameProperties.getPlayers().size()
 			game.addPlayer(new Player(numberOfPlayers, gameProperties
 					.getInitialMoney(), playerControllerPreFlopRoll));
 			for (EquivalenceClass equivalenceClass : equivalenceClasses) {
