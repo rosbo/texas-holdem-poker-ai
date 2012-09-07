@@ -45,6 +45,8 @@ public abstract class EquivalenceClass {
 	}
 
 	public abstract List<Card> equivalence2cards();
+	
+	public abstract String getType();
 
 	@Override
 	public String toString() {

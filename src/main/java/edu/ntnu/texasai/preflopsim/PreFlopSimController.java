@@ -62,6 +62,7 @@ public class PreFlopSimController {
 			for (EquivalenceClass equivalenceClass : equivalenceClasses) {
 				this.statisticsController.initializeStatistics();
 				for (int i = 0; i < gameProperties.getNumberOfHands(); i++) {
+//					this.statisticsController.setCurrentNumberOfPlayers(new Integer(numberOfPlayers));
 					gameHandControllerPreFlopRoll.play(game, equivalenceClass);
 					game.setNextDealer();					
 				}

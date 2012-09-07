@@ -24,7 +24,7 @@ public class PersistenceController {
 		Connection conn = null;
 		try {
 			Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:equivalence_table", "sa", "");
+			conn = DriverManager.getConnection("jdbc:h2:equivalenceTable/equivalence_table", "sa", "");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,7 +34,7 @@ public class PersistenceController {
 		}
 		try {
 			Statement st = conn.createStatement();
-			String table = "CREATE TABLE Equivalence(id integer, players integer,number1 varchar(10),number2 varchar(10),wins integer)";
+			String table = "CREATE TABLE IF NOT EXISTS Equivalence(id integer, players integer,number1 varchar(10),number2 varchar(10), type varchar(10),wins integer)";
 			st.executeUpdate(table);
 			System.out.println("Table creation process successfully!");
 		} catch (SQLException s) {
@@ -53,7 +53,7 @@ public class PersistenceController {
 		Connection conn = null;
 		try {
 			Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:equivalence_table", "sa", "");
+			conn = DriverManager.getConnection("jdbc:h2:equivalenceTable/equivalence_table", "sa", "");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,13 +62,14 @@ public class PersistenceController {
 			e.printStackTrace();
 		}
 		try {
-			String insert = "INSERT INTO Equivalence VALUES(?,?,?,?,?)";	
+			String insert = "INSERT INTO Equivalence VALUES(?,?,?,?,?,?)";	
 			PreparedStatement statement = conn.prepareStatement(insert);
 			statement.setInt(1, id);
 			statement.setInt(2, numberOfPlayers);
 			statement.setString(3, equivalenceClass.getNumber1().toString());
 			statement.setString(4, equivalenceClass.getNumber2().toString());
-			statement.setDouble(5, percentage);
+			statement.setString(5, equivalenceClass.getType());
+			statement.setDouble(6, percentage);
 			statement.executeUpdate();
 //			System.out.println("Table creation process successfully!");
 			statement.close();
@@ -89,7 +90,7 @@ public class PersistenceController {
 		Connection connection = null;
 		try {
 			Class.forName("org.h2.Driver");
-			connection = DriverManager.getConnection("jdbc:h2:equivalence_table", "sa", "");
+			connection = DriverManager.getConnection("jdbc:h2:equivalenceTable/equivalence_table", "sa", "");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

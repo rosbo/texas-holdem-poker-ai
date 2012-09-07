@@ -9,6 +9,11 @@ public class EquivalenceClassSuited extends EquivalenceClass {
 		super(number1, number2);
 
 	}
+	
+	@Override
+	public String getType(){
+		return "SUITED";
+	}
 
 	@Override
 	public List<Card> equivalence2cards() {
