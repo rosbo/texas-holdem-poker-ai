@@ -18,6 +18,6 @@ public class TexasModule extends AbstractModule {
         bind(GameProperties.class).in(Singleton.class);
 
         bind(Logger.class).to(ConsoleLogger.class);
-     
+
     }
 }

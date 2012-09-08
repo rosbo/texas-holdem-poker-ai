@@ -12,13 +12,12 @@ public class Player {
     private Integer money;
     private List<Card> holeCards;
 
-    public Player(Integer number, Integer initialMoney, PlayerController playerController) {
+    public Player(Integer number, Integer initialMoney,
+            PlayerController playerController) {
         this.number = number;
         this.money = initialMoney;
         this.playerController = playerController;
     }
-    
-
 
     @Override
     public boolean equals(Object o) {
@@ -49,7 +48,7 @@ public class Player {
         return stringBuilder.toString();
     }
 
-    public BettingDecision decide(GameHand gameHand){
+    public BettingDecision decide(GameHand gameHand) {
         return playerController.decide(this, gameHand);
     }
 

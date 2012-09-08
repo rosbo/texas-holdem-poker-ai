@@ -11,19 +11,18 @@ import edu.ntnu.texasai.preflopsim.PreFlopSimulatorModule;
 
 public class PersistenceControllerTest {
 
-	private PersistenceController persistenceController;
+    private PersistenceController persistenceController;
 
-	@Before
-	public void setUp() throws Exception {
-		Injector injector = Guice.createInjector(new PreFlopSimulatorModule());
-		this.persistenceController = injector
-				.getInstance(PersistenceController.class);
-	}
+    @Before
+    public void setUp() throws Exception {
+        Injector injector = Guice.createInjector(new PreFlopSimulatorModule());
+        this.persistenceController = injector
+                .getInstance(PersistenceController.class);
+    }
 
-	@Test
-	public void testPrintAll() {
-		// fail("Not yet implemented");
-		this.persistenceController.printAll();
-	}
+    @Test
+    public void testPrintAll() {
+        this.persistenceController.printAll();
+    }
 
 }

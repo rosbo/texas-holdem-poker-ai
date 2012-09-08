@@ -23,7 +23,7 @@ public class EquivalenceClassController {
 	
 	@Inject
 	public EquivalenceClassController() {
-		this.equivalenceClasses = new ArrayList<EquivalenceClass>();
+        this.equivalenceClasses = new ArrayList<EquivalenceClass>();
 		this.cards1 = new ArrayList<Card>();
 		this.cards2 = new ArrayList<EquivalenceClass>();
 	}

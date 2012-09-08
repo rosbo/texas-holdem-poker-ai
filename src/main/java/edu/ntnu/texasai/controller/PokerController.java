@@ -14,8 +14,8 @@ public class PokerController {
     private final GameHandController gameHandController;
 
     @Inject
-    public PokerController(final GameHandController gameHandController, final Logger logger,
-                           final GameProperties gameProperties) {
+    public PokerController(final GameHandController gameHandController,
+            final Logger logger, final GameProperties gameProperties) {
         this.gameHandController = gameHandController;
         this.logger = logger;
         this.gameProperties = gameProperties;

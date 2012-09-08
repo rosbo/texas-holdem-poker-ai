@@ -17,81 +17,87 @@ import edu.ntnu.texasai.utils.GameProperties;
 import edu.ntnu.texasai.utils.Logger;
 
 public class PreFlopSimController {
-	private final Game game;
-	private final Logger logger;
-	private final GameProperties gameProperties;
-	private final GameHandController gameHandController;
-	private final PlayerControllerPreFlopRoll playerControllerPreFlopRoll;
-	private final EquivalenceClassController equivalenceClassController;
-	private final GameHandControllerPreFlopRoll gameHandControllerPreFlopRoll;
-	private final StatisticsController statisticsController;
-	private final PersistenceController persistenceController;
+    private final Game game;
+    private final Logger logger;
+    private final GameProperties gameProperties;
+    private final GameHandController gameHandController;
+    private final PlayerControllerPreFlopRoll playerControllerPreFlopRoll;
+    private final EquivalenceClassController equivalenceClassController;
+    private final GameHandControllerPreFlopRoll gameHandControllerPreFlopRoll;
+    private final StatisticsController statisticsController;
+    private final PersistenceController persistenceController;
 
-	@Inject
-	public PreFlopSimController(final GameHandController gameHandController,
-			final Logger logger, final GameProperties gameProperties,
-			final PlayerControllerPreFlopRoll playerControllerPreFlopRoll,
-			final EquivalenceClassController equivalenceClassController,
-			final GameHandControllerPreFlopRoll gameHandControllerPreFlopRoll,
-			final StatisticsController statisticsController, final PersistenceController persistenceController) {
-		this.gameHandController = gameHandController;
-		this.logger = logger;
-		this.gameProperties = gameProperties;
-		this.playerControllerPreFlopRoll = playerControllerPreFlopRoll;
-		this.equivalenceClassController = equivalenceClassController;
-		this.gameHandControllerPreFlopRoll = gameHandControllerPreFlopRoll;
-		this.statisticsController = statisticsController;
-		this.persistenceController = persistenceController;
-		game = new Game(new ArrayList<Player>());
-	}
+    @Inject
+    public PreFlopSimController(final GameHandController gameHandController,
+            final Logger logger, final GameProperties gameProperties,
+            final PlayerControllerPreFlopRoll playerControllerPreFlopRoll,
+            final EquivalenceClassController equivalenceClassController,
+            final GameHandControllerPreFlopRoll gameHandControllerPreFlopRoll,
+            final StatisticsController statisticsController,
+            final PersistenceController persistenceController) {
+        this.gameHandController = gameHandController;
+        this.logger = logger;
+        this.gameProperties = gameProperties;
+        this.playerControllerPreFlopRoll = playerControllerPreFlopRoll;
+        this.equivalenceClassController = equivalenceClassController;
+        this.gameHandControllerPreFlopRoll = gameHandControllerPreFlopRoll;
+        this.statisticsController = statisticsController;
+        this.persistenceController = persistenceController;
+        game = new Game(new ArrayList<Player>());
+    }
 
-	public void play() {
-		
-		int idDatabase = 0;
+    public void play() {
 
-		this.equivalenceClassController.generateAllEquivalenceClass();
+        int idDatabase = 0;
 
-		game.addPlayer(new Player(0, gameProperties.getInitialMoney(),
-				playerControllerPreFlopRoll));
-		Collection<EquivalenceClass> equivalenceClasses = equivalenceClassController
-				.getEquivalenceClasses();
-		for (int numberOfPlayers = 2; numberOfPlayers <= 4; numberOfPlayers++) { 
-//			gameProperties.getPlayers().size()
-			game.addPlayer(new Player(numberOfPlayers, gameProperties
-					.getInitialMoney(), playerControllerPreFlopRoll));
-			for (EquivalenceClass equivalenceClass : equivalenceClasses) {
-				this.statisticsController.initializeStatistics();
-				for (int i = 0; i < gameProperties.getNumberOfHands(); i++) {
-//					this.statisticsController.setCurrentNumberOfPlayers(new Integer(numberOfPlayers));
-					gameHandControllerPreFlopRoll.play(game, equivalenceClass);
-					game.setNextDealer();					
-				}
+        this.equivalenceClassController.generateAllEquivalenceClass();
 
-				Double percentageOfWinsPlayer0 = this.statisticsController
-						.getPercentageOfWinsPlayer0(
-								gameProperties.getNumberOfHands());
-				logger.log("=================");
-				logger.log("STATISTICS FOR EQUIVALENCE CLASS " + equivalenceClass.toString());
-				logger.log("Number of hands played: " + gameProperties.getNumberOfHands());
-				logger.log("Number players: " + numberOfPlayers);
-				logger.log("Percentage of wins is " + percentageOfWinsPlayer0);
-//				this.statisticsController.clearStatistics();
-				idDatabase ++;
-				
-				this.persistenceController.persistResult(new Integer(idDatabase), numberOfPlayers, equivalenceClass, percentageOfWinsPlayer0);
-			}
-			
-		}
-//		printFinalStats();
-	}
+        game.addPlayer(new Player(0, gameProperties.getInitialMoney(),
+                playerControllerPreFlopRoll));
+        Collection<EquivalenceClass> equivalenceClasses = equivalenceClassController
+                .getEquivalenceClasses();
+        for (int numberOfPlayers = 2; numberOfPlayers <= 4; numberOfPlayers++) {
+            // gameProperties.getPlayers().size()
+            game.addPlayer(new Player(numberOfPlayers, gameProperties
+                    .getInitialMoney(), playerControllerPreFlopRoll));
+            for (EquivalenceClass equivalenceClass : equivalenceClasses) {
+                this.statisticsController.initializeStatistics();
+                for (int i = 0; i < gameProperties.getNumberOfHands(); i++) {
+                    // this.statisticsController.setCurrentNumberOfPlayers(new
+                    // Integer(numberOfPlayers));
+                    gameHandControllerPreFlopRoll.play(game, equivalenceClass);
+                    game.setNextDealer();
+                }
 
-//	private void printFinalStats() {
-//		logger.log("-----------------------------------------");
-//		logger.log("Statistics");
-//		logger.log("-----------------------------------------");
-//		logger.log("Number of hands played: " + game.gameHandsCount());
-//		for (Player player : game.getPlayers()) {
-//			logger.log(player.toString() + ": " + player.getMoney() + "$");
-//		}
-//	}
+                Double percentageOfWinsPlayer0 = this.statisticsController
+                        .getPercentageOfWinsPlayer0(gameProperties
+                                .getNumberOfHands());
+                logger.log("=================");
+                logger.log("STATISTICS FOR EQUIVALENCE CLASS "
+                        + equivalenceClass.toString());
+                logger.log("Number of hands played: "
+                        + gameProperties.getNumberOfHands());
+                logger.log("Number players: " + numberOfPlayers);
+                logger.log("Percentage of wins is " + percentageOfWinsPlayer0);
+                // this.statisticsController.clearStatistics();
+                idDatabase++;
+
+                this.persistenceController.persistResult(
+                        new Integer(idDatabase), numberOfPlayers,
+                        equivalenceClass, percentageOfWinsPlayer0);
+            }
+
+        }
+        // printFinalStats();
+    }
+
+    // private void printFinalStats() {
+    // logger.log("-----------------------------------------");
+    // logger.log("Statistics");
+    // logger.log("-----------------------------------------");
+    // logger.log("Number of hands played: " + game.gameHandsCount());
+    // for (Player player : game.getPlayers()) {
+    // logger.log(player.toString() + ": " + player.getMoney() + "$");
+    // }
+    // }
 }

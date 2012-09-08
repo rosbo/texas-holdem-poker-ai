@@ -50,7 +50,7 @@ public class GameHand {
         return totalBets;
     }
 
-    public BettingRoundName getBettingRoundName(){
+    public BettingRoundName getBettingRoundName() {
         return BettingRoundName.fromRoundNumber(bettingRounds.size());
     }
 
@@ -97,12 +97,12 @@ public class GameHand {
     private void dealSharedCard() {
         sharedCards.add(deck.removeTopCard());
     }
-    
-    public Deque<Player> getPlayers(){
-    	return this.players;
+
+    public Deque<Player> getPlayers() {
+        return this.players;
     }
-    
-    public Deck getDeck(){
-    	return this.deck;
+
+    public Deck getDeck() {
+        return this.deck;
     }
 }

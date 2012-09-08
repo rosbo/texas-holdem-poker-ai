@@ -22,7 +22,6 @@ public class DeckTest {
 
 	@Test
 	public void testDeck() {
-		//fail("Not yet implemented");
 		List<Card> cards = this.deck.getCards();
 		assertEquals(52,cards.size());
 		Card card = new Card(CardSuit.CLUB,CardNumber.ACE);

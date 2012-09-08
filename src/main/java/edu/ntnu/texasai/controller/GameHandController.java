@@ -16,8 +16,10 @@ public class GameHandController {
     private final StatisticsController statisticsController;
 
     @Inject
-    public GameHandController(final Logger logger, final HandPowerRanker handPowerRanker,
-                              final GameProperties gameProperties, final StatisticsController statisticsController) {
+    public GameHandController(final Logger logger,
+            final HandPowerRanker handPowerRanker,
+            final GameProperties gameProperties,
+            final StatisticsController statisticsController) {
         this.logger = logger;
         this.handPowerRanker = handPowerRanker;
         this.gameProperties = gameProperties;
@@ -31,7 +33,9 @@ public class GameHandController {
         GameHand gameHand = createGameHand(game);
 
         Boolean haveWinner = false;
-        while (!gameHand.getBettingRoundName().equals(BettingRoundName.POST_RIVER) && !haveWinner) {
+        while (!gameHand.getBettingRoundName().equals(
+                BettingRoundName.POST_RIVER)
+                && !haveWinner) {
             haveWinner = playRound(gameHand);
         }
 
@@ -62,7 +66,8 @@ public class GameHandController {
             BettingDecision bettingDecision = player.decide(gameHand);
 
             // We can't raise at second turn
-            if (turn > numberOfPlayersAtBeginningOfRound && bettingDecision.equals(BettingDecision.RAISE)) {
+            if (turn > numberOfPlayersAtBeginningOfRound
+                    && bettingDecision.equals(BettingDecision.RAISE)) {
                 bettingDecision = BettingDecision.CALL;
             }
 
@@ -100,31 +105,36 @@ public class GameHandController {
         Player smallBlindPlayer = gameHand.getNextPlayer();
         Player bigBlindPlayer = gameHand.getNextPlayer();
 
-        logger.log(smallBlindPlayer + ": Small blind " + gameProperties.getSmallBlind() + "$");
-        logger.log(bigBlindPlayer + ": Big blind " + gameProperties.getBigBlind() + "$");
+        logger.log(smallBlindPlayer + ": Small blind "
+                + gameProperties.getSmallBlind() + "$");
+        logger.log(bigBlindPlayer + ": Big blind "
+                + gameProperties.getBigBlind() + "$");
 
-        gameHand.getCurrentBettingRound().placeBet(smallBlindPlayer, gameProperties.getSmallBlind());
-        gameHand.getCurrentBettingRound().placeBet(bigBlindPlayer, gameProperties.getBigBlind());
+        gameHand.getCurrentBettingRound().placeBet(smallBlindPlayer,
+                gameProperties.getSmallBlind());
+        gameHand.getCurrentBettingRound().placeBet(bigBlindPlayer,
+                gameProperties.getBigBlind());
     }
 
-    private void applyDecision(GameHand gameHand, Player player, BettingDecision
-            bettingDecision) {
+    private void applyDecision(GameHand gameHand, Player player,
+            BettingDecision bettingDecision) {
         BettingRound bettingRound = gameHand.getCurrentBettingRound();
         Integer highestBet = bettingRound.getHighestBet();
         switch (bettingDecision) {
-            case FOLD:
-                gameHand.removeCurrentPlayer();
-                break;
-            case CALL:
-                bettingRound.placeBet(player, highestBet);
-                break;
-            case RAISE:
-                bettingRound.placeBet(player, highestBet + gameProperties.getBigBlind());
-                break;
+        case FOLD:
+            gameHand.removeCurrentPlayer();
+            break;
+        case CALL:
+            bettingRound.placeBet(player, highestBet);
+            break;
+        case RAISE:
+            bettingRound.placeBet(player,
+                    highestBet + gameProperties.getBigBlind());
+            break;
         }
 
-        logger.log(player + ": " + bettingDecision + " " + bettingRound.getBetForPlayer(player)
-                + "$");
+        logger.log(player + ": " + bettingDecision + " "
+                + bettingRound.getBetForPlayer(player) + "$");
     }
 
     private List<Player> getWinners(GameHand gameHand) {

@@ -19,7 +19,8 @@ public class BettingRound {
         if (bet >= highestBet) {
             highestBet = bet;
         } else {
-            throw new IllegalArgumentException("You can't bet less than the higher bet");
+            throw new IllegalArgumentException(
+                    "You can't bet less than the higher bet");
         }
 
         playerBets.put(player, bet);

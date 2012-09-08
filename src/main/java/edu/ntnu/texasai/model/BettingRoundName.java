@@ -5,14 +5,14 @@ public enum BettingRoundName {
 
     public static BettingRoundName fromRoundNumber(Integer bettingRoundNumber) {
         switch (bettingRoundNumber) {
-            case 2:
-                return POST_FLOP;
-            case 3:
-                return POST_TURN;
-            case 4:
-                return POST_RIVER;
-            default:
-                return PRE_FLOP;
+        case 2:
+            return POST_FLOP;
+        case 3:
+            return POST_TURN;
+        case 4:
+            return POST_RIVER;
+        default:
+            return PRE_FLOP;
         }
     }
 }

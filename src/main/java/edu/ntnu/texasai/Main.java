@@ -10,13 +10,13 @@ public class Main {
     public static void main(String[] args) {
         Injector injector = Guice.createInjector(new TexasModule());
 
-        StatisticsController statisticsController = injector.getInstance(StatisticsController.class); 
+        StatisticsController statisticsController = injector
+                .getInstance(StatisticsController.class);
         statisticsController.initializeStatistics();
-        
-        PokerController pokerController = injector.getInstance(PokerController.class);
+
+        PokerController pokerController = injector
+                .getInstance(PokerController.class);
         pokerController.play();
-        
-        
-        
+
     }
 }

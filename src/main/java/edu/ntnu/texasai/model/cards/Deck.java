@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
 public class Deck {
     private List<Card> cards = new ArrayList<Card>();
 
@@ -20,20 +19,19 @@ public class Deck {
     }
 
     public List<Card> getCards() {
-		return cards;
-	}
+        return cards;
+    }
 
-	public Card removeTopCard() {
+    public Card removeTopCard() {
         return cards.remove(0);
     }
-    
-   
-    public boolean removeCard(Card card){
-    	//TODO: remove card from the deck
-    	return cards.remove(card);
+
+    public boolean removeCard(Card card) {
+        // TODO: remove card from the deck
+        return cards.remove(card);
     }
 
-	public void setCards(List<Card> cards) {
-		this.cards = cards;
-	}
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
 }
