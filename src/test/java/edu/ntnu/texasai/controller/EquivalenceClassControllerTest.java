@@ -20,33 +20,23 @@ public class EquivalenceClassControllerTest {
     @Before
     public void setUp() throws Exception {
         Injector injector = Guice.createInjector(new PreFlopSimulatorModule());
-        this.equivalenceClassController = injector
-                .getInstance(EquivalenceClassController.class);
-
+        this.equivalenceClassController = injector.getInstance(EquivalenceClassController.class);
     }
 
     @Test
     public void testGenerateAllEquivalenceClass() {
         this.equivalenceClassController.generateAllEquivalenceClass();
-
         for (EquivalenceClass eq : this.equivalenceClassController
                 .getEquivalenceClasses())
             System.out.println(eq.toString());
-        //
-        assertEquals(169, this.equivalenceClassController
-                .getEquivalenceClasses().size());
-        // assertEquals(169,this.equivalenceClassController.getCard2().size());
+        assertEquals(169, this.equivalenceClassController.getEquivalenceClasses().size());
+
     }
 
     @Test
     public void testEquivalenceClasses() {
-        EquivalenceClass e1 = new EquivalenceClassSuited(CardNumber.ACE,
-                CardNumber.EIGHT);
-        EquivalenceClass e2 = new EquivalenceClassSuited(CardNumber.EIGHT,
-                CardNumber.ACE);
-        EquivalenceClass e3 = new EquivalenceClassSuited(CardNumber.ACE,
-                CardNumber.EIGHT);
-        assertEquals(e1, e3);
-        // assertEquals(e2, e3);
+        EquivalenceClass e1 = new EquivalenceClassSuited(CardNumber.ACE,CardNumber.EIGHT);
+        EquivalenceClass e2 = new EquivalenceClassSuited(CardNumber.ACE,CardNumber.EIGHT);
+        assertEquals(e1, e2);
     }
 }

@@ -30,9 +30,5 @@ public enum CardNumber {
 
     public Integer getPower() {
         return power;
-    }
-    
-
-    
-    
+    }    
 }

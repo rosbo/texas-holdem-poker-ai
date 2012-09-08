@@ -49,10 +49,8 @@ public class PlayerControllerPreFlopRoll extends PlayerController {
             if (canCheck(gameHand, player)) {
                 return BettingDecision.CALL;
             }
-            // return BettingDecision.FOLD;
             return BettingDecision.CALL;
-        } else if (handPowerType.getPower() >= HandPowerType.THREE_OF_A_KIND
-                .getPower()) {
+        } else if (handPowerType.getPower() >= HandPowerType.THREE_OF_A_KIND.getPower()) {
             return BettingDecision.RAISE;
         } else {
             return BettingDecision.CALL;

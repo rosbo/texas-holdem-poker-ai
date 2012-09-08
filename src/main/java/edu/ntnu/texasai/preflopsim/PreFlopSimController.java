@@ -79,25 +79,11 @@ public class PreFlopSimController {
                         + gameProperties.getNumberOfHands());
                 logger.log("Number players: " + numberOfPlayers);
                 logger.log("Percentage of wins is " + percentageOfWinsPlayer0);
-                // this.statisticsController.clearStatistics();
                 idDatabase++;
-
                 this.persistenceController.persistResult(
                         new Integer(idDatabase), numberOfPlayers,
                         equivalenceClass, percentageOfWinsPlayer0);
             }
-
         }
-        // printFinalStats();
     }
-
-    // private void printFinalStats() {
-    // logger.log("-----------------------------------------");
-    // logger.log("Statistics");
-    // logger.log("-----------------------------------------");
-    // logger.log("Number of hands played: " + game.gameHandsCount());
-    // for (Player player : game.getPlayers()) {
-    // logger.log(player.toString() + ": " + player.getMoney() + "$");
-    // }
-    // }
 }

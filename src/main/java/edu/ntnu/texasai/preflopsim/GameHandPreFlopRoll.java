@@ -1,6 +1,5 @@
 package edu.ntnu.texasai.preflopsim;
 
-import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 

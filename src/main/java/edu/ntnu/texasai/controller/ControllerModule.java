@@ -1,10 +1,7 @@
 package edu.ntnu.texasai.controller;
 
 import com.google.inject.AbstractModule;
-
-import edu.ntnu.texasai.model.cards.EquivalenceClass;
 import edu.ntnu.texasai.persistence.PersistenceController;
-
 import javax.inject.Singleton;
 
 public class ControllerModule extends AbstractModule {

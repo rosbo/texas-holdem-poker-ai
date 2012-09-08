@@ -7,15 +7,12 @@ public class EquivalenceClassUnsuited extends EquivalenceClass {
 
     public EquivalenceClassUnsuited(CardNumber number1, CardNumber number2) {
         super(number1, number2);
-
     }
 
     @Override
     public List<Card> equivalence2cards() {
-        // TODO Auto-generated method stub
         List<Card> cards = new ArrayList<Card>();
         Card card1, card2;
-
         card1 = new Card(CardSuit.HEART, this.getNumber1());
         card2 = new Card(CardSuit.SPADE, this.getNumber1());
         cards.add(card1);
@@ -30,8 +27,8 @@ public class EquivalenceClassUnsuited extends EquivalenceClass {
 
     @Override
     public String toString() {
-        return "EquivalenceClassUnsuited [number1=" + getNumber1()
-                + ", number2=" + getNumber2() + "]";
+        return "Equivalence Class Suited (" + getNumber1() + ","
+                + getNumber2() + ")";
     }
 
 }

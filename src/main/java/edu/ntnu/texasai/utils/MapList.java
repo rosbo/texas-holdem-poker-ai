@@ -5,7 +5,6 @@ import java.util.*;
 public class MapList<K, V> implements Iterable<List<V>> {
     private final Map<K, List<V>> mapList = new HashMap<K, List<V>>();
 
-    
     public Iterator<List<V>> iterator() {
         return mapList.values().iterator();
     }

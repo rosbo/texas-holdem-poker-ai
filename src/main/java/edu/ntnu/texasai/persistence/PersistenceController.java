@@ -28,10 +28,8 @@ public class PersistenceController {
             conn = DriverManager.getConnection(
                     "jdbc:h2:equivalenceTable/equivalence_table", "sa", "");
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         try {
@@ -46,7 +44,6 @@ public class PersistenceController {
         try {
             conn.close();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -66,10 +63,8 @@ public class PersistenceController {
             connection = DriverManager.getConnection(
                     "jdbc:h2:equivalenceTable/equivalence_table", "sa", "");
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         try {
@@ -86,7 +81,6 @@ public class PersistenceController {
         try {
             connection.close();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return percentageOfWins;
@@ -100,10 +94,8 @@ public class PersistenceController {
             conn = DriverManager.getConnection(
                     "jdbc:h2:equivalenceTable/equivalence_table", "sa", "");
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         try {
@@ -116,7 +108,6 @@ public class PersistenceController {
             statement.setString(5, equivalenceClass.getType());
             statement.setDouble(6, percentage);
             statement.executeUpdate();
-            // System.out.println("Table creation process successfully!");
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -126,7 +117,6 @@ public class PersistenceController {
             conn.close();
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -138,10 +128,8 @@ public class PersistenceController {
             connection = DriverManager.getConnection(
                     "jdbc:h2:equivalenceTable/equivalence_table", "sa", "");
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         String query = "SELECT * FROM Equivalences";
@@ -157,8 +145,7 @@ public class PersistenceController {
         }
         try {
             connection.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
+        } catch (SQLException e) {       
             e.printStackTrace();
         }
 

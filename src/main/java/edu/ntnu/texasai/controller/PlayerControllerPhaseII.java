@@ -8,9 +8,7 @@ import edu.ntnu.texasai.model.BettingDecision;
 import edu.ntnu.texasai.model.GameHand;
 import edu.ntnu.texasai.model.Player;
 import edu.ntnu.texasai.model.cards.Card;
-import edu.ntnu.texasai.model.cards.EquivalenceClass;
 import edu.ntnu.texasai.persistence.PersistenceController;
-import edu.ntnu.texasai.utils.GameProperties;
 
 public class PlayerControllerPhaseII extends PlayerController {
     private final PlayerControllerPhaseI playerControllerPhaseI;

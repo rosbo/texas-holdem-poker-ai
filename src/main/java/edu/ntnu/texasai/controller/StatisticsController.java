@@ -11,24 +11,18 @@ import edu.ntnu.texasai.model.Player;
 public class StatisticsController {
 
     private Map<Integer, Integer> players2wins;
-    // private Map<Integer,Integer> players2loses = new
-    // HashMap<Integer,Integer>();
     private Map<Integer, Integer> players2ties = new HashMap<Integer, Integer>();
     private Integer player0winnings;
-    private Integer currentNumberOfPlayers;
 
     @Inject
     public StatisticsController() {
         this.players2wins = new HashMap<Integer, Integer>();
         player0winnings = new Integer(0);
-        this.currentNumberOfPlayers = new Integer(0);
-
     }
 
     public void initializeStatistics() {
         for (int i = 0; i <= 10; i++) {
             this.players2wins.put(i, 0);
-            // this.players2loses.put(i, new Integer(0));
             this.players2ties.put(i, 0);
         }
         player0winnings = new Integer(0);
@@ -82,28 +76,15 @@ public class StatisticsController {
     public void clearStatistics() {
         this.players2ties.clear();
         this.players2wins.clear();
-
     }
 
-    public Double getPercentageOfWinsPlayer0(Integer numberOfHands) {
-        // return this.players2wins.get(0)/numberOfHands;
-        Double d = new Double(10);
-
+    public Double getPercentageOfWinsPlayer0(Integer numberOfHands) {       
         return new Double(player0winnings / new Double(numberOfHands));
-
     }
 
     public Integer getPlayer0Wins() {
-        // TODO Auto-generated method stub
         return player0winnings;
     }
 
-    // public Integer getCurrentNumberOfPlayers() {
-    // return this.currentNumberOfPlayers;
-    // }
-    //
-    // public void setCurrentNumberOfPlayers(Integer numberOfPlayers) {
-    // this.currentNumberOfPlayers = numberOfPlayers;
-    // }
 
 }

@@ -6,7 +6,6 @@ import com.google.inject.AbstractModule;
 
 import edu.ntnu.texasai.controller.ControllerModule;
 import edu.ntnu.texasai.controller.PlayerControllerPreFlopRoll;
-import edu.ntnu.texasai.controller.StatisticsController;
 import edu.ntnu.texasai.utils.ConsoleLogger;
 import edu.ntnu.texasai.utils.GameProperties;
 import edu.ntnu.texasai.utils.Logger;
