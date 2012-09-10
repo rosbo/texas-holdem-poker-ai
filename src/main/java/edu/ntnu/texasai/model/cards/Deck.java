@@ -27,11 +27,24 @@ public class Deck {
     }
 
     public boolean removeCard(Card card) {
-        // TODO: remove card from the deck
         return cards.remove(card);
     }
 
     public void setCards(List<Card> cards) {
         this.cards = cards;
+    }
+    
+    public List<List<Card>> fromDeckToCouplesOfCard(){
+        List<List<Card>> couplesOfCard = new ArrayList<List<Card>>();
+        int i,j;
+        for(i = 0; i < this.cards.size(); i++){           
+            for (j = i+1; j < this.cards.size(); j++){    
+                List<Card> tmpCards = new ArrayList<Card>();
+                tmpCards.add(this.cards.get(i));
+                tmpCards.add(this.cards.get(j));
+                couplesOfCard.add(tmpCards);
+            }                        
+        }
+        return couplesOfCard;
     }
 }

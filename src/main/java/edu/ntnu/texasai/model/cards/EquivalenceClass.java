@@ -48,10 +48,10 @@ public abstract class EquivalenceClass {
 	
 	public abstract String getType();
 
-	@Override
-	public String toString() {
-		return "EquivalenceClass [number1=" + number1 + ", number2=" + number2
-				+ "]";
-	}
+    @Override
+    public String toString() {
+        return "Equivalence Class (" + getNumber1() + ","
+                + getNumber2() + ")";
+    }
 
 }

@@ -10,6 +10,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import edu.ntnu.texasai.model.Player;
+import edu.ntnu.texasai.preflopsim.PlayerControllerPreFlopRoll;
 import edu.ntnu.texasai.preflopsim.PreFlopSimulatorModule;
 
 public class StatisticsControllerTest {

@@ -26,30 +26,9 @@ public class StatisticsController {
             this.players2ties.put(i, 0);
         }
         player0winnings = new Integer(0);
-
     }
 
-    public void storeWinners(List<Player> winners) {
-        // if(winners.size()==1){
-        // System.out.println("WINNER "+winners.get(0).getNumber());
-        // Player winner = winners.get(0);
-        // System.out.println(winner.toString());
-        // int numberOfWins = players2wins.get(winner.getNumber());
-        // this.players2wins.put(winner.getNumber(), new
-        // Integer(numberOfWins++));
-        // System.out.println("NUmber of wins " + numberOfWins);
-        // }else{
-        // for(Player tiePlayer : winners){
-        // TODO: tiePlayers if really needed
-        // int numberOfTies = players2ties.get(tiePlayer.getNumber());
-        // players2ties.put(tiePlayer.getNumber(), numberOfTies++);
-        // }
-        // }
-        // I don't know why storing the wins of all players was giving me
-        // problems
-        // At the moment we need only player0 wins in order to store it into the
-        // table
-        // I'll fix it later if we need it
+    public void storeWinners(List<Player> winners) {        
         for (Player winner : winners) {
             if (winner.getNumber() == 0) {
                 player0winnings++;

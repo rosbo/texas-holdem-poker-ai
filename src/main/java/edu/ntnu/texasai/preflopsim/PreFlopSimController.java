@@ -7,12 +7,11 @@ import javax.inject.Inject;
 
 import edu.ntnu.texasai.controller.EquivalenceClassController;
 import edu.ntnu.texasai.controller.GameHandController;
-import edu.ntnu.texasai.controller.PlayerControllerPreFlopRoll;
 import edu.ntnu.texasai.controller.StatisticsController;
 import edu.ntnu.texasai.model.Game;
 import edu.ntnu.texasai.model.Player;
 import edu.ntnu.texasai.model.cards.EquivalenceClass;
-import edu.ntnu.texasai.persistence.PersistenceController;
+import edu.ntnu.texasai.persistence.PersistenceManager;
 import edu.ntnu.texasai.utils.GameProperties;
 import edu.ntnu.texasai.utils.Logger;
 
@@ -25,7 +24,7 @@ public class PreFlopSimController {
     private final EquivalenceClassController equivalenceClassController;
     private final GameHandControllerPreFlopRoll gameHandControllerPreFlopRoll;
     private final StatisticsController statisticsController;
-    private final PersistenceController persistenceController;
+    private final PersistenceManager persistenceController;
 
     @Inject
     public PreFlopSimController(final GameHandController gameHandController,
@@ -34,7 +33,7 @@ public class PreFlopSimController {
             final EquivalenceClassController equivalenceClassController,
             final GameHandControllerPreFlopRoll gameHandControllerPreFlopRoll,
             final StatisticsController statisticsController,
-            final PersistenceController persistenceController) {
+            final PersistenceManager persistenceController) {
         this.gameHandController = gameHandController;
         this.logger = logger;
         this.gameProperties = gameProperties;

@@ -27,7 +27,7 @@ public class EquivalenceClassUnsuited extends EquivalenceClass {
 
     @Override
     public String toString() {
-        return "Equivalence Class Suited (" + getNumber1() + ","
+        return "Equivalence Class Unsuited (" + getNumber1() + ","
                 + getNumber2() + ")";
     }
 

@@ -4,7 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import edu.ntnu.texasai.controller.StatisticsController;
-import edu.ntnu.texasai.persistence.PersistenceController;
+import edu.ntnu.texasai.persistence.PersistenceManager;
 
 public class RunSimulator {
     public static void main(String[] args) {
@@ -13,8 +13,8 @@ public class RunSimulator {
                 .getInstance(StatisticsController.class);
         statisticsController.initializeStatistics();
 
-        PersistenceController persistenceController = injector
-                .getInstance(PersistenceController.class);
+        PersistenceManager persistenceController = injector
+                .getInstance(PersistenceManager.class);
         persistenceController.createTable();
 
         PreFlopSimController preFlopSimController = injector

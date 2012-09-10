@@ -8,28 +8,30 @@ import edu.ntnu.texasai.model.BettingDecision;
 import edu.ntnu.texasai.model.GameHand;
 import edu.ntnu.texasai.model.Player;
 import edu.ntnu.texasai.model.cards.Card;
-import edu.ntnu.texasai.persistence.PersistenceController;
+import edu.ntnu.texasai.persistence.PersistenceManager;
+import edu.ntnu.texasai.utils.Logger;
 
 public class PlayerControllerPhaseII extends PlayerController {
     private final PlayerControllerPhaseI playerControllerPhaseI;
-    private final PersistenceController persistanceController;
+    private final PersistenceManager persistanceController;
     private final EquivalenceClassController equivalenceClassController;
+    private final HandStrengthEvaluator handStrengthEvaluator;
+    private final Logger logger;
 
-    // private final GameProperties gameProperties;
     @Inject
-    public PlayerControllerPhaseII(
-            final PlayerControllerPhaseI playerControllerPhaseI,
-            final EquivalenceClassController equivalenceClassController,
-            final PersistenceController persistanceController) {
+    public PlayerControllerPhaseII(final PlayerControllerPhaseI playerControllerPhaseI,
+                    final EquivalenceClassController equivalenceClassController,
+                    final PersistenceManager persistanceController, final HandStrengthEvaluator handStrengthEvaluator,
+                    final Logger logger) {
         this.playerControllerPhaseI = playerControllerPhaseI;
         this.persistanceController = persistanceController;
         this.equivalenceClassController = equivalenceClassController;
-        // this.gameProperties = gameProperties;
+        this.handStrengthEvaluator = handStrengthEvaluator;
+        this.logger = logger;
     }
 
     @Override
-    public BettingDecision decidePreFlop(Player player, GameHand gameHand,
-            List<Card> cards) {
+    public BettingDecision decidePreFlop(Player player, GameHand gameHand, List<Card> cards) {
         // // TODO: Implement phase II : Pre flop rollout
         // I should fix an exception of guice about gameProperties and circular
         // dependencies
@@ -38,23 +40,29 @@ public class PlayerControllerPhaseII extends PlayerController {
         // EquivalenceClass equivalenceClass =
         // this.equivalenceClassController.cards2Equivalence(card1, card2);
         // Double percentageOfWins =
-        // this.persistanceController.retrievePercentageOfWinsByPlayerAndEquivalenceClass(gameProperties.getPlayers().size(),
-        // equivalenceClass);
+        // this.persistanceController.retrievePercentageOfWinsByPlayerAndEquivalenceClass(
+        // gameHand.getPlayers().size(), equivalenceClass);
         //
-        // if(percentageOfWins.doubleValue() > 0.66)
+        // if (percentageOfWins.doubleValue() > 0.66)
         // return BettingDecision.RAISE;
         // else if (percentageOfWins.doubleValue() < 0.33)
         // return BettingDecision.FOLD;
-        // else
+        //
         // return BettingDecision.CALL;
         return playerControllerPhaseI.decidePreFlop(player, gameHand, cards);
 
     }
 
     @Override
-    public BettingDecision decideAfterFlop(Player player, GameHand gameHand,
-            List<Card> cards) {
-        // TODO: Impleplement phase II : Hand stength
-        return playerControllerPhaseI.decideAfterFlop(player, gameHand, cards);
+    public BettingDecision decideAfterFlop(Player player, GameHand gameHand, List<Card> cards) {
+        Double handStrength = this.handStrengthEvaluator.evaluate(player.getHoleCards(), gameHand.getSharedCards(),
+                        gameHand.getPlayers().size());
+        if (handStrength > 0.8) {
+            logger.log("HandStrength is " + handStrength); //
+            return BettingDecision.RAISE;
+        } else if (handStrength > 0.33 || canCheck(gameHand, player)) {
+            return BettingDecision.CALL;
+        }
+        return BettingDecision.FOLD;
     }
 }
