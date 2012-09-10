@@ -1,6 +1,10 @@
 package edu.ntnu.texasai.controller;
 
 import edu.ntnu.texasai.model.*;
+import edu.ntnu.texasai.model.cards.Card;
+import edu.ntnu.texasai.model.cards.CardNumber;
+import edu.ntnu.texasai.model.cards.CardSuit;
+
 import org.junit.Test;
 
 import java.util.ArrayList;

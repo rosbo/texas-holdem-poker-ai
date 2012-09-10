@@ -5,6 +5,9 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.ntnu.texasai.model.cards.Card;
+import edu.ntnu.texasai.model.cards.Deck;
+
 public class GameHand {
     private final Deque<Player> players;
     private final Deck deck;
@@ -47,7 +50,7 @@ public class GameHand {
         return totalBets;
     }
 
-    public BettingRoundName getBettingRoundName(){
+    public BettingRoundName getBettingRoundName() {
         return BettingRoundName.fromRoundNumber(bettingRounds.size());
     }
 
@@ -76,7 +79,7 @@ public class GameHand {
         return players;
     }
 
-    private void dealHoleCards() {
+    protected void dealHoleCards() {
         for (Player player : players) {
             Card hole1 = deck.removeTopCard();
             Card hole2 = deck.removeTopCard();
@@ -93,5 +96,13 @@ public class GameHand {
 
     private void dealSharedCard() {
         sharedCards.add(deck.removeTopCard());
+    }
+
+    public Deque<Player> getPlayers() {
+        return this.players;
+    }
+
+    public Deck getDeck() {
+        return this.deck;
     }
 }
