@@ -1,16 +1,27 @@
-package edu.ntnu.texasai.controller;
+package edu.ntnu.texasai.preflopsim;
 
-import edu.ntnu.texasai.model.*;
-import edu.ntnu.texasai.model.cards.Card;
-
-import javax.inject.Inject;
 import java.util.List;
 
-public class PlayerControllerPhaseI extends PlayerController {
+import javax.inject.Inject;
+
+import edu.ntnu.texasai.controller.HandPowerRanker;
+import edu.ntnu.texasai.controller.PlayerController;
+import edu.ntnu.texasai.model.BettingDecision;
+import edu.ntnu.texasai.model.GameHand;
+import edu.ntnu.texasai.model.HandPower;
+import edu.ntnu.texasai.model.HandPowerType;
+import edu.ntnu.texasai.model.Player;
+import edu.ntnu.texasai.model.cards.Card;
+
+/**
+ * A naive player that cannot fold but only bet. Used during pre flop rollout
+ * simulations
+ * */
+public class PlayerControllerPreFlopRoll extends PlayerController {
     private final HandPowerRanker handPowerRanker;
 
     @Inject
-    public PlayerControllerPhaseI(final HandPowerRanker handPowerRanker) {
+    public PlayerControllerPreFlopRoll(final HandPowerRanker handPowerRanker) {
         this.handPowerRanker = handPowerRanker;
     }
 
@@ -26,7 +37,7 @@ public class PlayerControllerPhaseI extends PlayerController {
                 || canCheck(gameHand, player)) {
             return BettingDecision.CALL;
         } else {
-            return BettingDecision.FOLD;
+            return BettingDecision.CALL;
         }
     }
 
@@ -40,9 +51,8 @@ public class PlayerControllerPhaseI extends PlayerController {
             if (canCheck(gameHand, player)) {
                 return BettingDecision.CALL;
             }
-            return BettingDecision.FOLD;
-        } else if (handPowerType.getPower() >= HandPowerType.THREE_OF_A_KIND
-                .getPower()) {
+            return BettingDecision.CALL;
+        } else if (handPowerType.getPower() >= HandPowerType.THREE_OF_A_KIND.getPower()) {
             return BettingDecision.RAISE;
         } else {
             return BettingDecision.CALL;

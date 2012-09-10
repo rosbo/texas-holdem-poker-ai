@@ -16,12 +16,13 @@ public class GameProperties {
     private final List<Player> players = new ArrayList<Player>();
 
     @Inject
-    public GameProperties(final PlayerControllerPhaseI playerControllerPhaseI, final PlayerControllerPhaseII playerControllerPhaseII) {
+    public GameProperties(final PlayerControllerPhaseI playerControllerPhaseI,
+            final PlayerControllerPhaseII playerControllerPhaseII) {
         // TODO: Property load
         smallBlind = 10;
         bigBlind = 20;
         initialMoney = 1000;
-        numberOfHands = 5;
+        numberOfHands = 300;
 
         players.add(new Player(1, initialMoney, playerControllerPhaseI));
         players.add(new Player(2, initialMoney, playerControllerPhaseI));
@@ -43,5 +44,9 @@ public class GameProperties {
 
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public Integer getInitialMoney() {
+        return this.initialMoney;
     }
 }

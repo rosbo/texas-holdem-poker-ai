@@ -1,6 +1,7 @@
 package edu.ntnu.texasai.controller;
 
 import edu.ntnu.texasai.model.*;
+import edu.ntnu.texasai.model.cards.Card;
 import edu.ntnu.texasai.utils.GameProperties;
 import edu.ntnu.texasai.utils.Logger;
 
@@ -9,16 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameHandController {
-    private final Logger logger;
+    protected final Logger logger;
     private final HandPowerRanker handPowerRanker;
     private final GameProperties gameProperties;
+    private final StatisticsController statisticsController;
 
     @Inject
-    public GameHandController(final Logger logger, final HandPowerRanker handPowerRanker,
-                              final GameProperties gameProperties) {
+    public GameHandController(final Logger logger,
+            final HandPowerRanker handPowerRanker,
+            final GameProperties gameProperties,
+            final StatisticsController statisticsController) {
         this.logger = logger;
         this.handPowerRanker = handPowerRanker;
         this.gameProperties = gameProperties;
+        this.statisticsController = statisticsController;
     }
 
     public void play(Game game) {
@@ -28,7 +33,9 @@ public class GameHandController {
         GameHand gameHand = createGameHand(game);
 
         Boolean haveWinner = false;
-        while (!gameHand.getBettingRoundName().equals(BettingRoundName.POST_RIVER) && !haveWinner) {
+        while (!gameHand.getBettingRoundName().equals(
+                BettingRoundName.POST_RIVER)
+                && !haveWinner) {
             haveWinner = playRound(gameHand);
         }
 
@@ -43,7 +50,7 @@ public class GameHandController {
         return gameHand;
     }
 
-    private Boolean playRound(GameHand gameHand) {
+    protected Boolean playRound(GameHand gameHand) {
         gameHand.nextRound();
         logBettingRound(gameHand);
         Integer toPlay = gameHand.getPlayersCount();
@@ -59,7 +66,8 @@ public class GameHandController {
             BettingDecision bettingDecision = player.decide(gameHand);
 
             // We can't raise at second turn
-            if (turn > numberOfPlayersAtBeginningOfRound && bettingDecision.equals(BettingDecision.RAISE)) {
+            if (turn > numberOfPlayersAtBeginningOfRound
+                    && bettingDecision.equals(BettingDecision.RAISE)) {
                 bettingDecision = BettingDecision.CALL;
             }
 
@@ -97,31 +105,36 @@ public class GameHandController {
         Player smallBlindPlayer = gameHand.getNextPlayer();
         Player bigBlindPlayer = gameHand.getNextPlayer();
 
-        logger.log(smallBlindPlayer + ": Small blind " + gameProperties.getSmallBlind() + "$");
-        logger.log(bigBlindPlayer + ": Big blind " + gameProperties.getBigBlind() + "$");
+        logger.log(smallBlindPlayer + ": Small blind "
+                + gameProperties.getSmallBlind() + "$");
+        logger.log(bigBlindPlayer + ": Big blind "
+                + gameProperties.getBigBlind() + "$");
 
-        gameHand.getCurrentBettingRound().placeBet(smallBlindPlayer, gameProperties.getSmallBlind());
-        gameHand.getCurrentBettingRound().placeBet(bigBlindPlayer, gameProperties.getBigBlind());
+        gameHand.getCurrentBettingRound().placeBet(smallBlindPlayer,
+                gameProperties.getSmallBlind());
+        gameHand.getCurrentBettingRound().placeBet(bigBlindPlayer,
+                gameProperties.getBigBlind());
     }
 
-    private void applyDecision(GameHand gameHand, Player player, BettingDecision
-            bettingDecision) {
+    private void applyDecision(GameHand gameHand, Player player,
+            BettingDecision bettingDecision) {
         BettingRound bettingRound = gameHand.getCurrentBettingRound();
         Integer highestBet = bettingRound.getHighestBet();
         switch (bettingDecision) {
-            case FOLD:
-                gameHand.removeCurrentPlayer();
-                break;
-            case CALL:
-                bettingRound.placeBet(player, highestBet);
-                break;
-            case RAISE:
-                bettingRound.placeBet(player, highestBet + gameProperties.getBigBlind());
-                break;
+        case FOLD:
+            gameHand.removeCurrentPlayer();
+            break;
+        case CALL:
+            bettingRound.placeBet(player, highestBet);
+            break;
+        case RAISE:
+            bettingRound.placeBet(player,
+                    highestBet + gameProperties.getBigBlind());
+            break;
         }
 
-        logger.log(player + ": " + bettingDecision + " " + bettingRound.getBetForPlayer(player)
-                + "$");
+        logger.log(player + ": " + bettingDecision + " "
+                + bettingRound.getBetForPlayer(player) + "$");
     }
 
     private List<Player> getWinners(GameHand gameHand) {
@@ -145,10 +158,11 @@ public class GameHandController {
                 winners.add(player);
             }
         }
+        statisticsController.storeWinners(winners);
         return winners;
     }
 
-    private void showDown(GameHand gameHand) {
+    protected void showDown(GameHand gameHand) {
         logger.log("--- Showdown");
 
         // Showdown
@@ -168,4 +182,5 @@ public class GameHandController {
             modulo--;
         }
     }
+
 }
