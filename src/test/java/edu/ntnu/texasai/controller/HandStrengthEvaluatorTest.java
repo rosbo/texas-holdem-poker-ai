@@ -1,18 +1,16 @@
 package edu.ntnu.texasai.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-
 import edu.ntnu.texasai.dependencyinjection.TexasModule;
 import edu.ntnu.texasai.model.cards.Card;
 import edu.ntnu.texasai.model.cards.CardNumber;
 import edu.ntnu.texasai.model.cards.CardSuit;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HandStrengthEvaluatorTest {
 
@@ -35,7 +33,6 @@ public class HandStrengthEvaluatorTest {
         Card card5 = new Card(CardSuit.CLUB, CardNumber.KING);
         playerCards.add(card1);
         playerCards.add(card2);
-        playerCards.add(card3);
         sharedCards.add(card3);
         sharedCards.add(card4);
         sharedCards.add(card5);

@@ -18,7 +18,7 @@ public class HandStrengthEvaluator {
     }
 
     public Double evaluate(List<Card> playerHoleCards, List<Card> sharedCards, Integer numberOfPlayers) {
-        if(sharedCards.isEmpty()){
+        if(sharedCards == null || sharedCards.isEmpty()){
             return 0d;
         }
 
@@ -32,9 +32,7 @@ public class HandStrengthEvaluator {
         deck.removeCard(hole1);
         deck.removeCard(hole2);
         for (Card card : sharedCards) {
-            if (card != null) {
                 deck.removeCard(card);
-            }
         }
         
         List<List<Card>> couplesOfCards = deck.fromDeckToCouplesOfCard();
@@ -48,10 +46,8 @@ public class HandStrengthEvaluator {
             List<Card> opponentCards = new ArrayList<Card>();
             opponentCards.addAll(couple);
             opponentCards.addAll(sharedCards);
-            for (Card card : sharedCards) {
-                opponentCards.add(card);
-            }
             HandPower opponentRank = handPowerRanker.rank(opponentCards);
+
             int result = playerRank.compareTo(opponentRank);
             if (result > 0) {
                 wins++;
