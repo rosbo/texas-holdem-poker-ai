@@ -1,18 +1,14 @@
 package edu.ntnu.texasai.persistence;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import com.google.inject.Inject;
-
 import edu.ntnu.texasai.model.cards.EquivalenceClass;
 import edu.ntnu.texasai.utils.Logger;
 
+import java.sql.*;
+
 public class PersistenceManager {
+
+    public static final String EQUIVALENCE_TABLE_PATH = "equivalenceTable/equivalence_table";
 
     private final Logger logger;
 
@@ -26,7 +22,7 @@ public class PersistenceManager {
         try {
             Class.forName("org.h2.Driver");
             conn = DriverManager.getConnection(
-                    "jdbc:h2:equivalenceTable/equivalence_table", "sa", "");
+                    "jdbc:h2:" + EQUIVALENCE_TABLE_PATH, "sa", "");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -34,7 +30,8 @@ public class PersistenceManager {
         }
         try {
             Statement st = conn.createStatement();
-            String table = "CREATE TABLE IF NOT EXISTS Equivalences(id integer, players integer,number1 varchar(10),number2 varchar(10), type varchar(10),wins integer)";
+            String table = "CREATE TABLE IF NOT EXISTS Equivalences(id integer, players integer,number1 varchar(10)," +
+                    "number2 varchar(10), type varchar(10),wins integer)";
             st.executeUpdate(table);
             System.out.println("Table creation process successfully!");
         } catch (SQLException s) {
@@ -61,7 +58,7 @@ public class PersistenceManager {
         try {
             Class.forName("org.h2.Driver");
             connection = DriverManager.getConnection(
-                    "jdbc:h2:equivalenceTable/equivalence_table", "sa", "");
+                    "jdbc:h2:" + EQUIVALENCE_TABLE_PATH + "/equivalence_table", "sa", "");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -72,7 +69,7 @@ public class PersistenceManager {
 
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                percentageOfWins = new Double(result.getDouble("wins"));
+                percentageOfWins = result.getDouble("wins");
             }
             result.close();
         } catch (SQLException e) {
@@ -87,12 +84,12 @@ public class PersistenceManager {
     }
 
     public void persistResult(Integer id, Integer numberOfPlayers,
-            EquivalenceClass equivalenceClass, Double percentage) {
+                              EquivalenceClass equivalenceClass, Double percentage) {
         Connection conn = null;
         try {
             Class.forName("org.h2.Driver");
             conn = DriverManager.getConnection(
-                    "jdbc:h2:equivalenceTable/equivalence_table", "sa", "");
+                    "jdbc:h2:" + EQUIVALENCE_TABLE_PATH, "sa", "");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -126,7 +123,7 @@ public class PersistenceManager {
         try {
             Class.forName("org.h2.Driver");
             connection = DriverManager.getConnection(
-                    "jdbc:h2:equivalenceTable/equivalence_table", "sa", "");
+                    "jdbc:h2:" + EQUIVALENCE_TABLE_PATH, "sa", "");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -145,7 +142,7 @@ public class PersistenceManager {
         }
         try {
             connection.close();
-        } catch (SQLException e) {       
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
