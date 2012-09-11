@@ -2,6 +2,9 @@ package edu.ntnu.texasai.model;
 
 import edu.ntnu.texasai.model.cards.Card;
 import edu.ntnu.texasai.model.cards.Deck;
+import edu.ntnu.texasai.model.opponentmodeling.ContextAction;
+import edu.ntnu.texasai.model.opponentmodeling.ContextInformation;
+import edu.ntnu.texasai.utils.GameProperties;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -70,13 +73,13 @@ public class GameHand {
         return bettingRounds.get(bettingRounds.size() - 1);
     }
 
+    public List<BettingRound> getBettingRounds() {
+        return bettingRounds;
+    }
+
     public void removeCurrentPlayer() {
         players.removeFirst();
         hasRemoved = true;
-    }
-
-    public Iterable<Player> getActivePlayers() {
-        return players;
     }
 
     protected void dealHoleCards() {
@@ -104,5 +107,27 @@ public class GameHand {
 
     public Deck getDeck() {
         return this.deck;
+    }
+
+    public void applyDecision(Player player, BettingDecision bettingDecision, GameProperties gameProperties,
+                              Double handStrength) {
+        BettingRound currentBettingRound = getCurrentBettingRound();
+        Double potOdds = calculatePotOdds(player);
+        ContextAction contextAction = new ContextAction(player, bettingDecision, getBettingRoundName(),
+                currentBettingRound.getNumberOfRaises(),
+                getPlayersCount(), potOdds);
+        ContextInformation contextInformation = new ContextInformation(contextAction, handStrength);
+
+        currentBettingRound.applyDecision(contextInformation, gameProperties);
+
+        if (bettingDecision.equals(BettingDecision.FOLD)) {
+            removeCurrentPlayer();
+        }
+    }
+
+    private Double calculatePotOdds(Player player) {
+        BettingRound currentBettingRound = getCurrentBettingRound();
+        Integer amountNeededToCall = currentBettingRound.getHighestBet() - currentBettingRound.getBetForPlayer(player);
+        return (double) amountNeededToCall / (amountNeededToCall + getTotalBets());
     }
 }

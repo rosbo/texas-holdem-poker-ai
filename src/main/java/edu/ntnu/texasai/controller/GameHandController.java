@@ -1,5 +1,6 @@
 package edu.ntnu.texasai.controller;
 
+import edu.ntnu.texasai.controller.opponentmodeling.OpponentModeler;
 import edu.ntnu.texasai.model.*;
 import edu.ntnu.texasai.model.cards.Card;
 import edu.ntnu.texasai.utils.GameProperties;
@@ -14,16 +15,22 @@ public class GameHandController {
     private final HandPowerRanker handPowerRanker;
     private final GameProperties gameProperties;
     private final StatisticsController statisticsController;
+    private final HandStrengthEvaluator handStrengthEvaluator;
+    private final OpponentModeler opponentModeler;
 
     @Inject
     public GameHandController(final Logger logger,
-            final HandPowerRanker handPowerRanker,
-            final GameProperties gameProperties,
-            final StatisticsController statisticsController) {
+                              final HandPowerRanker handPowerRanker,
+                              final GameProperties gameProperties,
+                              final StatisticsController statisticsController,
+                              final HandStrengthEvaluator handStrengthEvaluator,
+                              final OpponentModeler opponentModeler) {
         this.logger = logger;
         this.handPowerRanker = handPowerRanker;
         this.gameProperties = gameProperties;
         this.statisticsController = statisticsController;
+        this.handStrengthEvaluator = handStrengthEvaluator;
+        this.opponentModeler = opponentModeler;
     }
 
     public void play(Game game) {
@@ -116,29 +123,18 @@ public class GameHandController {
                 gameProperties.getBigBlind());
     }
 
-    private void applyDecision(GameHand gameHand, Player player,
-            BettingDecision bettingDecision) {
-        BettingRound bettingRound = gameHand.getCurrentBettingRound();
-        Integer highestBet = bettingRound.getHighestBet();
-        switch (bettingDecision) {
-        case FOLD:
-            gameHand.removeCurrentPlayer();
-            break;
-        case CALL:
-            bettingRound.placeBet(player, highestBet);
-            break;
-        case RAISE:
-            bettingRound.placeBet(player,
-                    highestBet + gameProperties.getBigBlind());
-            break;
-        }
+    private void applyDecision(GameHand gameHand, Player player, BettingDecision bettingDecision) {
+        Double handStrength = handStrengthEvaluator.evaluate(player.getHoleCards(), gameHand.getSharedCards(),
+                gameHand.getPlayersCount());
+        gameHand.applyDecision(player, bettingDecision, gameProperties, handStrength);
 
+        BettingRound bettingRound = gameHand.getCurrentBettingRound();
         logger.log(player + ": " + bettingDecision + " "
                 + bettingRound.getBetForPlayer(player) + "$");
     }
 
     private List<Player> getWinners(GameHand gameHand) {
-        Iterable<Player> activePlayers = gameHand.getActivePlayers();
+        Iterable<Player> activePlayers = gameHand.getPlayers();
         List<Card> sharedCards = gameHand.getSharedCards();
 
         HandPower bestHandPower = null;
@@ -181,5 +177,8 @@ public class GameHandController {
 
             modulo--;
         }
+
+        // Opponent modeling
+        opponentModeler.save(gameHand);
     }
 }

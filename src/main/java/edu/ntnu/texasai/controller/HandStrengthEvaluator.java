@@ -1,13 +1,12 @@
 package edu.ntnu.texasai.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import edu.ntnu.texasai.model.HandPower;
 import edu.ntnu.texasai.model.cards.Card;
 import edu.ntnu.texasai.model.cards.Deck;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HandStrengthEvaluator {
 
@@ -19,6 +18,10 @@ public class HandStrengthEvaluator {
     }
 
     public Double evaluate(List<Card> playerHoleCards, List<Card> sharedCards, Integer numberOfPlayers) {
+        if(sharedCards.isEmpty()){
+            return 0d;
+        }
+
         int wins = 0;
         int losses = 0;
         int ties = 0;
@@ -64,8 +67,7 @@ public class HandStrengthEvaluator {
     private Double calculateHandStrength(int wins, int ties, int losses, int numberOfPlayers) {
         double num = (wins + 0.5 * ties);
         double den = (wins + losses + ties);
-        double handStrength = Math.pow(num / den, numberOfPlayers);
-        return new Double(handStrength);
+        return Math.pow(num / den, numberOfPlayers);
     }
 
 }
