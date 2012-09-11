@@ -1,17 +1,17 @@
 package edu.ntnu.texasai.controller;
 
-import static org.junit.Assert.*;
-import java.util.ArrayList;
-import java.util.List;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import edu.ntnu.texasai.controller.preflopsim.PlayerControllerPreFlopRoll;
+import edu.ntnu.texasai.dependencyinjection.TexasModule;
+import edu.ntnu.texasai.model.Player;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import java.util.ArrayList;
+import java.util.List;
 
-import edu.ntnu.texasai.model.Player;
-import edu.ntnu.texasai.preflopsim.PlayerControllerPreFlopRoll;
-import edu.ntnu.texasai.preflopsim.PreFlopSimulatorModule;
+import static org.junit.Assert.assertEquals;
 
 public class StatisticsControllerTest {
 
@@ -20,7 +20,7 @@ public class StatisticsControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        Injector injector = Guice.createInjector(new PreFlopSimulatorModule());
+        Injector injector = Guice.createInjector(new TexasModule());
         this.statisticsController = injector
                 .getInstance(StatisticsController.class);
         this.playerControllerPreFlopRoll = injector
