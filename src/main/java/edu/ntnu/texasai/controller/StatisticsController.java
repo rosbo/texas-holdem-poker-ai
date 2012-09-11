@@ -1,12 +1,11 @@
 package edu.ntnu.texasai.controller;
 
+import com.google.inject.Inject;
+import edu.ntnu.texasai.model.Player;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.google.inject.Inject;
-
-import edu.ntnu.texasai.model.Player;
 
 public class StatisticsController {
 
@@ -17,7 +16,7 @@ public class StatisticsController {
     @Inject
     public StatisticsController() {
         this.players2wins = new HashMap<Integer, Integer>();
-        player0winnings = new Integer(0);
+        player0winnings = 0;
     }
 
     public void initializeStatistics() {
@@ -25,7 +24,7 @@ public class StatisticsController {
             this.players2wins.put(i, 0);
             this.players2ties.put(i, 0);
         }
-        player0winnings = new Integer(0);
+        player0winnings = 0;
     }
 
     public void storeWinners(List<Player> winners) {        
@@ -58,12 +57,11 @@ public class StatisticsController {
     }
 
     public Double getPercentageOfWinsPlayer0(Integer numberOfHands) {       
-        return new Double(player0winnings / new Double(numberOfHands));
+        return (double) player0winnings / numberOfHands;
     }
 
     public Integer getPlayer0Wins() {
         return player0winnings;
     }
-
 
 }

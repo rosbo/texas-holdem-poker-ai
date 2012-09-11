@@ -1,13 +1,13 @@
-package edu.ntnu.texasai.preflopsim;
-
-import java.util.Deque;
-import java.util.List;
+package edu.ntnu.texasai.model.preflopsim;
 
 import edu.ntnu.texasai.model.GameHand;
 import edu.ntnu.texasai.model.Player;
 import edu.ntnu.texasai.model.cards.Card;
 import edu.ntnu.texasai.model.cards.Deck;
 import edu.ntnu.texasai.model.cards.EquivalenceClass;
+
+import java.util.Deque;
+import java.util.List;
 
 public class GameHandPreFlopRoll extends GameHand {
 

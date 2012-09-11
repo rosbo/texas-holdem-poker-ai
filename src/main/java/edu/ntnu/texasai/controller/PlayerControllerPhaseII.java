@@ -1,15 +1,14 @@
 package edu.ntnu.texasai.controller;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
 import edu.ntnu.texasai.model.BettingDecision;
 import edu.ntnu.texasai.model.GameHand;
 import edu.ntnu.texasai.model.Player;
 import edu.ntnu.texasai.model.cards.Card;
 import edu.ntnu.texasai.persistence.PersistenceManager;
 import edu.ntnu.texasai.utils.Logger;
+
+import javax.inject.Inject;
+import java.util.List;
 
 public class PlayerControllerPhaseII extends PlayerController {
     private final PlayerControllerPhaseI playerControllerPhaseI;
@@ -58,7 +57,7 @@ public class PlayerControllerPhaseII extends PlayerController {
         Double handStrength = this.handStrengthEvaluator.evaluate(player.getHoleCards(), gameHand.getSharedCards(),
                         gameHand.getPlayers().size());
         if (handStrength > 0.8) {
-            logger.log("HandStrength is " + handStrength); //
+            logger.log("HandStrength is " + handStrength);
             return BettingDecision.RAISE;
         } else if (handStrength > 0.33 || canCheck(gameHand, player)) {
             return BettingDecision.CALL;

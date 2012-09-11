@@ -1,12 +1,12 @@
 package edu.ntnu.texasai.model;
 
+import edu.ntnu.texasai.model.cards.Card;
+import edu.ntnu.texasai.model.cards.Deck;
+
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
-
-import edu.ntnu.texasai.model.cards.Card;
-import edu.ntnu.texasai.model.cards.Deck;
 
 public class GameHand {
     private final Deque<Player> players;

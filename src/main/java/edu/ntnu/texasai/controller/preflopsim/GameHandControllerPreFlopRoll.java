@@ -1,4 +1,4 @@
-package edu.ntnu.texasai.preflopsim;
+package edu.ntnu.texasai.controller.preflopsim;
 
 import com.google.inject.Inject;
 
@@ -9,6 +9,7 @@ import edu.ntnu.texasai.model.BettingRoundName;
 import edu.ntnu.texasai.model.Game;
 import edu.ntnu.texasai.model.GameHand;
 import edu.ntnu.texasai.model.cards.EquivalenceClass;
+import edu.ntnu.texasai.model.preflopsim.GameHandPreFlopRoll;
 import edu.ntnu.texasai.utils.GameProperties;
 import edu.ntnu.texasai.utils.Logger;
 

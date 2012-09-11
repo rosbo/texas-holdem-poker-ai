@@ -1,22 +1,17 @@
-package edu.ntnu.texasai.preflopsim;
-
-import java.util.List;
-
-import javax.inject.Inject;
+package edu.ntnu.texasai.controller.preflopsim;
 
 import edu.ntnu.texasai.controller.HandPowerRanker;
 import edu.ntnu.texasai.controller.PlayerController;
-import edu.ntnu.texasai.model.BettingDecision;
-import edu.ntnu.texasai.model.GameHand;
-import edu.ntnu.texasai.model.HandPower;
-import edu.ntnu.texasai.model.HandPowerType;
-import edu.ntnu.texasai.model.Player;
+import edu.ntnu.texasai.model.*;
 import edu.ntnu.texasai.model.cards.Card;
+
+import javax.inject.Inject;
+import java.util.List;
 
 /**
  * A naive player that cannot fold but only bet. Used during pre flop rollout
  * simulations
- * */
+ */
 public class PlayerControllerPreFlopRoll extends PlayerController {
     private final HandPowerRanker handPowerRanker;
 
@@ -27,7 +22,7 @@ public class PlayerControllerPreFlopRoll extends PlayerController {
 
     @Override
     public BettingDecision decidePreFlop(Player player, GameHand gameHand,
-            List<Card> cards) {
+                                         List<Card> cards) {
         Card card1 = cards.get(0);
         Card card2 = cards.get(1);
 
@@ -42,8 +37,7 @@ public class PlayerControllerPreFlopRoll extends PlayerController {
     }
 
     @Override
-    public BettingDecision decideAfterFlop(Player player, GameHand gameHand,
-            List<Card> cards) {
+    public BettingDecision decideAfterFlop(Player player, GameHand gameHand, List<Card> cards) {
         HandPower handPower = handPowerRanker.rank(cards);
 
         HandPowerType handPowerType = handPower.getHandPowerType();

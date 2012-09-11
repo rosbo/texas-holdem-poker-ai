@@ -1,17 +1,15 @@
 package edu.ntnu.texasai.controller;
 
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-
+import edu.ntnu.texasai.dependencyinjection.TexasModule;
 import edu.ntnu.texasai.model.cards.CardNumber;
 import edu.ntnu.texasai.model.cards.EquivalenceClass;
 import edu.ntnu.texasai.model.cards.EquivalenceClassSuited;
-import edu.ntnu.texasai.preflopsim.PreFlopSimulatorModule;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class EquivalenceClassControllerTest {
 
@@ -19,7 +17,7 @@ public class EquivalenceClassControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        Injector injector = Guice.createInjector(new PreFlopSimulatorModule());
+        Injector injector = Guice.createInjector(new TexasModule());
         this.equivalenceClassController = injector.getInstance(EquivalenceClassController.class);
     }
 
