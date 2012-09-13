@@ -11,7 +11,7 @@ public enum HandPowerType {
     FOUR_OF_A_KIND(8),
     STRAIGHT_FLUSH(9);
 
-    private Integer power;
+    private final Integer power;
 
     private HandPowerType(Integer power) {
         this.power = power;

@@ -14,7 +14,7 @@ import java.util.Collection;
 
 public class PreFlopSimulatorController {
     // TODO: Must be at least 100
-    public static final int ROLLOUTS_PER_EQUIV_CLASS = 10;
+    private static final int ROLLOUTS_PER_EQUIV_CLASS = 10;
 
     private final Game game = new Game();
     private final Logger logger;

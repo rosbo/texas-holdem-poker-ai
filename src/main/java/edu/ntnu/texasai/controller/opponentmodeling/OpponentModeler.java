@@ -10,7 +10,7 @@ import edu.ntnu.texasai.model.opponentmodeling.ContextInformation;
 import java.util.*;
 
 public class OpponentModeler {
-    private Map<Player, List<ContextAggregate>> playerModels = new HashMap<Player, List<ContextAggregate>>();
+    private final Map<Player, List<ContextAggregate>> playerModels = new HashMap<Player, List<ContextAggregate>>();
 
     public void save(GameHand gameHand) {
         Deque<Player> showdownPlayers = gameHand.getPlayers();

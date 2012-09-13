@@ -29,10 +29,6 @@ public class Deck {
     public boolean removeCard(Card card) {
         return cards.remove(card);
     }
-
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
-    }
     
     public List<List<Card>> fromDeckToCouplesOfCard(){
         List<List<Card>> couplesOfCard = new ArrayList<List<Card>>();

@@ -6,29 +6,22 @@ import edu.ntnu.texasai.model.Player;
 import edu.ntnu.texasai.model.cards.Card;
 import edu.ntnu.texasai.model.cards.EquivalenceClass;
 import edu.ntnu.texasai.persistence.PersistenceManager;
-import edu.ntnu.texasai.utils.Logger;
 
 import javax.inject.Inject;
 import java.util.List;
 
 public class PlayerControllerPhaseII extends PlayerController {
-    private final PlayerControllerPhaseI playerControllerPhaseI;
     private final PersistenceManager persistanceController;
     private final EquivalenceClassController equivalenceClassController;
     private final HandStrengthEvaluator handStrengthEvaluator;
-    private final Logger logger;
 
     @Inject
-    public PlayerControllerPhaseII(final PlayerControllerPhaseI playerControllerPhaseI,
-                                   final EquivalenceClassController equivalenceClassController,
+    public PlayerControllerPhaseII(final EquivalenceClassController equivalenceClassController,
                                    final PersistenceManager persistanceController,
-                                   final HandStrengthEvaluator handStrengthEvaluator,
-                                   final Logger logger) {
-        this.playerControllerPhaseI = playerControllerPhaseI;
+                                   final HandStrengthEvaluator handStrengthEvaluator) {
         this.persistanceController = persistanceController;
         this.equivalenceClassController = equivalenceClassController;
         this.handStrengthEvaluator = handStrengthEvaluator;
-        this.logger = logger;
     }
 
     @Override

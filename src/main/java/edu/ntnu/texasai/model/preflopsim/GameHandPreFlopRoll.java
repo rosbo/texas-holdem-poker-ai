@@ -11,10 +11,9 @@ import java.util.List;
 
 public class GameHandPreFlopRoll extends GameHand {
 
-    private EquivalenceClass equivalenceClass;
+    private final EquivalenceClass equivalenceClass;
 
-    public GameHandPreFlopRoll(List<Player> players,
-            EquivalenceClass equivalenceClass) {
+    public GameHandPreFlopRoll(final List<Player> players, final EquivalenceClass equivalenceClass) {
         super(players);
         this.equivalenceClass = equivalenceClass;
     }
@@ -23,15 +22,14 @@ public class GameHandPreFlopRoll extends GameHand {
      * Deals the hole cards. The prospective of the simulation is player0's one,
      * so players0's hole cards are the same of equivalence cards, while the
      * other players receive random cards form the top of the deck.
-     * */
+     */
     @Override
     protected void dealHoleCards() {
-
-        Deck deck = this.getDeck();
+        Deck deck = getDeck();
         Player player0 = null;
         Deque<Player> players = this.getPlayers();
         for (Player p : players) {// the players are not sorted, the first one
-                                  // is the dealer
+            // is the dealer
             if (p.getNumber().equals(new Integer(0))) {
                 player0 = p;
             }

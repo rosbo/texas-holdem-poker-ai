@@ -7,7 +7,7 @@ import edu.ntnu.texasai.utils.Logger;
 import java.sql.*;
 
 public class PersistenceManager {
-    public static final String TABLE_EQUIVALENCE_NAME = "Equivalences";
+    private static final String TABLE_EQUIVALENCE_NAME = "Equivalences";
 
     private final Logger logger;
     private final Connection connection;
