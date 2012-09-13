@@ -125,7 +125,7 @@ public class GameHand {
         }
     }
 
-    private Double calculatePotOdds(Player player) {
+    public Double calculatePotOdds(Player player) {
         BettingRound currentBettingRound = getCurrentBettingRound();
         Integer amountNeededToCall = currentBettingRound.getHighestBet() - currentBettingRound.getBetForPlayer(player);
         return (double) amountNeededToCall / (amountNeededToCall + getTotalBets());

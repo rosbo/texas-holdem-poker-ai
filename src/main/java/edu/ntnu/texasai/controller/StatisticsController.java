@@ -56,10 +56,6 @@ public class StatisticsController {
         this.players2wins.clear();
     }
 
-    public Double getPercentageOfWinsPlayer0(Integer numberOfHands) {       
-        return (double) player0winnings / numberOfHands;
-    }
-
     public Integer getPlayer0Wins() {
         return player0winnings;
     }

@@ -1,8 +1,6 @@
 package edu.ntnu.texasai.utils;
 
-import edu.ntnu.texasai.controller.PlayerControllerPhaseI;
-import edu.ntnu.texasai.controller.PlayerControllerPhaseII;
-import edu.ntnu.texasai.controller.PlayerControllerPhaseIII;
+import edu.ntnu.texasai.controller.*;
 import edu.ntnu.texasai.model.Player;
 
 import javax.inject.Inject;
@@ -19,18 +17,19 @@ public class GameProperties {
     @Inject
     public GameProperties(final PlayerControllerPhaseI playerControllerPhaseI,
                           final PlayerControllerPhaseII playerControllerPhaseII,
-                          final PlayerControllerPhaseIII playerControllerPhaseIII) {
+                          final PlayerControllerPhaseIIIConservative controllerPhaseIIIConservative,
+                          final PlayerControllerPhaseIIIAgressive controllerPhaseIIIAgressive) {
         smallBlind = 10;
         bigBlind = 20;
         initialMoney = 1000;
-        numberOfHands = 300;
+        numberOfHands = 100;
 
         players.add(new Player(1, initialMoney, playerControllerPhaseI));
         players.add(new Player(2, initialMoney, playerControllerPhaseI));
         players.add(new Player(3, initialMoney, playerControllerPhaseII));
         players.add(new Player(4, initialMoney, playerControllerPhaseII));
-        players.add(new Player(5, initialMoney, playerControllerPhaseIII));
-        players.add(new Player(6, initialMoney, playerControllerPhaseIII));
+        players.add(new Player(5, initialMoney, controllerPhaseIIIConservative));
+        players.add(new Player(6, initialMoney, controllerPhaseIIIAgressive));
     }
 
     public Integer getSmallBlind() {

@@ -17,7 +17,7 @@ public class RunSimulator {
 
         PersistenceManager persistenceManager = injector
                 .getInstance(PersistenceManager.class);
-        persistenceManager.createTable();
+        persistenceManager.createEquivalencesTable();
 
         PreFlopSimulatorController preFlopSimulatorController = injector
                 .getInstance(PreFlopSimulatorController.class);

@@ -7,6 +7,10 @@ public class Game {
     private final List<Player> players;
     private final List<GameHand> gameHands = new ArrayList<GameHand>();
 
+    public Game(){
+        players = new ArrayList<Player>();
+    }
+
     public Game(List<Player> players) {
         this.players = new ArrayList<Player>(players);
     }

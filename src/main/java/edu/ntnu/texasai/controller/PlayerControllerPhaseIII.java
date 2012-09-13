@@ -7,27 +7,19 @@ import edu.ntnu.texasai.model.GameHand;
 import edu.ntnu.texasai.model.Player;
 import edu.ntnu.texasai.model.cards.Card;
 import edu.ntnu.texasai.model.opponentmodeling.ContextAction;
-import edu.ntnu.texasai.utils.Logger;
 
-import javax.inject.Inject;
 import java.util.List;
 
-// TODO: Make this class abtract and create an agressive and a conservative bot
-public class PlayerControllerPhaseIII extends PlayerController {
+public abstract class PlayerControllerPhaseIII extends PlayerController {
     private final PlayerControllerPhaseII playerControllerPhaseII;
     private final HandStrengthEvaluator handStrengthEvaluator;
     private final OpponentModeler opponentModeler;
-    private final Logger logger;
 
-    @Inject
-    public PlayerControllerPhaseIII(final PlayerControllerPhaseII playerControllerPhaseII,
-                                    final HandStrengthEvaluator handStrengthEvaluator,
-                                    final OpponentModeler opponentModeler,
-                                    final Logger logger) {
+    protected PlayerControllerPhaseIII(PlayerControllerPhaseII playerControllerPhaseII, HandStrengthEvaluator
+            handStrengthEvaluator, OpponentModeler opponentModeler) {
         this.playerControllerPhaseII = playerControllerPhaseII;
         this.handStrengthEvaluator = handStrengthEvaluator;
         this.opponentModeler = opponentModeler;
-        this.logger = logger;
     }
 
     @Override
@@ -67,13 +59,10 @@ public class PlayerControllerPhaseIII extends PlayerController {
             return playerControllerPhaseII.decideAfterFlop(player, gameHand, cards);
         }
 
-        // Play if better than the majority
-        if ((double) oppponentsWithBetterEstimatedHandStrength / opponentsModeledCount > 0.5) {
-            return BettingDecision.RAISE;
-        } else if (canCheck(gameHand, player)) {
-            return BettingDecision.CALL;
-        } else {
-            return BettingDecision.FOLD;
-        }
+        return decideBet(gameHand, player, oppponentsWithBetterEstimatedHandStrength, opponentsModeledCount);
     }
+
+    protected abstract BettingDecision decideBet(GameHand gameHand, Player player,
+                                                 Integer oppponentsWithBetterEstimatedHandStrength,
+                                                 Integer opponentsModeledCount);
 }
