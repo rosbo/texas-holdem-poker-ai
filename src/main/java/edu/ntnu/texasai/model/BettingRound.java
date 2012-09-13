@@ -40,7 +40,7 @@ public class BettingRound {
         if (playerBet == null) {
             player.removeMoney(bet);
         } else {
-            player.removeMoney(playerBet - bet);
+            player.removeMoney(bet - playerBet);
         }
 
         if (bet > highestBet) {

@@ -173,7 +173,7 @@ public class GameHandController {
                 gainAndModulo += modulo;
             }
             winner.addMoney(gainAndModulo);
-            logger.log(winner + ": WIN! +" + gainAndModulo + "$");
+            logger.log("WINNER: "+winner + ": WIN! +" + gainAndModulo + "$");
 
             modulo--;
         }
