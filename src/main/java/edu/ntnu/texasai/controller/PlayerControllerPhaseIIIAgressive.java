@@ -16,6 +16,11 @@ public class PlayerControllerPhaseIIIAgressive extends PlayerControllerPhaseIII 
     }
 
     @Override
+    public String toString() {
+        return "PhaseIII Agressive";
+    }
+
+    @Override
     protected BettingDecision decideBet(GameHand gameHand, Player player,
                                         Integer oppponentsWithBetterEstimatedHandStrength,
                                         Integer opponentsModeledCount) {

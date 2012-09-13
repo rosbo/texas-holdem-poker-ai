@@ -32,6 +32,11 @@ public class PlayerControllerPhaseII extends PlayerController {
     }
 
     @Override
+    public String toString() {
+        return "PhaseII";
+    }
+
+    @Override
     public BettingDecision decidePreFlop(Player player, GameHand gameHand, List<Card> cards) {
         Card card1 = cards.get(0);
         Card card2 = cards.get(1);

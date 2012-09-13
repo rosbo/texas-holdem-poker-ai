@@ -16,6 +16,11 @@ public class PlayerControllerPhaseIIIConservative extends PlayerControllerPhaseI
     }
 
     @Override
+    public String toString() {
+        return "PhaseIII Conservative";
+    }
+
+    @Override
     protected BettingDecision decideBet(GameHand gameHand, Player player,
                                         Integer oppponentsWithBetterEstimatedHandStrength,
                                         Integer opponentsModeledCount) {

@@ -75,4 +75,8 @@ public class Player {
     public List<Card> getHoleCards() {
         return holeCards;
     }
+
+    public PlayerController getPlayerController() {
+        return playerController;
+    }
 }
