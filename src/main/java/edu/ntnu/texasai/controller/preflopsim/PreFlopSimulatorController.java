@@ -44,12 +44,11 @@ public class PreFlopSimulatorController {
     public void play() {
         this.equivalenceClassController.generateAllEquivalenceClass();
 
-        game.addPlayer(new Player(0, gameProperties.getInitialMoney(), playerControllerPreFlopRoll));
+        game.addPlayer(new Player(1, gameProperties.getInitialMoney(), playerControllerPreFlopRoll));
         Collection<EquivalenceClass> equivalenceClasses = equivalenceClassController.getEquivalenceClasses();
 
-        // TODO: Generate 2 to 10 players
-        for (int numberOfPlayers = 2; numberOfPlayers <= 6; numberOfPlayers++) {
-            game.addPlayer(new Player(numberOfPlayers - 1, 0, playerControllerPreFlopRoll));
+        for (int numberOfPlayers = 2; numberOfPlayers <= 10; numberOfPlayers++) {
+            game.addPlayer(new Player(numberOfPlayers, 0, playerControllerPreFlopRoll));
 
             for (EquivalenceClass equivalenceClass : equivalenceClasses) {
                 statisticsController.initializeStatistics();
@@ -59,17 +58,15 @@ public class PreFlopSimulatorController {
                     game.setNextDealer();
                 }
 
-                double percentageOfWinsPlayer0 = (double) statisticsController.getPlayer0Wins() /
-                        ROLLOUTS_PER_EQUIV_CLASS;
-                persistenceController.persistResult(numberOfPlayers, equivalenceClass,
-                        percentageOfWinsPlayer0);
+                double percentageWin = (double) statisticsController.getPlayer1Wins() / ROLLOUTS_PER_EQUIV_CLASS;
+                persistenceController.persistPreflop(numberOfPlayers, equivalenceClass, percentageWin);
 
                 logger.log("=================");
                 logger.log("STATISTICS FOR EQUIVALENCE CLASS "
                         + equivalenceClass.toString());
-                logger.log("Number of hands played: "+ ROLLOUTS_PER_EQUIV_CLASS);
+                logger.log("Number of hands played: " + ROLLOUTS_PER_EQUIV_CLASS);
                 logger.log("Number players: " + numberOfPlayers);
-                logger.log("Percentage of wins is " + percentageOfWinsPlayer0);
+                logger.log("Percentage of wins is " + percentageWin);
             }
         }
     }

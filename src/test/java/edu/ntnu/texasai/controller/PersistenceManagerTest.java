@@ -20,7 +20,7 @@ public class PersistenceManagerTest {
 
     @Test
     public void testPrintAll() {
-        this.persistenceController.printAll();
+        this.persistenceController.printPreflopEquivalencesProbability();
     }
 
 }

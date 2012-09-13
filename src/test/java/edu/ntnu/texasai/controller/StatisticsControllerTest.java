@@ -34,7 +34,7 @@ public class StatisticsControllerTest {
         statisticsController.initializeStatistics();
         winners.add(p1);
         statisticsController.storeWinners(winners);
-        assertEquals(1, statisticsController.getPlayer0Wins());
+        assertEquals(1, statisticsController.getPlayer1Wins());
     }
 
 

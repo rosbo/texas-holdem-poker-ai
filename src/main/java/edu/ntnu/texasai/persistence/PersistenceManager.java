@@ -21,8 +21,7 @@ public class PersistenceManager {
     public void createEquivalencesTable() {
         try {
             Statement statement = connection.createStatement();
-            String query = "DROP TABLE IF EXISTS " + TABLE_EQUIVALENCE_NAME + ";";
-            query += "CREATE TABLE " + TABLE_EQUIVALENCE_NAME + "(players integer," +
+            String query = "CREATE TABLE IF NOT EXISTS " + TABLE_EQUIVALENCE_NAME + "(players integer," +
                     "number1 VARCHAR_IGNORECASE,number2 VARCHAR_IGNORECASE, type VARCHAR_IGNORECASE, wins double)";
             statement.executeUpdate(query);
             System.out.println("Table creation process successfully!");
@@ -32,8 +31,7 @@ public class PersistenceManager {
         }
     }
 
-    public double retrievePercentageOfWinsByPlayerAndEquivalenceClass(int numberOfPlayers,
-                                                                      EquivalenceClass equivalenceClass) {
+    public double retrievePreflop(int numberOfPlayers, EquivalenceClass equivalenceClass) {
         String number1 = equivalenceClass.getNumber1().toString();
         String number2 = equivalenceClass.getNumber2().toString();
         String type = equivalenceClass.getType();
@@ -60,7 +58,7 @@ public class PersistenceManager {
         }
     }
 
-    public void persistResult(int numberOfPlayers, EquivalenceClass equivalenceClass, double percentage) {
+    public void persistPreflop(int numberOfPlayers, EquivalenceClass equivalenceClass, double percentage) {
         try {
             String insert = "INSERT INTO " + TABLE_EQUIVALENCE_NAME + " VALUES(?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(insert);
@@ -77,7 +75,7 @@ public class PersistenceManager {
         }
     }
 
-    public void printAll() {
+    public void printPreflopEquivalencesProbability() {
         String query = "SELECT * FROM " + TABLE_EQUIVALENCE_NAME;
         try {
             PreparedStatement statement = connection.prepareStatement(query);

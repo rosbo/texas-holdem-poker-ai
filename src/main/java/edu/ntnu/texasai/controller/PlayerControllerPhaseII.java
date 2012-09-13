@@ -34,7 +34,7 @@ public class PlayerControllerPhaseII extends PlayerController {
         Card card1 = cards.get(0);
         Card card2 = cards.get(1);
         EquivalenceClass equivalenceClass = this.equivalenceClassController.cards2Equivalence(card1, card2);
-        double percentageOfWins = this.persistanceController.retrievePercentageOfWinsByPlayerAndEquivalenceClass(
+        double percentageOfWins = this.persistanceController.retrievePreflop(
                 gameHand.getPlayers().size(), equivalenceClass);
 
         if (percentageOfWins > 0.8)
