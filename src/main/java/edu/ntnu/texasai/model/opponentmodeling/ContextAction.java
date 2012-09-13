@@ -13,7 +13,7 @@ public class ContextAction {
     private final ContextPotOdds contextPotOdds;
 
     public ContextAction(Player player, BettingDecision bettingDecision, BettingRoundName bettingRoundName,
-                         Integer numberOfRaises, Integer numberOfPlayersRemaining, Double potOdds) {
+                         int numberOfRaises, int numberOfPlayersRemaining, double potOdds) {
         this.player = player;
         this.bettingDecision = bettingDecision;
         this.bettingRoundName = bettingRoundName;

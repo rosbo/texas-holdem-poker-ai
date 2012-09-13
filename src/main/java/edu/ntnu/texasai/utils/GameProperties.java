@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameProperties {
-    private final Integer smallBlind;
-    private final Integer bigBlind;
-    private final Integer initialMoney;
-    private final Integer numberOfHands;
+    private final int smallBlind;
+    private final int bigBlind;
+    private final int initialMoney;
+    private final int numberOfHands;
     private final List<Player> players = new ArrayList<Player>();
 
     @Inject
@@ -32,15 +32,15 @@ public class GameProperties {
         players.add(new Player(6, initialMoney, controllerPhaseIIIAgressive));
     }
 
-    public Integer getSmallBlind() {
+    public int getSmallBlind() {
         return smallBlind;
     }
 
-    public Integer getBigBlind() {
+    public int getBigBlind() {
         return bigBlind;
     }
 
-    public Integer getNumberOfHands() {
+    public int getNumberOfHands() {
         return numberOfHands;
     }
 
@@ -48,7 +48,7 @@ public class GameProperties {
         return players;
     }
 
-    public Integer getInitialMoney() {
+    public int getInitialMoney() {
         return this.initialMoney;
     }
 }

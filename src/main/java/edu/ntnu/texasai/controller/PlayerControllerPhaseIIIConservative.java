@@ -22,8 +22,8 @@ public class PlayerControllerPhaseIIIConservative extends PlayerControllerPhaseI
 
     @Override
     protected BettingDecision decideBet(GameHand gameHand, Player player,
-                                        Integer oppponentsWithBetterEstimatedHandStrength,
-                                        Integer opponentsModeledCount) {
+                                        int oppponentsWithBetterEstimatedHandStrength,
+                                        int opponentsModeledCount) {
         if (oppponentsWithBetterEstimatedHandStrength == 0) {
             return BettingDecision.RAISE;
         } else if (canCheck(gameHand, player)) {

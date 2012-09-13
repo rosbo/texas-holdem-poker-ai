@@ -30,10 +30,10 @@ public abstract class PlayerControllerPhaseIII extends PlayerController {
     @Override
     public BettingDecision decideAfterFlop(Player player, GameHand gameHand, List<Card> cards) {
         BettingRound currentBettingRound = gameHand.getCurrentBettingRound();
-        Double handStrength = handStrengthEvaluator.evaluate(player.getHoleCards(), gameHand.getSharedCards(),
+        double handStrength = handStrengthEvaluator.evaluate(player.getHoleCards(), gameHand.getSharedCards(),
                 gameHand.getPlayersCount());
-        Integer opponentsModeledCount = 0;
-        Integer oppponentsWithBetterEstimatedHandStrength = 0;
+        int opponentsModeledCount = 0;
+        int oppponentsWithBetterEstimatedHandStrength = 0;
 
         for (Player opponent : gameHand.getPlayers()) {
             // Only try to model opponent
@@ -41,7 +41,7 @@ public abstract class PlayerControllerPhaseIII extends PlayerController {
                 ContextAction contextAction = currentBettingRound.getContextActionForPlayer(opponent);
 
                 if (contextAction != null) {
-                    Double estimatedHandStrength = opponentModeler.getEstimatedHandStrength(contextAction);
+                    double estimatedHandStrength = opponentModeler.getEstimatedHandStrength(contextAction);
 
                     if (estimatedHandStrength > 0) {
                         opponentsModeledCount++;
@@ -63,6 +63,6 @@ public abstract class PlayerControllerPhaseIII extends PlayerController {
     }
 
     protected abstract BettingDecision decideBet(GameHand gameHand, Player player,
-                                                 Integer oppponentsWithBetterEstimatedHandStrength,
-                                                 Integer opponentsModeledCount);
+                                                 int oppponentsWithBetterEstimatedHandStrength,
+                                                 int opponentsModeledCount);
 }

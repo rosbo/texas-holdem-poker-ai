@@ -34,7 +34,7 @@ public class PlayerControllerPhaseII extends PlayerController {
         Card card1 = cards.get(0);
         Card card2 = cards.get(1);
         EquivalenceClass equivalenceClass = this.equivalenceClassController.cards2Equivalence(card1, card2);
-        Double percentageOfWins = this.persistanceController.retrievePercentageOfWinsByPlayerAndEquivalenceClass(
+        double percentageOfWins = this.persistanceController.retrievePercentageOfWinsByPlayerAndEquivalenceClass(
                 gameHand.getPlayers().size(), equivalenceClass);
 
         if (percentageOfWins > 0.8)
@@ -46,7 +46,7 @@ public class PlayerControllerPhaseII extends PlayerController {
 
     @Override
     public BettingDecision decideAfterFlop(Player player, GameHand gameHand, List<Card> cards) {
-        Double handStrength = this.handStrengthEvaluator.evaluate(player.getHoleCards(), gameHand.getSharedCards(),
+        double handStrength = this.handStrengthEvaluator.evaluate(player.getHoleCards(), gameHand.getSharedCards(),
                 gameHand.getPlayers().size());
         if (handStrength > 0.8) {
             return BettingDecision.RAISE;

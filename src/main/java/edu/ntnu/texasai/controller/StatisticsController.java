@@ -11,7 +11,7 @@ public class StatisticsController {
 
     private Map<Integer, Integer> players2wins;
     private Map<Integer, Integer> players2ties = new HashMap<Integer, Integer>();
-    private Integer player0winnings;
+    private int player0winnings;
 
     @Inject
     public StatisticsController() {
@@ -35,7 +35,7 @@ public class StatisticsController {
         }
     }
 
-    public Integer getPlayer0Wins() {
+    public int getPlayer0Wins() {
         return player0winnings;
     }
 

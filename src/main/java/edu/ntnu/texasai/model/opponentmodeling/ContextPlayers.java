@@ -4,7 +4,7 @@ public enum ContextPlayers {
     FEW,
     MANY;
 
-    public static ContextPlayers valueFor(Integer numberOfPlayersRemaining) {
+    public static ContextPlayers valueFor(int numberOfPlayersRemaining) {
         if (numberOfPlayersRemaining < 3) {
             return FEW;
         } else {

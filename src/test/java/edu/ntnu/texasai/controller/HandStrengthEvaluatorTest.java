@@ -36,7 +36,7 @@ public class HandStrengthEvaluatorTest {
         sharedCards.add(card3);
         sharedCards.add(card4);
         sharedCards.add(card5);
-        Double d = this.handStrengthEvaluator.evaluate(playerCards, sharedCards, 2);
+        double d = this.handStrengthEvaluator.evaluate(playerCards, sharedCards, 2);
         System.out.println(d);
         d = this.handStrengthEvaluator.evaluate(playerCards, sharedCards, 3);
         System.out.println(d);

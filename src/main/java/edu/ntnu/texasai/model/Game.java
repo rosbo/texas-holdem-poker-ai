@@ -32,7 +32,7 @@ public class Game {
         gameHands.add(gameHand);
     }
 
-    public Integer gameHandsCount() {
+    public int gameHandsCount() {
         return gameHands.size();
     }
 }

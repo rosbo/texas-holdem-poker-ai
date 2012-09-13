@@ -27,7 +27,7 @@ public class OpponentModeler {
         }
     }
 
-    public Double getEstimatedHandStrength(ContextAction contextAction) {
+    public double getEstimatedHandStrength(ContextAction contextAction) {
         ContextAggregate contextAggregate = getContextAggregate(contextAction);
         return contextAggregate.getHandStrengthAverage();
     }

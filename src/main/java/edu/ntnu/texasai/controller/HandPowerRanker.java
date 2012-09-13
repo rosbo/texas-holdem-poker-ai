@@ -178,7 +178,7 @@ public class HandPowerRanker {
         List<CardNumber> tieBreakingInformation = new ArrayList<CardNumber>();
         tieBreakingInformation.add(sameKindCardNumber);
 
-        Integer left = 5 - sameKindCount;
+        int left = 5 - sameKindCount;
         for (int i = cardsSortedByNumber.size() - 1; i >= 0; i--) {
             Card card = cardsSortedByNumber.get(i);
 
@@ -230,11 +230,11 @@ public class HandPowerRanker {
 
     private CardNumber getStraightNumber(List<CardNumber> cardNumbers) {
         CardNumber straightNumber = null;
-        Integer straightCount = 1;
-        Integer prevPower = 0;
+        int straightCount = 1;
+        int prevPower = 0;
         Collections.sort(cardNumbers, cardNumberComparator);
         for (CardNumber cardNumber : cardNumbers) {
-            if (cardNumber.getPower().equals(prevPower + 1)) {
+            if (cardNumber.getPower() == prevPower + 1) {
                 straightCount++;
                 if (straightCount >= 5) {
                     straightNumber = cardNumber;

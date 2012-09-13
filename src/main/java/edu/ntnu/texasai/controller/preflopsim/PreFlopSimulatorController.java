@@ -59,7 +59,7 @@ public class PreFlopSimulatorController {
                     game.setNextDealer();
                 }
 
-                Double percentageOfWinsPlayer0 = (double) statisticsController.getPlayer0Wins() /
+                double percentageOfWinsPlayer0 = (double) statisticsController.getPlayer0Wins() /
                         ROLLOUTS_PER_EQUIV_CLASS;
                 persistenceController.persistResult(numberOfPlayers, equivalenceClass,
                         percentageOfWinsPlayer0);

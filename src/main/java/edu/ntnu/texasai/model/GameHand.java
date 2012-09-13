@@ -45,8 +45,8 @@ public class GameHand {
         return getCurrentPlayer();
     }
 
-    public Integer getTotalBets() {
-        Integer totalBets = 0;
+    public int getTotalBets() {
+        int totalBets = 0;
         for (BettingRound bettingRound : bettingRounds) {
             totalBets += bettingRound.getTotalBets();
         }
@@ -65,7 +65,7 @@ public class GameHand {
         return sharedCards;
     }
 
-    public Integer getPlayersCount() {
+    public int getPlayersCount() {
         return players.size();
     }
 
@@ -106,9 +106,9 @@ public class GameHand {
     }
 
     public void applyDecision(Player player, BettingDecision bettingDecision, GameProperties gameProperties,
-                              Double handStrength) {
+                              double handStrength) {
         BettingRound currentBettingRound = getCurrentBettingRound();
-        Double potOdds = calculatePotOdds(player);
+        double potOdds = calculatePotOdds(player);
         ContextAction contextAction = new ContextAction(player, bettingDecision, getBettingRoundName(),
                 currentBettingRound.getNumberOfRaises(),
                 getPlayersCount(), potOdds);
@@ -121,9 +121,9 @@ public class GameHand {
         }
     }
 
-    public Double calculatePotOdds(Player player) {
+    public double calculatePotOdds(Player player) {
         BettingRound currentBettingRound = getCurrentBettingRound();
-        Integer amountNeededToCall = currentBettingRound.getHighestBet() - currentBettingRound.getBetForPlayer(player);
+        int amountNeededToCall = currentBettingRound.getHighestBet() - currentBettingRound.getBetForPlayer(player);
         return (double) amountNeededToCall / (amountNeededToCall + getTotalBets());
     }
 

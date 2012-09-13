@@ -12,7 +12,7 @@ import java.util.Map;
 public class BettingRound {
     private final Map<Player, Integer> playerBets = new HashMap<Player, Integer>();
     private final List<ContextInformation> contextInformations = new ArrayList<ContextInformation>();
-    private Integer highestBet = 0;
+    private int highestBet = 0;
 
     public void applyDecision(ContextInformation contextInformation, GameProperties gameProperties) {
         ContextAction contextAction = contextInformation.getContextAction();
@@ -34,7 +34,7 @@ public class BettingRound {
         }
     }
 
-    public void placeBet(Player player, Integer bet) {
+    public void placeBet(Player player, int bet) {
         Integer playerBet = playerBets.get(player);
 
         if (playerBet == null) {
@@ -54,7 +54,7 @@ public class BettingRound {
         playerBets.put(player, bet);
     }
 
-    public Integer getHighestBet() {
+    public int getHighestBet() {
         return highestBet;
     }
 
@@ -62,7 +62,7 @@ public class BettingRound {
         return contextInformations;
     }
 
-    public Integer getBetForPlayer(Player player) {
+    public int getBetForPlayer(Player player) {
         Integer bet = playerBets.get(player);
         if (bet == null) {
             return 0;
@@ -70,16 +70,16 @@ public class BettingRound {
         return bet;
     }
 
-    public Integer getTotalBets() {
-        Integer totalBets = 0;
+    public int getTotalBets() {
+        int totalBets = 0;
         for (Integer bet : playerBets.values()) {
             totalBets += bet;
         }
         return totalBets;
     }
 
-    public Integer getNumberOfRaises() {
-        Integer numberOfRaises = 0;
+    public int getNumberOfRaises() {
+        int numberOfRaises = 0;
         for (ContextInformation contextInformation : contextInformations) {
             if (contextInformation.getContextAction().getBettingDecision().equals(BettingDecision.RAISE)) {
                 numberOfRaises++;

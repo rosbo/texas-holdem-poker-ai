@@ -30,7 +30,7 @@ public class GameHandPreFlopRoll extends GameHand {
         Deque<Player> players = this.getPlayers();
         for (Player p : players) {// the players are not sorted, the first one
             // is the dealer
-            if (p.getNumber().equals(new Integer(0))) {
+            if (p.getNumber() == 0) {
                 player0 = p;
             }
         }

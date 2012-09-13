@@ -17,7 +17,7 @@ public class HandStrengthEvaluator {
         this.handPowerRanker = handPowerRanker;
     }
 
-    public Double evaluate(List<Card> playerHoleCards, List<Card> sharedCards, Integer numberOfPlayers) {
+    public double evaluate(List<Card> playerHoleCards, List<Card> sharedCards, Integer numberOfPlayers) {
         if(sharedCards == null || sharedCards.isEmpty()){
             return 0d;
         }
@@ -60,7 +60,7 @@ public class HandStrengthEvaluator {
         return calculateHandStrength(wins, ties, losses, numberOfPlayers);
     }
 
-    private Double calculateHandStrength(int wins, int ties, int losses, int numberOfPlayers) {
+    private double calculateHandStrength(int wins, int ties, int losses, int numberOfPlayers) {
         double num = (wins + 0.5 * ties);
         double den = (wins + losses + ties);
         return Math.pow(num / den, numberOfPlayers);

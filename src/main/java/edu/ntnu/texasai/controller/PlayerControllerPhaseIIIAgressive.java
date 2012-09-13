@@ -22,8 +22,8 @@ public class PlayerControllerPhaseIIIAgressive extends PlayerControllerPhaseIII 
 
     @Override
     protected BettingDecision decideBet(GameHand gameHand, Player player,
-                                        Integer oppponentsWithBetterEstimatedHandStrength,
-                                        Integer opponentsModeledCount) {
+                                        int oppponentsWithBetterEstimatedHandStrength,
+                                        int opponentsModeledCount) {
         if ((double) oppponentsWithBetterEstimatedHandStrength / opponentsModeledCount > 0.5) {
             return BettingDecision.RAISE;
         } else if (canCheck(gameHand, player)) {

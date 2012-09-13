@@ -32,7 +32,7 @@ public class PersistenceManager {
         }
     }
 
-    public Double retrievePercentageOfWinsByPlayerAndEquivalenceClass(Integer numberOfPlayers,
+    public double retrievePercentageOfWinsByPlayerAndEquivalenceClass(int numberOfPlayers,
                                                                       EquivalenceClass equivalenceClass) {
         String number1 = equivalenceClass.getNumber1().toString();
         String number2 = equivalenceClass.getNumber2().toString();
@@ -60,7 +60,7 @@ public class PersistenceManager {
         }
     }
 
-    public void persistResult(Integer numberOfPlayers, EquivalenceClass equivalenceClass, Double percentage) {
+    public void persistResult(int numberOfPlayers, EquivalenceClass equivalenceClass, double percentage) {
         try {
             String insert = "INSERT INTO " + TABLE_EQUIVALENCE_NAME + " VALUES(?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(insert);

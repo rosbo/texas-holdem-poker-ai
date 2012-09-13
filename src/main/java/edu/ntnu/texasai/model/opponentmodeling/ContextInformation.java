@@ -2,9 +2,9 @@ package edu.ntnu.texasai.model.opponentmodeling;
 
 public class ContextInformation {
     private final ContextAction contextAction;
-    private final Double handStrength;
+    private final double handStrength;
 
-    public ContextInformation(ContextAction contextAction, Double handStrength) {
+    public ContextInformation(ContextAction contextAction, double handStrength) {
         this.contextAction = contextAction;
         this.handStrength = handStrength;
     }
@@ -13,7 +13,7 @@ public class ContextInformation {
         return contextAction;
     }
 
-    public Double getHandStrength() {
+    public double getHandStrength() {
         return handStrength;
     }
 }
