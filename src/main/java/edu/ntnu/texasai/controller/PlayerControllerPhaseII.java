@@ -5,22 +5,22 @@ import edu.ntnu.texasai.model.GameHand;
 import edu.ntnu.texasai.model.Player;
 import edu.ntnu.texasai.model.cards.Card;
 import edu.ntnu.texasai.model.cards.EquivalenceClass;
-import edu.ntnu.texasai.persistence.PersistenceManager;
+import edu.ntnu.texasai.persistence.PreFlopPersistence;
 
 import javax.inject.Inject;
 import java.util.List;
 
 public class PlayerControllerPhaseII extends PlayerController {
-    private final PersistenceManager persistanceController;
     private final EquivalenceClassController equivalenceClassController;
+    private final PreFlopPersistence preFlopPersistence;
     private final HandStrengthEvaluator handStrengthEvaluator;
 
     @Inject
     public PlayerControllerPhaseII(final EquivalenceClassController equivalenceClassController,
-                                   final PersistenceManager persistanceController,
+                                   final PreFlopPersistence preFlopPersistence,
                                    final HandStrengthEvaluator handStrengthEvaluator) {
-        this.persistanceController = persistanceController;
         this.equivalenceClassController = equivalenceClassController;
+        this.preFlopPersistence = preFlopPersistence;
         this.handStrengthEvaluator = handStrengthEvaluator;
     }
 
@@ -34,8 +34,7 @@ public class PlayerControllerPhaseII extends PlayerController {
         Card card1 = cards.get(0);
         Card card2 = cards.get(1);
         EquivalenceClass equivalenceClass = this.equivalenceClassController.cards2Equivalence(card1, card2);
-        double percentageOfWins = this.persistanceController.retrievePreflop(
-                gameHand.getPlayers().size(), equivalenceClass);
+        double percentageOfWins = preFlopPersistence.retrieve(gameHand.getPlayers().size(), equivalenceClass);
 
         if (percentageOfWins > 0.8)
             return BettingDecision.RAISE;

@@ -46,4 +46,16 @@ public class ContextAction {
     public BettingRoundName getBettingRoundName() {
         return bettingRoundName;
     }
+
+    public ContextRaises getContextRaises() {
+        return contextRaises;
+    }
+
+    public ContextPlayers getContextPlayers() {
+        return contextPlayers;
+    }
+
+    public ContextPotOdds getContextPotOdds() {
+        return contextPotOdds;
+    }
 }

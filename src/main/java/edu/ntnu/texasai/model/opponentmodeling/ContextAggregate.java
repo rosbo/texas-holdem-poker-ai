@@ -21,4 +21,8 @@ public class ContextAggregate {
     public double getHandStrengthAverage() {
         return handStrengthAverage;
     }
+
+    public int getNumberOfOccurrences() {
+        return numberOfOccurrences;
+    }
 }

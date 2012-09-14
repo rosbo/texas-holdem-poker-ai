@@ -5,7 +5,7 @@ import edu.ntnu.texasai.controller.StatisticsController;
 import edu.ntnu.texasai.model.Game;
 import edu.ntnu.texasai.model.Player;
 import edu.ntnu.texasai.model.cards.EquivalenceClass;
-import edu.ntnu.texasai.persistence.PersistenceManager;
+import edu.ntnu.texasai.persistence.PreFlopPersistence;
 import edu.ntnu.texasai.utils.GameProperties;
 import edu.ntnu.texasai.utils.Logger;
 
@@ -23,7 +23,7 @@ public class PreFlopSimulatorController {
     private final EquivalenceClassController equivalenceClassController;
     private final GameHandControllerPreFlopRoll gameHandControllerPreFlopRoll;
     private final StatisticsController statisticsController;
-    private final PersistenceManager persistenceController;
+    private final PreFlopPersistence preFlopPersistence;
 
     @Inject
     public PreFlopSimulatorController(final Logger logger, final GameProperties gameProperties,
@@ -31,14 +31,14 @@ public class PreFlopSimulatorController {
                                       final EquivalenceClassController equivalenceClassController,
                                       final GameHandControllerPreFlopRoll gameHandControllerPreFlopRoll,
                                       final StatisticsController statisticsController,
-                                      final PersistenceManager persistenceController) {
+                                      final PreFlopPersistence preFlopPersistence) {
         this.logger = logger;
         this.gameProperties = gameProperties;
         this.playerControllerPreFlopRoll = playerControllerPreFlopRoll;
         this.equivalenceClassController = equivalenceClassController;
         this.gameHandControllerPreFlopRoll = gameHandControllerPreFlopRoll;
         this.statisticsController = statisticsController;
-        this.persistenceController = persistenceController;
+        this.preFlopPersistence = preFlopPersistence;
     }
 
     public void play() {
@@ -59,7 +59,7 @@ public class PreFlopSimulatorController {
                 }
 
                 double percentageWin = (double) statisticsController.getPlayer1Wins() / ROLLOUTS_PER_EQUIV_CLASS;
-                persistenceController.persistPreflop(numberOfPlayers, equivalenceClass, percentageWin);
+                preFlopPersistence.persist(numberOfPlayers, equivalenceClass, percentageWin);
 
                 logger.log("=================");
                 logger.log("STATISTICS FOR EQUIVALENCE CLASS "

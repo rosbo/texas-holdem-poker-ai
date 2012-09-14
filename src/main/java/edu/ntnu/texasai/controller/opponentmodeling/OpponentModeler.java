@@ -6,11 +6,19 @@ import edu.ntnu.texasai.model.Player;
 import edu.ntnu.texasai.model.opponentmodeling.ContextAction;
 import edu.ntnu.texasai.model.opponentmodeling.ContextAggregate;
 import edu.ntnu.texasai.model.opponentmodeling.ContextInformation;
+import edu.ntnu.texasai.persistence.OpponentsModelPersistence;
 
+import javax.inject.Inject;
 import java.util.*;
 
 public class OpponentModeler {
     private final Map<Player, List<ContextAggregate>> playerModels = new HashMap<Player, List<ContextAggregate>>();
+    private final OpponentsModelPersistence opponentsModelPersistence;
+
+    @Inject
+    public OpponentModeler(final OpponentsModelPersistence opponentsModelPersistence) {
+        this.opponentsModelPersistence = opponentsModelPersistence;
+    }
 
     public void save(GameHand gameHand) {
         Deque<Player> showdownPlayers = gameHand.getPlayers();
@@ -28,8 +36,11 @@ public class OpponentModeler {
     }
 
     public double getEstimatedHandStrength(ContextAction contextAction) {
-        ContextAggregate contextAggregate = getContextAggregate(contextAction);
-        return contextAggregate.getHandStrengthAverage();
+        return opponentsModelPersistence.retrieve(contextAction);
+    }
+
+    public Map<Player, List<ContextAggregate>> getPlayerModels() {
+        return playerModels;
     }
 
     private void addToPlayerModel(ContextInformation contextInformation) {

@@ -11,8 +11,8 @@ public class GameProperties {
     private final int smallBlind;
     private final int bigBlind;
     private final int initialMoney;
-    private final int numberOfHands;
     private final List<Player> players = new ArrayList<Player>();
+    private int numberOfHands;
 
     @Inject
     public GameProperties(final PlayerControllerPhaseI playerControllerPhaseI,
@@ -42,6 +42,10 @@ public class GameProperties {
 
     public int getNumberOfHands() {
         return numberOfHands;
+    }
+
+    public void setNumberOfHands(int numberOfHands) {
+        this.numberOfHands = numberOfHands;
     }
 
     public List<Player> getPlayers() {

@@ -14,7 +14,6 @@ public class ControllerModule extends AbstractModule {
 
         bind(PokerController.class).in(Singleton.class);
         bind(GameHandController.class).in(Singleton.class);
-        bind(PersistenceManager.class).in(Singleton.class);
         bind(PlayerControllerPhaseI.class).in(Singleton.class);
         bind(PlayerControllerPhaseII.class).in(Singleton.class);
         bind(EquivalenceClassController.class).in(Singleton.class);
