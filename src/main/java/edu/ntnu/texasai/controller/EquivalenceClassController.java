@@ -8,16 +8,11 @@ import java.util.Collection;
 import java.util.List;
 
 public class EquivalenceClassController {
-
 	private final Collection<EquivalenceClass> equivalenceClasses;
-	private final List<Card> cards1;
-	private final List<EquivalenceClass>cards2;
-	
+
 	@Inject
 	public EquivalenceClassController() {
 	    equivalenceClasses = new ArrayList<EquivalenceClass>();
-		cards1 = new ArrayList<Card>();
-		cards2 = new ArrayList<EquivalenceClass>();
 	}
 	
 	/**

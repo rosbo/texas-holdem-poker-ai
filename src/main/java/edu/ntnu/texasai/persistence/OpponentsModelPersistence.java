@@ -87,6 +87,18 @@ public class OpponentsModelPersistence {
         }
     }
 
+    public void clear() {
+        String query = "TRUNCATE TABLE " + TABLE_OPPONENTS_MODEL;
+        try {
+            Statement statement = persistenceManager.getConnection().createStatement();
+            statement.execute(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getLocalizedMessage());
+        }
+
+    }
+
     private void init() {
         try {
             Statement statement = persistenceManager.getConnection().createStatement();

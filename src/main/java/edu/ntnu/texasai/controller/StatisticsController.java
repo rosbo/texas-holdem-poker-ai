@@ -5,7 +5,7 @@ import edu.ntnu.texasai.model.Player;
 import java.util.List;
 
 public class StatisticsController {
-    int player1winnings = 0;
+    private int player1winnings = 0;
 
     public void initializeStatistics() {
         player1winnings = 0;

@@ -21,14 +21,6 @@ public class MapList<K, V> implements Iterable<List<V>> {
         return value;
     }
 
-    public List<V> remove(K key) {
-        return mapList.remove(key);
-    }
-
-    public void clear(){
-        mapList.clear();
-    }
-
     public Set<K> keySet() {
         return mapList.keySet();
     }
