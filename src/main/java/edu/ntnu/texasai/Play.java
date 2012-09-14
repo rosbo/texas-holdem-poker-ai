@@ -5,7 +5,7 @@ import com.google.inject.Injector;
 import edu.ntnu.texasai.controller.PokerController;
 import edu.ntnu.texasai.dependencyinjection.TexasModule;
 
-public class Main {
+public class Play {
     public static void main(String[] args) {
         Injector injector = Guice.createInjector(new TexasModule());
 

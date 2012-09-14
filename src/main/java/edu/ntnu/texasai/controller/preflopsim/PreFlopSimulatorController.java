@@ -13,8 +13,7 @@ import javax.inject.Inject;
 import java.util.Collection;
 
 public class PreFlopSimulatorController {
-    // TODO: Must be at least 100
-    private static final int ROLLOUTS_PER_EQUIV_CLASS = 10;
+    private static final int ROLLOUTS_PER_EQUIV_CLASS = 100;
 
     private final Game game = new Game();
     private final Logger logger;
