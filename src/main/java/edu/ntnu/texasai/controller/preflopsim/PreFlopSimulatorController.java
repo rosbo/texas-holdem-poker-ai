@@ -60,12 +60,12 @@ public class PreFlopSimulatorController {
                 double percentageWin = (double) statisticsController.getPlayer1Wins() / ROLLOUTS_PER_EQUIV_CLASS;
                 preFlopPersistence.persist(numberOfPlayers, equivalenceClass, percentageWin);
 
-                logger.log("=================");
-                logger.log("STATISTICS FOR EQUIVALENCE CLASS "
+                logger.logImportant("=================");
+                logger.logImportant("STATISTICS FOR EQUIVALENCE CLASS "
                         + equivalenceClass.toString());
-                logger.log("Number of hands played: " + ROLLOUTS_PER_EQUIV_CLASS);
-                logger.log("Number players: " + numberOfPlayers);
-                logger.log("Percentage of wins is " + percentageWin);
+                logger.logImportant("Number of hands played: " + ROLLOUTS_PER_EQUIV_CLASS);
+                logger.logImportant("Number players: " + numberOfPlayers);
+                logger.logImportant("Percentage of wins is " + percentageWin);
             }
         }
     }

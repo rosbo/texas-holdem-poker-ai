@@ -35,7 +35,7 @@ public class GameHandController {
 
     public void play(Game game) {
         logger.log("-----------------------------------------");
-        logger.log("Game Hand #" + (game.gameHandsCount() + 1));
+        logger.logImportant("Game Hand #" + (game.gameHandsCount() + 1));
         logger.log("-----------------------------------------");
         GameHand gameHand = createGameHand(game);
 
