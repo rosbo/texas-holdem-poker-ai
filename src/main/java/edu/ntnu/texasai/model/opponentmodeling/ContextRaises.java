@@ -5,7 +5,7 @@ public enum ContextRaises {
     MANY;
 
     public static ContextRaises valueFor(int numberOfRaises) {
-        if(numberOfRaises < 2){
+        if(numberOfRaises < 3){
             return FEW;
         }else{
             return MANY;

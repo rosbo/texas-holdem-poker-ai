@@ -27,7 +27,7 @@ public class PlayerControllerPhaseI extends PlayerController {
 
         if (card1.getNumber().equals(card2.getNumber())) {
             return BettingDecision.RAISE;
-        } else if (card1.getNumber().getPower() + card2.getNumber().getPower() > 16
+        } else if (card1.getNumber().getPower() + card2.getNumber().getPower() > 20
                 || canCheck(gameHand, player)) {
             return BettingDecision.CALL;
         } else {
@@ -46,7 +46,7 @@ public class PlayerControllerPhaseI extends PlayerController {
                 return BettingDecision.CALL;
             }
             return BettingDecision.FOLD;
-        } else if (handPowerType.getPower() >= HandPowerType.THREE_OF_A_KIND
+        } else if (handPowerType.getPower() >= HandPowerType.STRAIGHT
                 .getPower()) {
             return BettingDecision.RAISE;
         } else {

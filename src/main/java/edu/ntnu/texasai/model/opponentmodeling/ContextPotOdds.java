@@ -5,7 +5,7 @@ public enum ContextPotOdds {
     HIGH;
 
     public static ContextPotOdds valueFor(double potOdds) {
-        if (potOdds > 0.25) {
+        if (potOdds > 0.2) {
             return HIGH;
         } else {
             return LOW;

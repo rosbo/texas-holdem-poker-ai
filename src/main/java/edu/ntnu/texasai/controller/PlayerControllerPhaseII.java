@@ -1,10 +1,13 @@
 package edu.ntnu.texasai.controller;
 
 import edu.ntnu.texasai.model.BettingDecision;
+import edu.ntnu.texasai.model.BettingRoundName;
 import edu.ntnu.texasai.model.GameHand;
 import edu.ntnu.texasai.model.Player;
 import edu.ntnu.texasai.model.cards.Card;
 import edu.ntnu.texasai.model.cards.EquivalenceClass;
+import edu.ntnu.texasai.model.opponentmodeling.ContextPlayers;
+import edu.ntnu.texasai.model.opponentmodeling.ContextRaises;
 import edu.ntnu.texasai.persistence.PreFlopPersistence;
 
 import javax.inject.Inject;
@@ -36,20 +39,33 @@ public class PlayerControllerPhaseII extends PlayerController {
         EquivalenceClass equivalenceClass = this.equivalenceClassController.cards2Equivalence(card1, card2);
         double percentageOfWins = preFlopPersistence.retrieve(gameHand.getPlayers().size(), equivalenceClass);
 
-        if (percentageOfWins > 0.8)
+        if (percentageOfWins > 0.6)
             return BettingDecision.RAISE;
-        else if (percentageOfWins < 0.5)
+        else if (percentageOfWins < 0.45)
             return BettingDecision.FOLD;
         return BettingDecision.CALL;
     }
 
     @Override
     public BettingDecision decideAfterFlop(Player player, GameHand gameHand, List<Card> cards) {
-        double handStrength = this.handStrengthEvaluator.evaluate(player.getHoleCards(), gameHand.getSharedCards(),
+        double p = this.handStrengthEvaluator.evaluate(player.getHoleCards(), gameHand.getSharedCards(),
                 gameHand.getPlayers().size());
-        if (handStrength > 0.8) {
+        // Last round, why not?
+        if (gameHand.getBettingRoundName().equals(BettingRoundName.POST_RIVER)) {
+            p += 0.1;
+        }
+        // Many player mean more money
+        if(ContextPlayers.valueFor(gameHand.getPlayersCount()).equals(ContextPlayers.MANY)){
+            p+=0.1;
+        }
+        // Lot of raises, be careful
+        if(ContextRaises.valueFor(gameHand.getCurrentBettingRound().getNumberOfRaises()).equals(ContextRaises.MANY)){
+            p-=0.1;
+        }
+
+        if (p > 0.8) {
             return BettingDecision.RAISE;
-        } else if (handStrength > 0.4 || canCheck(gameHand, player)) {
+        } else if (p > 0.4 || canCheck(gameHand, player)) {
             return BettingDecision.CALL;
         }
         return BettingDecision.FOLD;
