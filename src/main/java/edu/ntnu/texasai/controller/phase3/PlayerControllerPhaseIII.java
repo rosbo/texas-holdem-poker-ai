@@ -1,5 +1,8 @@
-package edu.ntnu.texasai.controller;
+package edu.ntnu.texasai.controller.phase3;
 
+import edu.ntnu.texasai.controller.HandStrengthEvaluator;
+import edu.ntnu.texasai.controller.PlayerController;
+import edu.ntnu.texasai.controller.phase2.PlayerControllerPhaseIINormal;
 import edu.ntnu.texasai.controller.opponentmodeling.OpponentModeler;
 import edu.ntnu.texasai.model.BettingDecision;
 import edu.ntnu.texasai.model.BettingRound;
@@ -11,20 +14,20 @@ import edu.ntnu.texasai.model.opponentmodeling.ContextAction;
 import java.util.List;
 
 public abstract class PlayerControllerPhaseIII extends PlayerController {
-    private final PlayerControllerPhaseII playerControllerPhaseII;
+    private final PlayerControllerPhaseIINormal playerControllerPhaseIINormal;
     private final HandStrengthEvaluator handStrengthEvaluator;
     private final OpponentModeler opponentModeler;
 
-    protected PlayerControllerPhaseIII(PlayerControllerPhaseII playerControllerPhaseII, HandStrengthEvaluator
+    protected PlayerControllerPhaseIII(PlayerControllerPhaseIINormal playerControllerPhaseIINormal, HandStrengthEvaluator
             handStrengthEvaluator, OpponentModeler opponentModeler) {
-        this.playerControllerPhaseII = playerControllerPhaseII;
+        this.playerControllerPhaseIINormal = playerControllerPhaseIINormal;
         this.handStrengthEvaluator = handStrengthEvaluator;
         this.opponentModeler = opponentModeler;
     }
 
     @Override
     public BettingDecision decidePreFlop(Player player, GameHand gameHand, List<Card> cards) {
-        return playerControllerPhaseII.decidePreFlop(player, gameHand, cards);
+        return playerControllerPhaseIINormal.decidePreFlop(player, gameHand, cards);
     }
 
     @Override
@@ -56,7 +59,7 @@ public abstract class PlayerControllerPhaseIII extends PlayerController {
         // If we don't have enough context action in the current betting round
         if ((double) opponentsModeledCount / gameHand.getPlayersCount() < 0.5) {
             // We fallback to a phase II bot
-            return playerControllerPhaseII.decideAfterFlop(player, gameHand, cards);
+            return playerControllerPhaseIINormal.decideAfterFlop(player, gameHand, cards);
         }
 
         return decideBet(gameHand, player, oppponentsWithBetterEstimatedHandStrength, opponentsModeledCount);
