@@ -51,9 +51,9 @@ public class PlayerControllerPhaseIBluff extends PlayerController {
             return BettingDecision.RAISE;
         } else {
             if(canCheck(gameHand, player)){
-                return BettingDecision.FOLD;
+                return BettingDecision.CALL;
             }
-            return BettingDecision.CALL;
+            return BettingDecision.FOLD;
         }
     }
 }

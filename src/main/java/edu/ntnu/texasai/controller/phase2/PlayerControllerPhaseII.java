@@ -15,21 +15,21 @@ public abstract class PlayerControllerPhaseII extends PlayerController {
         this.handStrengthEvaluator = handStrengthEvaluator;
     }
 
-    protected double calculateCoefficient(GameHand gameHand, Player player){
+    protected double calculateCoefficient(GameHand gameHand, Player player) {
         double p = this.handStrengthEvaluator.evaluate(player.getHoleCards(), gameHand.getSharedCards(),
                 gameHand.getPlayers().size());
 
         // Last round, why not?
         if (gameHand.getBettingRoundName().equals(BettingRoundName.POST_RIVER)) {
-            p += 0.1;
+            p += 0.3;
         }
         // Many player mean more money
-        if(ContextPlayers.valueFor(gameHand.getPlayersCount()).equals(ContextPlayers.MANY)){
-            p+=0.1;
+        if (ContextPlayers.valueFor(gameHand.getPlayersCount()).equals(ContextPlayers.MANY)) {
+            p += 0.3;
         }
         // Lot of raises, be careful
-        if(ContextRaises.valueFor(gameHand.getCurrentBettingRound().getNumberOfRaises()).equals(ContextRaises.MANY)){
-            p-=0.1;
+        if (ContextRaises.valueFor(gameHand.getCurrentBettingRound().getNumberOfRaises()).equals(ContextRaises.MANY)) {
+            p -= 0.3;
         }
 
         return p;

@@ -23,13 +23,13 @@ public class PlayerControllerPhaseINormal extends PlayerController {
 
     @Override
     public BettingDecision decidePreFlop(Player player, GameHand gameHand,
-            List<Card> cards) {
+                                         List<Card> cards) {
         Card card1 = cards.get(0);
         Card card2 = cards.get(1);
 
         if (card1.getNumber().equals(card2.getNumber())) {
             return BettingDecision.RAISE;
-        } else if (card1.getNumber().getPower() + card2.getNumber().getPower() > 20
+        } else if (card1.getNumber().getPower() + card2.getNumber().getPower() > 12
                 || canCheck(gameHand, player)) {
             return BettingDecision.CALL;
         } else {
@@ -38,8 +38,7 @@ public class PlayerControllerPhaseINormal extends PlayerController {
     }
 
     @Override
-    public BettingDecision decideAfterFlop(Player player, GameHand gameHand,
-            List<Card> cards) {
+    public BettingDecision decideAfterFlop(Player player, GameHand gameHand, List<Card> cards) {
         HandPower handPower = handPowerRanker.rank(cards);
 
         HandPowerType handPowerType = handPower.getHandPowerType();
@@ -48,8 +47,7 @@ public class PlayerControllerPhaseINormal extends PlayerController {
                 return BettingDecision.CALL;
             }
             return BettingDecision.FOLD;
-        } else if (handPowerType.getPower() >= HandPowerType.STRAIGHT
-                .getPower()) {
+        } else if (handPowerType.getPower() >= HandPowerType.STRAIGHT.getPower()) {
             return BettingDecision.RAISE;
         } else {
             return BettingDecision.CALL;
