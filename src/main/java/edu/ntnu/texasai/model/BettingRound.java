@@ -2,7 +2,7 @@ package edu.ntnu.texasai.model;
 
 import edu.ntnu.texasai.model.opponentmodeling.ContextAction;
 import edu.ntnu.texasai.model.opponentmodeling.ContextInformation;
-import edu.ntnu.texasai.utils.GameProperties;
+import edu.ntnu.texasai.model.gameproperties.GameProperties;
 
 import java.util.ArrayList;
 import java.util.HashMap;

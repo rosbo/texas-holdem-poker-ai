@@ -2,7 +2,7 @@ package edu.ntnu.texasai.controller;
 
 import edu.ntnu.texasai.model.Game;
 import edu.ntnu.texasai.model.Player;
-import edu.ntnu.texasai.utils.GameProperties;
+import edu.ntnu.texasai.model.gameproperties.GameProperties;
 import edu.ntnu.texasai.utils.Logger;
 
 import javax.inject.Inject;

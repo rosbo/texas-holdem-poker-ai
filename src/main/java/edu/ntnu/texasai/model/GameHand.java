@@ -4,7 +4,7 @@ import edu.ntnu.texasai.model.cards.Card;
 import edu.ntnu.texasai.model.cards.Deck;
 import edu.ntnu.texasai.model.opponentmodeling.ContextAction;
 import edu.ntnu.texasai.model.opponentmodeling.ContextInformation;
-import edu.ntnu.texasai.utils.GameProperties;
+import edu.ntnu.texasai.model.gameproperties.GameProperties;
 
 import java.util.ArrayList;
 import java.util.Deque;
