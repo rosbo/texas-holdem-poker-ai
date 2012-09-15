@@ -3,7 +3,9 @@ package edu.ntnu.texasai.controller;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import edu.ntnu.texasai.controller.preflopsim.PlayerControllerPreFlopRoll;
-import edu.ntnu.texasai.dependencyinjection.DefaultModule;
+import edu.ntnu.texasai.dependencyinjection.GamePropertiesParameter;
+import edu.ntnu.texasai.dependencyinjection.LogLevel;
+import edu.ntnu.texasai.dependencyinjection.TexasModule;
 import edu.ntnu.texasai.model.Player;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +21,7 @@ public class StatisticsControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        Injector injector = Guice.createInjector(new DefaultModule());
+        Injector injector = Guice.createInjector(new TexasModule(LogLevel.ALL, GamePropertiesParameter.DEMO));
         this.statisticsController = injector
                 .getInstance(StatisticsController.class);
         this.playerControllerPreFlopRoll = injector
