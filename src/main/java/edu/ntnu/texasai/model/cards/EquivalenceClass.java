@@ -3,9 +3,9 @@ package edu.ntnu.texasai.model.cards;
 import java.util.List;
 
 public abstract class EquivalenceClass {
-	private CardNumber number1, number2;
+	private final CardNumber number1, number2;
 
-	public EquivalenceClass(CardNumber number1, CardNumber number2) {
+	public EquivalenceClass(final CardNumber number1, final CardNumber number2) {
 		this.number1 = number1;
 		this.number2 = number2;
 	}

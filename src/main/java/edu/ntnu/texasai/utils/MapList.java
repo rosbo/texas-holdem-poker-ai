@@ -9,28 +9,27 @@ public class MapList<K, V> implements Iterable<List<V>> {
         return mapList.values().iterator();
     }
 
-    public V add(K key, V value){
-        List<V> cards = mapList.get(key);
+    public V add(K key, V value) {
+        List<V> values = mapList.get(key);
 
-        if(cards == null){
-            cards = new ArrayList<V>();
-            mapList.put(key, cards);
+        if (values == null) {
+            values = new ArrayList<V>();
+            mapList.put(key, values);
         }
 
-        cards.add(value);
-
+        values.add(value);
         return value;
     }
 
-    public Set<K> keySet(){
+    public Set<K> keySet() {
         return mapList.keySet();
     }
 
-    public Set<Map.Entry<K, List<V>>> entrySet(){
+    public Set<Map.Entry<K, List<V>>> entrySet() {
         return mapList.entrySet();
     }
 
-    public List<V> get(K key){
+    public List<V> get(K key) {
         return mapList.get(key);
     }
 }

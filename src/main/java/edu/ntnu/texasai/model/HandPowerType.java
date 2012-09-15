@@ -11,13 +11,13 @@ public enum HandPowerType {
     FOUR_OF_A_KIND(8),
     STRAIGHT_FLUSH(9);
 
-    private Integer power;
+    private final int power;
 
-    private HandPowerType(Integer power) {
+    private HandPowerType(int power) {
         this.power = power;
     }
 
-    public Integer getPower() {
+    public int getPower() {
         return power;
     }
 }

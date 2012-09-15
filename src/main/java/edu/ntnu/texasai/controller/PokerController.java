@@ -15,7 +15,7 @@ public class PokerController {
 
     @Inject
     public PokerController(final GameHandController gameHandController,
-            final Logger logger, final GameProperties gameProperties) {
+                           final Logger logger, final GameProperties gameProperties) {
         this.gameHandController = gameHandController;
         this.logger = logger;
         this.gameProperties = gameProperties;
@@ -38,7 +38,8 @@ public class PokerController {
         logger.log("-----------------------------------------");
         logger.log("Number of hands played: " + game.gameHandsCount());
         for (Player player : game.getPlayers()) {
-            logger.log(player.toString() + ": " + player.getMoney() + "$");
+            logger.log(player.toString() + "(" + player.getPlayerController().toString() + ")" + ": " + player
+                    .getMoney() + "$");
         }
     }
 }

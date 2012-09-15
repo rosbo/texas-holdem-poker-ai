@@ -1,35 +1,25 @@
 package edu.ntnu.texasai.controller;
 
+import com.google.inject.Inject;
+import edu.ntnu.texasai.model.cards.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.google.inject.Inject;
-
-import edu.ntnu.texasai.model.cards.Card;
-import edu.ntnu.texasai.model.cards.CardNumber;
-import edu.ntnu.texasai.model.cards.EquivalenceClass;
-import edu.ntnu.texasai.model.cards.EquivalenceClassSuited;
-import edu.ntnu.texasai.model.cards.EquivalenceClassUnsuited;
-
 public class EquivalenceClassController {
+	private final Collection<EquivalenceClass> equivalenceClasses;
 
-	private Collection<EquivalenceClass> equivalenceClasses; 
-	private List<Card> cards1;
-	private List<EquivalenceClass>cards2;
-	
 	@Inject
 	public EquivalenceClassController() {
-	    this.equivalenceClasses = new ArrayList<EquivalenceClass>();
-		this.cards1 = new ArrayList<Card>();
-		this.cards2 = new ArrayList<EquivalenceClass>();
+	    equivalenceClasses = new ArrayList<EquivalenceClass>();
 	}
 	
 	/**
 	 * Converts two cards into their corrispondent equivalence class
 	 * */
 	public EquivalenceClass cards2Equivalence(Card card1, Card card2) {
-		EquivalenceClass equivalenceClass = null;
+		EquivalenceClass equivalenceClass;
 		if (card1.getSuit().equals(card2.getSuit())) { // suited
 			    equivalenceClass = new EquivalenceClassSuited(card1.getNumber(),card2.getNumber());
 			} else {// unsuited
@@ -41,17 +31,9 @@ public class EquivalenceClassController {
 	public Collection<EquivalenceClass> getEquivalenceClasses() {
 		return equivalenceClasses;
 	}
-
-	public List<Card> getCards1() {
-		return cards1;
-	}
-	
-	public List<EquivalenceClass> getCard2(){
-		return this.cards2;
-	}
 	
 	public void generateAllEquivalenceClass()  {
-		EquivalenceClass equivalenceClass = null;
+		EquivalenceClass equivalenceClass;
 		List<CardNumber> allCardNumbers = new ArrayList<CardNumber>();
 		
 		//generateThePairs

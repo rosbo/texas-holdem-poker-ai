@@ -3,7 +3,7 @@ package edu.ntnu.texasai.model;
 public enum BettingRoundName {
     PRE_FLOP, POST_FLOP, POST_TURN, POST_RIVER;
 
-    public static BettingRoundName fromRoundNumber(Integer bettingRoundNumber) {
+    public static BettingRoundName fromRoundNumber(int bettingRoundNumber) {
         switch (bettingRoundNumber) {
         case 2:
             return POST_FLOP;

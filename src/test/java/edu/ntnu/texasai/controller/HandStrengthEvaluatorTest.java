@@ -1,18 +1,16 @@
 package edu.ntnu.texasai.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-
-import edu.ntnu.texasai.dependencyinjection.TexasModule;
+import edu.ntnu.texasai.dependencyinjection.DefaultModule;
 import edu.ntnu.texasai.model.cards.Card;
 import edu.ntnu.texasai.model.cards.CardNumber;
 import edu.ntnu.texasai.model.cards.CardSuit;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HandStrengthEvaluatorTest {
 
@@ -20,7 +18,7 @@ public class HandStrengthEvaluatorTest {
 
     @Before
     public void setUp() throws Exception {
-        Injector injector = Guice.createInjector(new TexasModule());
+        Injector injector = Guice.createInjector(new DefaultModule());
         this.handStrengthEvaluator = injector.getInstance(HandStrengthEvaluator.class);
     }
     
@@ -35,11 +33,10 @@ public class HandStrengthEvaluatorTest {
         Card card5 = new Card(CardSuit.CLUB, CardNumber.KING);
         playerCards.add(card1);
         playerCards.add(card2);
-        playerCards.add(card3);
         sharedCards.add(card3);
         sharedCards.add(card4);
         sharedCards.add(card5);
-        Double d = this.handStrengthEvaluator.evaluate(playerCards, sharedCards, 2);
+        double d = this.handStrengthEvaluator.evaluate(playerCards, sharedCards, 2);
         System.out.println(d);
         d = this.handStrengthEvaluator.evaluate(playerCards, sharedCards, 3);
         System.out.println(d);
