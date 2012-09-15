@@ -70,7 +70,8 @@ public class OpponentsModelPersistence {
     }
 
     public void print() {
-        String query = "SELECT * FROM " + TABLE_OPPONENTS_MODEL;
+        String query = "SELECT * FROM " + TABLE_OPPONENTS_MODEL + " ORDER BY player, decision, roundname, " +
+                "raises, playercount, potodds, occurences, handstrength ASC";
         try {
             PreparedStatement statement = persistenceManager.getConnection().prepareStatement(query);
             ResultSet result = statement.executeQuery();
