@@ -10,6 +10,7 @@ import edu.ntnu.texasai.model.GameHand;
 import edu.ntnu.texasai.model.Player;
 import edu.ntnu.texasai.model.cards.Card;
 import edu.ntnu.texasai.model.opponentmodeling.ContextAction;
+import edu.ntnu.texasai.model.opponentmodeling.ModelResult;
 
 import java.util.List;
 
@@ -44,11 +45,12 @@ public abstract class PlayerControllerPhaseIII extends PlayerController {
                 ContextAction contextAction = currentBettingRound.getContextActionForPlayer(opponent);
 
                 if (contextAction != null) {
-                    double estimatedHandStrength = opponentModeler.getEstimatedHandStrength(contextAction);
+                    ModelResult modelResult = opponentModeler.getEstimatedHandStrength(contextAction);
 
-                    if (estimatedHandStrength > 0) {
+                    // If we don't have enough occurence or if the variance is big, the information is not valuable
+                    if (modelResult.getNumberOfOccurences() > 10 && modelResult.getHandStrengthDeviation() <= 0.15) {
                         opponentsModeledCount++;
-                        if (estimatedHandStrength > handStrength) {
+                        if (modelResult.getHandStrengthAverage() > handStrength) {
                             oppponentsWithBetterEstimatedHandStrength++;
                         }
                     }

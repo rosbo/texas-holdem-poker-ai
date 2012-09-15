@@ -2,6 +2,7 @@ package edu.ntnu.texasai.persistence;
 
 import edu.ntnu.texasai.model.opponentmodeling.ContextAction;
 import edu.ntnu.texasai.model.opponentmodeling.ContextAggregate;
+import edu.ntnu.texasai.model.opponentmodeling.ModelResult;
 import edu.ntnu.texasai.utils.Logger;
 
 import javax.inject.Inject;
@@ -9,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 
 public class OpponentsModelPersistence {
     private static final String TABLE_OPPONENTS_MODEL = "Opponents";
@@ -26,7 +28,7 @@ public class OpponentsModelPersistence {
 
     public void persist(ContextAggregate contextAggregate) {
         try {
-            String insert = "INSERT INTO " + TABLE_OPPONENTS_MODEL + " VALUES(?,?,?,?,?,?,?,?)";
+            String insert = "INSERT INTO " + TABLE_OPPONENTS_MODEL + " VALUES(?,?,?,?,?,?,?,?,?)";
             PreparedStatement statement = persistenceManager.getConnection().prepareStatement(insert);
             ContextAction contextAction = contextAggregate.getContextAction();
             statement.setInt(1, contextAction.getPlayer().getNumber());
@@ -37,6 +39,7 @@ public class OpponentsModelPersistence {
             statement.setString(6, contextAction.getContextPotOdds().toString());
             statement.setInt(7, contextAggregate.getNumberOfOccurrences());
             statement.setDouble(8, contextAggregate.getHandStrengthAverage());
+            statement.setDouble(9, contextAggregate.getDeviation());
             statement.executeUpdate();
             statement.close();
         } catch (SQLException e) {
@@ -45,7 +48,7 @@ public class OpponentsModelPersistence {
         }
     }
 
-    public double retrieve(ContextAction contextAction) {
+    public ModelResult retrieve(ContextAction contextAction) {
         String query = "SELECT handstrength FROM " + TABLE_OPPONENTS_MODEL + " WHERE player = ? AND decision = ? AND " +
                 "roundname = ? AND raises = ? AND playercount = ? AND potodds = ?";
 
@@ -59,9 +62,10 @@ public class OpponentsModelPersistence {
             statement.setString(6, contextAction.getContextPotOdds().toString());
             ResultSet result = statement.executeQuery();
             if (result.next()) {
-                return result.getDouble("handstrength");
+                return new ModelResult(result.getDouble("handstrength"), result.getDouble("deviation"),
+                        result.getInt("occurences"));
             } else {
-                return 0;
+                return new ModelResult(0, 0, 0);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -71,16 +75,20 @@ public class OpponentsModelPersistence {
 
     public void print() {
         String query = "SELECT * FROM " + TABLE_OPPONENTS_MODEL + " ORDER BY player, decision, roundname, " +
-                "raises, playercount, potodds, occurences, handstrength ASC";
+                "raises, playercount, potodds";
         try {
             PreparedStatement statement = persistenceManager.getConnection().prepareStatement(query);
             ResultSet result = statement.executeQuery();
-            logger.log("P\tDecision\tRound\tRaises\t#Players\tPO\tOccurences\tHS");
+            logger.log("P\tDecision\tRound\tRaises\t#Players\tPO\tOccurences\tHS\tDeviation");
+            DecimalFormat f = new DecimalFormat("##.0000");
             while (result.next()) {
+                String handstrength = f.format(result.getDouble("handstrength"));
+                String deviation = f.format(result.getDouble("deviation"));
+
                 logger.log(result.getInt("player") + "\t" + result.getString("decision") + "\t" + result.getString
                         ("roundname") + "\t" + result.getString("raises") + "\t" + result.getString("playercount") +
-                        "\t" + result.getString("potodds") + "\t" + result.getString("occurences") + "\t" + result
-                        .getString("handstrength"));
+                        "\t" + result.getString("potodds") + "\t" + result.getString("occurences") + "\t" +
+                        handstrength + "\t" + deviation);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -103,10 +111,11 @@ public class OpponentsModelPersistence {
     private void init() {
         try {
             Statement statement = persistenceManager.getConnection().createStatement();
+            //statement.execute("DROP TABLE "+TABLE_OPPONENTS_MODEL);
             String query = "CREATE TABLE IF NOT EXISTS " + TABLE_OPPONENTS_MODEL + "(player integer," +
                     "decision VARCHAR_IGNORECASE,roundname VARCHAR_IGNORECASE, raises VARCHAR_IGNORECASE, " +
                     "playercount VARCHAR_IGNORECASE, potodds VARCHAR_IGNORECASE, occurences integer, " +
-                    "handstrength double)";
+                    "handstrength double, deviation double)";
             statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
