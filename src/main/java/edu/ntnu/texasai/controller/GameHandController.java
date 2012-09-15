@@ -3,7 +3,7 @@ package edu.ntnu.texasai.controller;
 import edu.ntnu.texasai.controller.opponentmodeling.OpponentModeler;
 import edu.ntnu.texasai.model.*;
 import edu.ntnu.texasai.model.cards.Card;
-import edu.ntnu.texasai.utils.GameProperties;
+import edu.ntnu.texasai.model.gameproperties.GameProperties;
 import edu.ntnu.texasai.utils.Logger;
 
 import javax.inject.Inject;

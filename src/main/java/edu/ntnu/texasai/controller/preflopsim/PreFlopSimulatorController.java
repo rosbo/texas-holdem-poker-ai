@@ -6,7 +6,7 @@ import edu.ntnu.texasai.model.Game;
 import edu.ntnu.texasai.model.Player;
 import edu.ntnu.texasai.model.cards.EquivalenceClass;
 import edu.ntnu.texasai.persistence.PreFlopPersistence;
-import edu.ntnu.texasai.utils.GameProperties;
+import edu.ntnu.texasai.model.gameproperties.GameProperties;
 import edu.ntnu.texasai.utils.Logger;
 
 import javax.inject.Inject;
