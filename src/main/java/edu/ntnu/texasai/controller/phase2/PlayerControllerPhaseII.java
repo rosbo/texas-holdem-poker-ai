@@ -5,7 +5,6 @@ import edu.ntnu.texasai.controller.PlayerController;
 import edu.ntnu.texasai.model.BettingRoundName;
 import edu.ntnu.texasai.model.GameHand;
 import edu.ntnu.texasai.model.Player;
-import edu.ntnu.texasai.model.opponentmodeling.ContextPlayers;
 import edu.ntnu.texasai.model.opponentmodeling.ContextRaises;
 
 public abstract class PlayerControllerPhaseII extends PlayerController {
@@ -19,12 +18,11 @@ public abstract class PlayerControllerPhaseII extends PlayerController {
         double p = this.handStrengthEvaluator.evaluate(player.getHoleCards(), gameHand.getSharedCards(),
                 gameHand.getPlayers().size());
 
+        // Decision must depends on the number of players
+        p = p * (1 + gameHand.getPlayersCount() / 20);
+
         // Last round, why not?
         if (gameHand.getBettingRoundName().equals(BettingRoundName.POST_RIVER)) {
-            p += 0.3;
-        }
-        // Many player mean more money
-        if (ContextPlayers.valueFor(gameHand.getPlayersCount()).equals(ContextPlayers.MANY)) {
             p += 0.3;
         }
         // Lot of raises, be careful
