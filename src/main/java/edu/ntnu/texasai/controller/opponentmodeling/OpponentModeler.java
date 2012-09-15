@@ -6,6 +6,7 @@ import edu.ntnu.texasai.model.Player;
 import edu.ntnu.texasai.model.opponentmodeling.ContextAction;
 import edu.ntnu.texasai.model.opponentmodeling.ContextAggregate;
 import edu.ntnu.texasai.model.opponentmodeling.ContextInformation;
+import edu.ntnu.texasai.model.opponentmodeling.ModelResult;
 import edu.ntnu.texasai.persistence.OpponentsModelPersistence;
 
 import javax.inject.Inject;
@@ -35,7 +36,7 @@ public class OpponentModeler {
         }
     }
 
-    public double getEstimatedHandStrength(ContextAction contextAction) {
+    public ModelResult getEstimatedHandStrength(ContextAction contextAction) {
         return opponentsModelPersistence.retrieve(contextAction);
     }
 
