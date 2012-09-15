@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class HandPowerRankerTest {
-    private HandPowerRanker handPowerRanker = new HandPowerRanker();
+    private final HandPowerRanker handPowerRanker = new HandPowerRanker();
 
     @Test
     public void royalFlushTest() {

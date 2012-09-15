@@ -21,6 +21,11 @@ public class PlayerControllerPreFlopRoll extends PlayerController {
     }
 
     @Override
+    public String toString() {
+        return "Preflop";
+    }
+
+    @Override
     public BettingDecision decidePreFlop(Player player, GameHand gameHand,
                                          List<Card> cards) {
         Card card1 = cards.get(0);

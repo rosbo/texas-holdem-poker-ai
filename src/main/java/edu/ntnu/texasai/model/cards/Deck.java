@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck {
-    private List<Card> cards = new ArrayList<Card>();
+    private final List<Card> cards = new ArrayList<Card>();
 
     public Deck() {
         for (CardSuit suit : CardSuit.values()) {
@@ -28,10 +28,6 @@ public class Deck {
 
     public boolean removeCard(Card card) {
         return cards.remove(card);
-    }
-
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
     }
     
     public List<List<Card>> fromDeckToCouplesOfCard(){

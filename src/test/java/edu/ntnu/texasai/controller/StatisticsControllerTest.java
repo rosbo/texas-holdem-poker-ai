@@ -3,7 +3,7 @@ package edu.ntnu.texasai.controller;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import edu.ntnu.texasai.controller.preflopsim.PlayerControllerPreFlopRoll;
-import edu.ntnu.texasai.dependencyinjection.TexasModule;
+import edu.ntnu.texasai.dependencyinjection.DefaultModule;
 import edu.ntnu.texasai.model.Player;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,13 +14,12 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class StatisticsControllerTest {
-
     private StatisticsController statisticsController;
     private PlayerControllerPreFlopRoll playerControllerPreFlopRoll;
 
     @Before
     public void setUp() throws Exception {
-        Injector injector = Guice.createInjector(new TexasModule());
+        Injector injector = Guice.createInjector(new DefaultModule());
         this.statisticsController = injector
                 .getInstance(StatisticsController.class);
         this.playerControllerPreFlopRoll = injector
@@ -29,14 +28,11 @@ public class StatisticsControllerTest {
 
     @Test
     public void testStoreWinners() {
-        Player p1 = new Player(0, 1000, playerControllerPreFlopRoll);
+        Player p1 = new Player(1, 1000, playerControllerPreFlopRoll);
         List<Player> winners = new ArrayList<Player>();
         statisticsController.initializeStatistics();
         winners.add(p1);
         statisticsController.storeWinners(winners);
-        assertEquals(new Integer(1), statisticsController.getPlayer0Wins());
+        assertEquals(1, statisticsController.getPlayer1Wins());
     }
-
-
-
 }

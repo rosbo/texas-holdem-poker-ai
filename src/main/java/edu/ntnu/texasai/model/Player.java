@@ -7,12 +7,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Player {
-    private final Integer number;
+    private final int number;
     private final PlayerController playerController;
-    private Integer money;
+    private int money;
     private List<Card> holeCards;
 
-    public Player(Integer number, Integer initialMoney,
+    public Player(int number, int initialMoney,
             PlayerController playerController) {
         this.number = number;
         this.money = initialMoney;
@@ -27,7 +27,7 @@ public class Player {
 
         Player otherPlayer = (Player) o;
 
-        return number.equals(otherPlayer.number);
+        return number == otherPlayer.number;
     }
 
     @Override
@@ -52,19 +52,19 @@ public class Player {
         return playerController.decide(this, gameHand);
     }
 
-    public Integer getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    public Integer getMoney() {
+    public int getMoney() {
         return money;
     }
 
-    public void removeMoney(Integer amount) {
+    public void removeMoney(int amount) {
         money -= amount;
     }
 
-    public void addMoney(Integer amount) {
+    public void addMoney(int amount) {
         money += amount;
     }
 
@@ -74,5 +74,9 @@ public class Player {
 
     public List<Card> getHoleCards() {
         return holeCards;
+    }
+
+    public PlayerController getPlayerController() {
+        return playerController;
     }
 }

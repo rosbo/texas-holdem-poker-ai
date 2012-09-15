@@ -16,9 +16,9 @@ public enum CardNumber {
     ACE("A", 14);
 
     private final String symbol;
-    private final Integer power;
+    private final int power;
 
-    private CardNumber(String symbol, Integer power) {
+    private CardNumber(String symbol, int power) {
         this.symbol = symbol;
         this.power = power;
     }
@@ -28,7 +28,7 @@ public enum CardNumber {
         return symbol;
     }
 
-    public Integer getPower() {
+    public int getPower() {
         return power;
     }    
 }

@@ -1,17 +1,12 @@
-package edu.ntnu.texasai.controller;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
+package edu.ntnu.texasai.model.cards;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.ntnu.texasai.model.cards.Card;
-import edu.ntnu.texasai.model.cards.CardNumber;
-import edu.ntnu.texasai.model.cards.CardSuit;
-import edu.ntnu.texasai.model.cards.Deck;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class DeckTest {
 	private Deck deck;

@@ -2,6 +2,9 @@ package edu.ntnu.texasai.model;
 
 import edu.ntnu.texasai.model.cards.Card;
 import edu.ntnu.texasai.model.cards.Deck;
+import edu.ntnu.texasai.model.opponentmodeling.ContextAction;
+import edu.ntnu.texasai.model.opponentmodeling.ContextInformation;
+import edu.ntnu.texasai.utils.GameProperties;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -11,9 +14,9 @@ import java.util.List;
 public class GameHand {
     private final Deque<Player> players;
     private final Deck deck;
-    private List<Card> sharedCards = new ArrayList<Card>();
-    private List<BettingRound> bettingRounds = new ArrayList<BettingRound>();
-    Boolean hasRemoved = true;
+    private final List<Card> sharedCards = new ArrayList<Card>();
+    private final List<BettingRound> bettingRounds = new ArrayList<BettingRound>();
+    private Boolean hasRemoved = true;
 
     public GameHand(List<Player> players) {
         this.players = new LinkedList<Player>(players);
@@ -42,8 +45,8 @@ public class GameHand {
         return getCurrentPlayer();
     }
 
-    public Integer getTotalBets() {
-        Integer totalBets = 0;
+    public int getTotalBets() {
+        int totalBets = 0;
         for (BettingRound bettingRound : bettingRounds) {
             totalBets += bettingRound.getTotalBets();
         }
@@ -62,7 +65,7 @@ public class GameHand {
         return sharedCards;
     }
 
-    public Integer getPlayersCount() {
+    public int getPlayersCount() {
         return players.size();
     }
 
@@ -70,13 +73,13 @@ public class GameHand {
         return bettingRounds.get(bettingRounds.size() - 1);
     }
 
+    public List<BettingRound> getBettingRounds() {
+        return bettingRounds;
+    }
+
     public void removeCurrentPlayer() {
         players.removeFirst();
         hasRemoved = true;
-    }
-
-    public Iterable<Player> getActivePlayers() {
-        return players;
     }
 
     protected void dealHoleCards() {
@@ -102,7 +105,29 @@ public class GameHand {
         return this.players;
     }
 
-    public Deck getDeck() {
-        return this.deck;
+    public void applyDecision(Player player, BettingDecision bettingDecision, GameProperties gameProperties,
+                              double handStrength) {
+        BettingRound currentBettingRound = getCurrentBettingRound();
+        double potOdds = calculatePotOdds(player);
+        ContextAction contextAction = new ContextAction(player, bettingDecision, getBettingRoundName(),
+                currentBettingRound.getNumberOfRaises(),
+                getPlayersCount(), potOdds);
+        ContextInformation contextInformation = new ContextInformation(contextAction, handStrength);
+
+        currentBettingRound.applyDecision(contextInformation, gameProperties);
+
+        if (bettingDecision.equals(BettingDecision.FOLD)) {
+            removeCurrentPlayer();
+        }
+    }
+
+    public double calculatePotOdds(Player player) {
+        BettingRound currentBettingRound = getCurrentBettingRound();
+        int amountNeededToCall = currentBettingRound.getHighestBet() - currentBettingRound.getBetForPlayer(player);
+        return (double) amountNeededToCall / (amountNeededToCall + getTotalBets());
+    }
+
+    protected Deck getDeck() {
+        return deck;
     }
 }
