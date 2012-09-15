@@ -2,8 +2,6 @@ package edu.ntnu.texasai.controller;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import edu.ntnu.texasai.dependencyinjection.GamePropertiesParameter;
-import edu.ntnu.texasai.dependencyinjection.LogLevel;
 import edu.ntnu.texasai.dependencyinjection.TexasModule;
 import edu.ntnu.texasai.model.cards.CardNumber;
 import edu.ntnu.texasai.model.cards.EquivalenceClass;
@@ -19,7 +17,7 @@ public class EquivalenceClassControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        Injector injector = Guice.createInjector(new TexasModule(LogLevel.ALL, GamePropertiesParameter.DEMO));
+        Injector injector = Guice.createInjector(new TexasModule());
         this.equivalenceClassController = injector.getInstance(EquivalenceClassController.class);
     }
 

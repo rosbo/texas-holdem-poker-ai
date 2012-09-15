@@ -17,6 +17,11 @@ public class TexasModule extends AbstractModule {
         this.gamePropertiesParameter = gamePropertiesParameter;
     }
 
+    public TexasModule() {
+        logLevel = LogLevel.ALL;
+        gamePropertiesParameter = GamePropertiesParameter.DEMO;
+    }
+
     @Override
     protected void configure() {
         install(new ControllerModule());
