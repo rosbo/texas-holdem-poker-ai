@@ -6,4 +6,3 @@
 *.ear
 /out/*
 /target/*
-/equivalenceTable/*
