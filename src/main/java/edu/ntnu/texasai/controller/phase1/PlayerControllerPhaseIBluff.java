@@ -31,7 +31,7 @@ public class PlayerControllerPhaseIBluff extends PlayerController {
         if (card1.getNumber().equals(card2.getNumber()) || sumPower <= 8) {
             return BettingDecision.RAISE;
         } else {
-            if (sumPower > 20 || canCheck(gameHand, player)) {
+            if (sumPower > 16 || canCheck(gameHand, player)) {
                 return BettingDecision.CALL;
             } else {
                 return BettingDecision.FOLD;

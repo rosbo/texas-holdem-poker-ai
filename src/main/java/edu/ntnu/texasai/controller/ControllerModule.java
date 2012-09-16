@@ -1,7 +1,7 @@
 package edu.ntnu.texasai.controller;
 
 import com.google.inject.AbstractModule;
-import edu.ntnu.texasai.controller.opponentmodeling.OpponentModelingModule;
+import edu.ntnu.texasai.controller.opponentmodeling.OpponentModeler;
 import edu.ntnu.texasai.controller.phase1.PlayerControllerPhaseIBluff;
 import edu.ntnu.texasai.controller.phase1.PlayerControllerPhaseINormal;
 import edu.ntnu.texasai.controller.phase2.PlayerControllerPhaseIIBluff;
@@ -16,7 +16,6 @@ public class ControllerModule extends AbstractModule {
     @Override
     protected void configure() {
         install(new PreFlopSimulatorModule());
-        install(new OpponentModelingModule());
 
         bind(PokerController.class).in(Singleton.class);
         bind(GameHandController.class).in(Singleton.class);
@@ -24,6 +23,7 @@ public class ControllerModule extends AbstractModule {
         bind(StatisticsController.class).in(Singleton.class);
         bind(HandStrengthEvaluator.class).in(Singleton.class);
         bind(EquivalenceClassController.class).in(Singleton.class);
+        bind(OpponentModeler.class).in(Singleton.class);
 
         bind(PlayerControllerPhaseINormal.class).in(Singleton.class);
         bind(PlayerControllerPhaseIBluff.class).in(Singleton.class);

@@ -29,7 +29,7 @@ public class PlayerControllerPhaseINormal extends PlayerController {
 
         if (card1.getNumber().equals(card2.getNumber())) {
             return BettingDecision.RAISE;
-        } else if (card1.getNumber().getPower() + card2.getNumber().getPower() > 12
+        } else if (card1.getNumber().getPower() + card2.getNumber().getPower() > 16
                 || canCheck(gameHand, player)) {
             return BettingDecision.CALL;
         } else {
