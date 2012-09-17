@@ -49,12 +49,12 @@ public class OpponentsModelPersistence {
     }
 
     public ModelResult retrieve(ContextAction contextAction) {
-        String query = "SELECT handstrength FROM " + TABLE_OPPONENTS_MODEL + " WHERE player = ? AND decision = ? AND " +
+        String query = "SELECT * FROM " + TABLE_OPPONENTS_MODEL + " WHERE player = ? AND decision = ? AND " +
                 "roundname = ? AND raises = ? AND playercount = ? AND potodds = ?";
 
         try {
             PreparedStatement statement = persistenceManager.getConnection().prepareStatement(query);
-            statement.setInt(1, contextAction.getPlayer().getMoney());
+            statement.setInt(1, contextAction.getPlayer().getNumber());
             statement.setString(2, contextAction.getBettingDecision().toString());
             statement.setString(3, contextAction.getBettingRoundName().toString());
             statement.setString(4, contextAction.getContextRaises().toString());

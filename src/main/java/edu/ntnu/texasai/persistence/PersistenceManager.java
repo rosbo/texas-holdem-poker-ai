@@ -17,7 +17,7 @@ public class PersistenceManager {
     private Connection createConnection() {
         try {
             Class.forName("org.h2.Driver");
-            return DriverManager.getConnection("jdbc:h2:equivalenceTable/equivalence_table", "sa", "");
+            return DriverManager.getConnection("jdbc:h2:data/data", "sa", "");
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getLocalizedMessage());
