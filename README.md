@@ -8,13 +8,14 @@ We used Java to develop our Texas Hold’em Simulator. More precisely, we chose 
 
 How to use
 ---------------
-- You need to fetch the dependencies from the maven repositories
-	mvn install
-- There are multiple classes with “main” function: 
-* Play [demo|phase1|phase2|phase3]
-Play a game. The parameter is optional. The default is demo. ● RunPreFlopSimulator
-* RunModeler
-* PrintModeler & PrintPreFlop
+1. You need to fetch the dependencies from the maven repositories:
+
+	    mvn install	
+2. There are multiple classes with “main” function: 
+ * Play [demo|phase1|phase2|phase3]. The parameter is optional. The default is demo. See *GameProperties.java file to get more details
+ * RunPreFlopSimulator
+ * RunModeler
+ * PrintModeler & PrintPreFlop
 
 Three different AI level
 -----------------
