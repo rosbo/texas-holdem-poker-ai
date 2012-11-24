@@ -1,6 +1,5 @@
 Texas Hold’em AI
 =====================
-Project 1 of the IT3105 course
 
 Technology used
 ---------------
