@@ -80,7 +80,7 @@ public class GameHandController {
 
             // After a raise, every active players after the raiser must play
             if (bettingDecision.equals(BettingDecision.RAISE)) {
-                toPlay = gameHand.getPlayersCount() - 1;
+                toPlay = gameHand.getPlayersCount();
             }
 
             applyDecision(gameHand, player, bettingDecision);
