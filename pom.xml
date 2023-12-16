@@ -30,7 +30,7 @@
 		<repository>
 			<id>maven-apache-snapshots</id>
 			<name>Apache snapshots</name>
-			<url>http://repository.apache.org/snapshots</url>
+			<url>https://repository.apache.org/snapshots</url>
 		</repository>
 	</repositories>
 
